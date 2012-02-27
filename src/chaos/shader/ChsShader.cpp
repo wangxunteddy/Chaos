@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include "ChsShader.h"
+
+namespace Chaos {
+	
+		//----------------------------------------------------------------------------------------------
+	ChsShader::ChsShader( int type ) : _handle(0) {
+    	this->type = type;
+	    this->handle( glCreateShader( type ) );
+	}
+
+	//----------------------------------------------------------------------------------------------
+	ChsShader::~ChsShader( void ){
+    	glDeleteShader( this->handle() );
+	    this->handle( 0 );
+	}
+
+	//----------------------------------------------------------------------------------------------
+	bool ChsShader::load( const char * source ) {
+    	if ( !source ) {
+        	printf("Failed to load vertex shader" );
+	        return false;
+    	}
+	    glShaderSource( this->handle(), 1, &source, NULL );
+    	return this->compile( );
+	}
+
+	//----------------------------------------------------------------------------------------------
+	bool ChsShader::compile( void ) {
+    	glCompileShader( this->handle() );
+	    return this->getStatus();
+	}
+
+	//----------------------------------------------------------------------------------------------
+	int ChsShader::getStatus( void ) {
+	#if defined( DEBUG )
+    	GLint logLength;
+	    glGetShaderiv( this->handle(), GL_INFO_LOG_LENGTH, &logLength );
+    	if ( logLength > 0 ) {
+        	GLchar *log = new GLchar[ logLength ];
+	        glGetShaderInfoLog( this->handle(), logLength, &logLength, log );
+    	    printf("Shader compile log:\n%s", log);
+        	delete [ ] log;
+	    }
+	#endif
+    	GLint status;
+	    glGetShaderiv( this->handle(), GL_COMPILE_STATUS, &status );
+    	return status;
+	}
+
+//--------------------------------------------------------------------------------------------------
+}//namespace
