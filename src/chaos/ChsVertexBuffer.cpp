@@ -1,8 +1,5 @@
-#include <OpenGLES/ES2/gl.h>
-#include <OpenGLES/ES2/glext.h>
-
 #include "ChsVertexBuffer.h"
-#include "ChsShaderProgram.h"
+#include "shader/ChsShaderProgram.h"
 #include "ChsUtility.h"
 
 namespace Chaos {

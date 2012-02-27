@@ -1,6 +1,6 @@
-#include <OpenGLES/ES2/gl.h>
+#include <string>
 #include "ChsIndexBuffer.h"
-#include "string.h"
+#include "platform/ChsOpenGL.h"
 #include "ChsUtility.h"
 
 namespace Chaos {

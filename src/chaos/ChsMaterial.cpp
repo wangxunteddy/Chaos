@@ -1,5 +1,5 @@
 #include "ChsMaterial.h"
-#include "ChsShaderProgram.h"
+#include "shader/ChsShaderProgram.h"
 #include "ChsResourceManager.h"
 
 namespace Chaos {

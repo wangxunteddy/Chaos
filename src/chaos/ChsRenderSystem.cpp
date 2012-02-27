@@ -5,11 +5,16 @@
 #include "ChsRenderSystem.h"
 #include "ChsRenderNode.h"
 #include "ChsUtility.h"
-#include "ChsPlane.h"
+#include "geometry/ChsPlane.h"
 #include "ChsMaterial.h"
 #include "shader/ChsShaderProgram.h"
 #include "ChsVertexBuffer.h"
 #include "ChsIndexBuffer.h"
+
+PFNGLBINDVERTEXARRAYOESPROC glBindVertexArrayOES;
+PFNGLDELETEVERTEXARRAYSOESPROC glDeleteVertexArraysOES;
+PFNGLGENVERTEXARRAYSOESPROC  glGenVertexArraysOES;
+
 
 namespace Chaos {
 
@@ -31,6 +36,11 @@ namespace Chaos {
 												renderbufferWidth( 0 ),
 												renderbufferHeight( 0 )
 	{
+#if defined(CHS_PLATFORM_ANDROID)
+		glBindVertexArrayOES    = ( PFNGLBINDVERTEXARRAYOESPROC    ) eglGetProcAddress("glBindVertexArrayOES"  );
+		glGenVertexArraysOES    = ( PFNGLGENVERTEXARRAYSOESPROC    ) eglGetProcAddress("glGenVertexArraysOES"  );
+		glDeleteVertexArraysOES = ( PFNGLDELETEVERTEXARRAYSOESPROC ) eglGetProcAddress("glDeleteVertexArraysOES");
+#endif
 	}
 
 	//----------------------------------------------------------------------------------------------

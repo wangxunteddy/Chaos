@@ -27,7 +27,7 @@
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildCommand</key>
-					<value>ndk-build</value>
+					<value>ndk-build.cmd</value>
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.cleanBuildTarget</key>
@@ -59,7 +59,7 @@
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.useDefaultBuildCmd</key>
-					<value>true</value>
+					<value>false</value>
 				</dictionary>
 			</arguments>
 		</buildCommand>
@@ -98,9 +98,411 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>jni/chaos</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/Chaos.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/Chaos.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsDefine.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsDefine.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsEngine.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsEngine.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsEngine.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsEngine.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsEntity.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsEntity.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsEntity.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsEntity.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsEntityManager.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsEntityManager.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsEntityManager.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsEntityManager.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsGameBase.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsGameBase.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsGameBase.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsGameBase.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsIndexBuffer.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsIndexBuffer.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsIndexBuffer.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsIndexBuffer.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsMacro.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsMacro.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsManagerWithCache.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsManagerWithCache.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsMaterial.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsMaterial.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsMaterial.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsMaterial.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsMesh.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsMesh.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsMesh.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsMesh.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsModel.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsModel.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsModel.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsModel.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsRenderFactory.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsRenderFactory.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsRenderFactory.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsRenderFactory.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsRenderNode.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsRenderNode.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsRenderNode.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsRenderNode.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsRenderSystem.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsRenderSystem.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsRenderSystem.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsRenderSystem.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsResourceManager.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsResourceManager.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsResourceManager.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsResourceManager.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsSingleton.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsSingleton.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsSingleton.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsSingleton.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsUtility.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsUtility.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsUtility.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsUtility.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsVertexBuffer.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsVertexBuffer.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsVertexBuffer.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsVertexBuffer.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsWorld.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsWorld.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/ChsWorld.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/ChsWorld.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/geometry</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/io</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/math</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/platform</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/shader</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/geometry/ChsCube.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/geometry/ChsCube.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/geometry/ChsCube.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/geometry/ChsCube.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/geometry/ChsPlane.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/geometry/ChsPlane.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/geometry/ChsPlane.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/geometry/ChsPlane.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/io/ChsFileSystem.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/io/ChsFileSystem.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/math/ChsMath.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/math/ChsMath.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/math/ChsMath.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/math/ChsMath.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/math/ChsMatrix.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/math/ChsMatrix.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/math/ChsMatrix.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/math/ChsMatrix.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/math/ChsQuaternion.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/math/ChsQuaternion.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/math/ChsQuaternion.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/math/ChsQuaternion.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/math/ChsVector2.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/math/ChsVector2.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/math/ChsVector2.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/math/ChsVector2.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/math/ChsVector3.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/math/ChsVector3.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/math/ChsVector3.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/math/ChsVector3.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/math/ChsVector4.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/math/ChsVector4.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/math/ChsVector4.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/math/ChsVector4.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/platform/ChsOpenGL.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/platform/ChsOpenGL.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/platform/ios</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/shader/ChsShader.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/shader/ChsShader.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/shader/ChsShader.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/shader/ChsShader.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/shader/ChsShaderManager.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/shader/ChsShaderManager.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/shader/ChsShaderManager.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/shader/ChsShaderManager.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/shader/ChsShaderProgram.cpp</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/shader/ChsShaderProgram.cpp</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/shader/ChsShaderProgram.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/shader/ChsShaderProgram.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/platform/ios/AppDelegate.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/platform/ios/AppDelegate.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/platform/ios/AppDelegate.m</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/platform/ios/AppDelegate.m</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/platform/ios/Chaos-Prefix.pch</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/platform/ios/Chaos-Prefix.pch</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/platform/ios/ChsRenderSystemIOS.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/platform/ios/ChsRenderSystemIOS.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/platform/ios/ChsRenderSystemIOS.mm</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/platform/ios/ChsRenderSystemIOS.mm</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/platform/ios/EAGLView.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/platform/ios/EAGLView.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/platform/ios/EAGLView.mm</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/platform/ios/EAGLView.mm</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/platform/ios/GLViewController.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/platform/ios/GLViewController.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/platform/ios/GLViewController.mm</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/platform/ios/GLViewController.mm</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/platform/ios/io</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/platform/ios/main.m</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/platform/ios/main.m</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/platform/ios/io/ChsFileSystemIOS.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/platform/ios/io/ChsFileSystemIOS.h</locationURI>
+		</link>
+		<link>
+			<name>jni/chaos/platform/ios/io/ChsFileSystemIOS.mm</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/chaos/platform/ios/io/ChsFileSystemIOS.mm</locationURI>
+		</link>
+	</linkedResources>
 	<filteredResources>
 		<filter>
-			<id>1329895971551</id>
+			<id>1330347533110</id>
 			<name></name>
 			<type>10</type>
 			<matcher>
@@ -109,7 +511,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1329895971553</id>
+			<id>1330347533111</id>
 			<name></name>
 			<type>10</type>
 			<matcher>
@@ -118,7 +520,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1329895971556</id>
+			<id>1330347533114</id>
 			<name></name>
 			<type>6</type>
 			<matcher>
@@ -127,7 +529,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1329895971561</id>
+			<id>1330347533115</id>
 			<name></name>
 			<type>10</type>
 			<matcher>
@@ -136,7 +538,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1329895971564</id>
+			<id>1330347533117</id>
 			<name></name>
 			<type>10</type>
 			<matcher>
@@ -145,7 +547,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1329895971568</id>
+			<id>1330347533120</id>
 			<name></name>
 			<type>10</type>
 			<matcher>
@@ -154,7 +556,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1329895971571</id>
+			<id>1330347533122</id>
 			<name></name>
 			<type>22</type>
 			<matcher>
@@ -163,7 +565,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1329895971573</id>
+			<id>1330347533124</id>
 			<name></name>
 			<type>22</type>
 			<matcher>
@@ -172,7 +574,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1329895971576</id>
+			<id>1330347533126</id>
 			<name></name>
 			<type>22</type>
 			<matcher>
@@ -181,21 +583,21 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1329896008490</id>
-			<name>src</name>
+			<id>1330347533129</id>
+			<name></name>
 			<type>10</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-false-chaos</arguments>
+				<arguments>1.0-name-matches-false-false-libs</arguments>
 			</matcher>
 		</filter>
 		<filter>
-			<id>1329896008493</id>
+			<id>1330348056585</id>
 			<name>src</name>
-			<type>22</type>
+			<type>21</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-false-*.h</arguments>
+				<arguments>1.0-name-matches-false-false-*.java</arguments>
 			</matcher>
 		</filter>
 	</filteredResources>

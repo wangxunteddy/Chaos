@@ -8,6 +8,7 @@
 
 #include "ChsMacro.h"
 #include "ChsUtility.h"
+#include "platform/ChsOpenGL.h"
 
 namespace Chaos {
 	//--------------------------------------------------------------------------------------------------------------------------------------------

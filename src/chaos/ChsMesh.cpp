@@ -1,9 +1,9 @@
-#include <OpenGLES/ES2/gl.h>
+#include "platform/ChsOpenGL.h"
 #include "ChsMesh.h"
 #include "ChsMaterial.h"
 #include "ChsVertexBuffer.h"
 #include "ChsIndexBuffer.h"
-#include "ChsShaderProgram.h"
+#include "shader/ChsShaderProgram.h"
 #include "ChsResourceManager.h"
 #include "ChsUtility.h"
 #include "ChsRenderSystem.h"

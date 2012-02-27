@@ -1,6 +1,6 @@
 #include "ChsRenderNode.h"
 #include "ChsUtility.h"
-#include "ChsMatrix.h"
+#include "math/ChsMatrix.h"
 
 namespace Chaos {
 	//----------------------------------------------------------------------------------------------
