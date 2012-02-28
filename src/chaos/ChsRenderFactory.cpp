@@ -2,8 +2,10 @@
 #include "ChsRenderSystem.h"
 #include "ChsUtility.h"
 
-#ifdef CHS_PLATFORM_IOS
+#if defined( CHS_PLATFORM_IOS )
 	#include "ChsRenderSystemIOS.h"
+#elif defined(CHS_PLATFORM_ANDROID)
+	#include "ChsRenderSystemAndroid.h"
 #endif
 //--------------------------------------------------------------------------------------------------
 namespace Chaos{
@@ -12,19 +14,15 @@ namespace Chaos{
 	static ChsRenderSystem * currentRender = NULL;
 	
 	//----------------------------------------------------------------------------------------------
-	ChsRenderSystem * ChsRenderFactory::create(ChsRenderType type){
+	ChsRenderSystem * ChsRenderFactory::create( void ) {
 		ChsRenderFactory::shutdown();
-		ChsRenderSystem * render = NULL;
-		switch ((int)type) {
-#ifdef CHS_PLATFORM_IOS
-			case CHS_RENDER_IOS:
-				render = new ChsRenderSystemIOS();
-				break;
+		ChsRenderSystem * render = 
+#if defined (CHS_PLATFORM_IOS)
+				new ChsRenderSystemIOS();
+#elif defined(CHS_PLATFORM_ANDROID)
+				new ChsRenderSystemAndroid();
 #endif
-			default:
-				break;
-		}
-		if(render){
+		if( render ){
 			render->init();
 			currentRender = render;
 		}
