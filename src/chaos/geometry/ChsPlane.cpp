@@ -23,7 +23,7 @@ namespace Chaos {
 
 		this->vertexBuffer = new ChsVertexBuffer( );
 		this->vertexBuffer->addAttrib( 2, GL_FLOAT, false, "position" );
-		this->vertexBuffer->addAttrib( 4, GL_FLOAT, true, "color" );
+		this->vertexBuffer->addAttrib( 4, GL_FLOAT, true, "vertexColor" );
 		this->vertexBuffer->setData( vertices, sizeof(vertices) );
 
 		const GLubyte indices[]={
