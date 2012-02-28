@@ -5,14 +5,18 @@ namespace Chaos {
 	
 		//----------------------------------------------------------------------------------------------
 	ChsShader::ChsShader( int type ) : _handle(0) {
-    	this->type = type;
-	    this->handle( glCreateShader( type ) );
+		if(type){
+	    	this->type = type;
+		    this->_handle = glCreateShader( type );
+		}
 	}
 
 	//----------------------------------------------------------------------------------------------
 	ChsShader::~ChsShader( void ){
-    	glDeleteShader( this->handle() );
-	    this->handle( 0 );
+		if(this->_handle){
+		   	glDeleteShader( this->_handle );
+	    	this->_handle = 0;
+		}
 	}
 
 	//----------------------------------------------------------------------------------------------
