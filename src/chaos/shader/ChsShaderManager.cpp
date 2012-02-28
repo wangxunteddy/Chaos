@@ -39,18 +39,16 @@ namespace Chaos{
 
 	//----------------------------------------------------------------------------------------------
 	ChsShaderProgram * ChsShaderManager::getShaderProgram( const std::string vertexShaderName, const std::string fragmentShaderName ){
-		std::string name  = vertexShaderName + fragmentShaderName;
+		std::string name  = vertexShaderName + "+" + fragmentShaderName;
 		if( name.empty() )
         	return NULL;
 		if( this->cache.find( name ) != this->cache.end() )
         	return ( ChsShaderProgram * )this->cache[name]; //cache hit
 		ChsShaderProgram * program = new ChsShaderProgram();
 		ChsVertexShader * vs = this->getVertexShader( vertexShaderName );
-		if( vs == NULL )
-			return NULL;
+		assert(vs);
 		ChsFragmentShader * fs = this->getFragmentShader( fragmentShaderName );
-		if( fs == NULL )
-			return NULL;
+		assert(fs);
 		program->attachShader(vs);
 		program->attachShader(fs);
 		printf("生成ShaderProgram:%s\n",name.c_str());

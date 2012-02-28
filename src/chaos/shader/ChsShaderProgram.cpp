@@ -20,9 +20,14 @@ namespace Chaos {
 	    return this->getStatus();
 	}
 
+	static GLuint lastUsedProgramHandle = -1;
 	//----------------------------------------------------------------------------------------------
 	void ChsShaderProgram::use( void ){
-    	glUseProgram( this->handle() );
+		GLuint currentHandle = this->handle();
+		if( lastUsedProgramHandle != currentHandle ){
+			lastUsedProgramHandle = currentHandle;
+	    	glUseProgram( currentHandle );
+		}
 	}
 
 	//----------------------------------------------------------------------------------------------
@@ -49,14 +54,13 @@ namespace Chaos {
 	}
 
 	//----------------------------------------------------------------------------------------------
-	int ChsShaderProgram::getUniformLocation( const GLchar * name ) {
-    	return glGetUniformLocation( this->handle(),  name );
-	}
-
-	//----------------------------------------------------------------------------------------------
 	void ChsShaderProgram::attachShader( ChsShader * shader ) {
     	glAttachShader( this->handle(), shader->handle() );
 	}
 
-//--------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------
+	int ChsShaderProgram::getUniformLocation( const char * name ){
+		return glGetUniformLocation( this->handle(), name );
+	}
+	//----------------------------------------------------------------------------------------------
 }//namespace
