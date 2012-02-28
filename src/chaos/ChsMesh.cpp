@@ -3,7 +3,6 @@
 #include "ChsMaterial.h"
 #include "ChsVertexBuffer.h"
 #include "ChsIndexBuffer.h"
-#include "shader/ChsShaderProgram.h"
 #include "ChsResourceManager.h"
 #include "ChsUtility.h"
 #include "ChsRenderSystem.h"
@@ -46,25 +45,20 @@ namespace Chaos {
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 	void ChsMesh::setMaterial( ) {
-		this->material = new ChsMaterial( );
-		this->initShader( );
-	}
+		this->material = new ChsMaterial();
+		ChsShaderProgram *shaderProgram = ChsResourceManager::sharedInstance()->getShaderProgram("Shader.vsh", "Shader.fsh");
 
-	//--------------------------------------------------------------------------------------------------------------------------------------------
-	void ChsMesh::initShader( ) {
-		this->material->setShader("Shader.vsh", "Shader.fsh");
-		ChsShaderProgram * program =  this->material->getShaderProgram();
-		
 		// Bind attribute locations.
 		// This needs to be done prior to linking.
-		this->vertexBuffer->bindAttribLocations( program );
+		this->vertexBuffer->bindAttribLocations( shaderProgram );
 		
 		// Link program.
-		if ( !program->link( ) ) {
-			printf("Failed to link program: %d", program->handle() );
+		if ( !shaderProgram->link() ) {
+			printf("Failed to link program: %d", shaderProgram->handle() );
 			delete this->material;
 			this->material = NULL;
 		}
+		this->material->setShader(shaderProgram);
 	}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------

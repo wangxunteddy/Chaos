@@ -24,7 +24,6 @@ namespace Chaos {
 		ChsVertexBuffer * vertexBuffer;
 		ChsIndexBuffer * indexBuffer;
 		void doRender( ChsRenderSystem * render );
-		void initShader( void );
 	};
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
