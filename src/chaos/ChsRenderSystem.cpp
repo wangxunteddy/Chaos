@@ -38,23 +38,18 @@ namespace Chaos {
 		safeDelete( &this->_root );
 	}
 	
-	ChsMesh * mesh;
-		// Uniform index.
-	enum {
-		UNIFORM_TRANSLATE,
-		NUM_UNIFORMS
-	};
-	GLint uniforms[NUM_UNIFORMS];
+	// Uniform index.
+//	enum {
+//		UNIFORM_TRANSLATE,
+//		NUM_UNIFORMS
+//	};
+//	GLint uniforms[NUM_UNIFORMS];
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::init( void ){
 		this->initContext();
 		this->initFrameAndRenderBuffers();
 		this->setClearColor(1.0f, 0.5f, 0.5f, 1.0f);
-		
-		mesh = new ChsPlane(1,1);
-		mesh->setMaterial();
-		uniforms[UNIFORM_TRANSLATE] = mesh->getMaterial( )->getShaderProgram()->getUniformLocation( "translate" );
-		this->_root->add("cube",mesh);
+		//uniforms[UNIFORM_TRANSLATE] = mesh->getMaterial( )->getShaderProgram()->getUniformLocation( "translate" );
 	}
 	
 	//----------------------------------------------------------------------------------------------
@@ -74,18 +69,11 @@ namespace Chaos {
 
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::render( void ){
-		static float transY = 0.0f;
-		glUniform1f(uniforms[UNIFORM_TRANSLATE], (GLfloat)transY);
-		transY += 0.075f;
-		
 		ChsRenderChain::iterator iter = renderChain.begin();
 		ChsRenderChain::iterator end = renderChain.end();
 		for(;iter!=end;iter++){
 			ChsMaterial * material = iter->first;
-			if (material != this->currentMaterial) {
-				this->currentMaterial = material;
-				material->apply();
-			}
+			material->apply();
 			ChsRenderUnitList *list = iter->second;
 			for(int i=0;i<list->size();i++){
 				ChsRenderUnit unit = list->at(i);
@@ -99,8 +87,6 @@ namespace Chaos {
 	
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::postRender( void ) {
-		//reset current material
-		this->currentMaterial = NULL;
 		renderChain.clear();
 	}
 	

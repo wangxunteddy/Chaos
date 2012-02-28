@@ -37,8 +37,6 @@ namespace Chaos {
 	    GLint renderbufferHeight;
 
 	private:
-		ChsMaterial * currentMaterial;
-		
 		void preRender( void );
 		void render( void );
 	    void postRender( void );
