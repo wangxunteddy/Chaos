@@ -14,9 +14,10 @@
 	#include <GLES2/gl2ext.h>
 	#include <EGL/egl.h>
 
-	extern PFNGLBINDVERTEXARRAYOESPROC glBindVertexArrayOES;
-	extern PFNGLDELETEVERTEXARRAYSOESPROC glDeleteVertexArraysOES;
-	extern PFNGLGENVERTEXARRAYSOESPROC  glGenVertexArraysOES;
+	extern PFNGLBINDVERTEXARRAYOESPROC		glBindVertexArrayOES;
+	extern PFNGLDELETEVERTEXARRAYSOESPROC	glDeleteVertexArraysOES;
+	extern PFNGLGENVERTEXARRAYSOESPROC		glGenVertexArraysOES;
+
 #endif
 
 

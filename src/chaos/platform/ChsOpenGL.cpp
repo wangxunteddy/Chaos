@@ -1,0 +1,12 @@
+#include "ChsOpenGL.h"
+
+
+//ogl extension
+
+#if defined(CHS_PLATFORM_ANDROID)
+
+PFNGLBINDVERTEXARRAYOESPROC			glBindVertexArrayOES;
+PFNGLDELETEVERTEXARRAYSOESPROC		glDeleteVertexArraysOES;
+PFNGLGENVERTEXARRAYSOESPROC			glGenVertexArraysOES;
+
+#endif
