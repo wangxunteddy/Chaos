@@ -1,13 +1,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "EAGLView.h"
-
-//----------------------------------------------------------------------------
-@interface EAGLView (PrivateMethods)
-@end
-
 //----------------------------------------------------------------------------
 @implementation EAGLView
-
 //----------------------------------------------------------------------------
 // You must implement this method
 + (Class)
@@ -31,8 +25,6 @@ initWithCoder:(NSCoder*)coder
                                         kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat,
                                         nil];
     }
-    
     return self;
 }
-
 @end

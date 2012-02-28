@@ -1,9 +1,6 @@
-#import <OpenGLES/EAGL.h>
 #import <QuartzCore/QuartzCore.h>
-
 #import "GLViewController.h"
 #import "EAGLView.h"
-
 #include "chaos/Chaos.h"
 //----------------------------------------------------------------------------
 @interface GLViewController (){
