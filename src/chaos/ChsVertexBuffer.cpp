@@ -7,6 +7,7 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	ChsVertexBuffer::ChsVertexBuffer( void ) :	vboHandle( 0 ) ,
 												vaoHandle( 0 ),
+												vertices( NULL ),
 												isNeedUpdate( false )
 	{
     	glGenBuffers( 1, &this->vboHandle );
@@ -25,6 +26,7 @@ namespace Chaos {
 	       	safeDelete(&attrib);
     	}
 		attribs.clear( );
+		safeDeleteArray( &this->vertices );
 	}
 
 	//----------------------------------------------------------------------------------------------
