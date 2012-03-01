@@ -37,19 +37,27 @@ namespace Chaos {
 	ChsRenderSystem::~ChsRenderSystem( void ){
 		safeDelete( &this->_root );
 	}
-	
-	// Uniform index.
-//	enum {
-//		UNIFORM_TRANSLATE,
-//		NUM_UNIFORMS
-//	};
-//	GLint uniforms[NUM_UNIFORMS];
+
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::init( void ){
 		this->initContext();
 		this->initFrameAndRenderBuffers();
 		this->setClearColor(1.0f, 0.5f, 0.5f, 1.0f);
-		//uniforms[UNIFORM_TRANSLATE] = mesh->getMaterial( )->getShaderProgram()->getUniformLocation( "translate" );
+
+		//depth
+		glEnable(GL_DEPTH_TEST);
+		glClearDepthf(1.0f);
+		glDepthFunc(GL_LEQUAL);
+		
+		//cull
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_FRONT);
+		glFrontFace(GL_CW);
+		
+		//blend
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		
 	}
 	
 	//----------------------------------------------------------------------------------------------
@@ -64,7 +72,7 @@ namespace Chaos {
 		this->_root->render( this );
 		glBindFramebuffer(GL_FRAMEBUFFER, this->framebuffer);
 		glViewport(0, 0, this->renderbufferWidth, this->renderbufferHeight);
-    	glClear(GL_COLOR_BUFFER_BIT);
+    	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	}
 
 	//----------------------------------------------------------------------------------------------
