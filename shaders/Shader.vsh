@@ -3,19 +3,19 @@ attribute vec4 position;
 attribute vec4 vertexColor;
 attribute mat4 texCoord;
 
+//material
+uniform bool hasVertexColor;
+uniform bool hasTexture;
+uniform lowp int  textureCount;		//max support 2 right now
+
+//transform
+uniform mat4 wvp;
+
+uniform mediump float translate;
+
 varying vec4 colorVarying;
 varying vec2 texCoordVarying[TEXTURE_MAX];
 
-uniform mat4 world;
-uniform mat4 view;
-uniform mat4 projection;
-uniform mat4 wvp;
-
-uniform bool hasVertexColor;	
-uniform bool hasTexture;		
-uniform lowp int textureCount;		//max support 2 right now
-
-uniform mediump float translate;
 
 void main(){
     gl_Position = position;// * wvp;
