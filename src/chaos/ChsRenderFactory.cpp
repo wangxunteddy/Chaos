@@ -5,7 +5,7 @@
 #if defined( CHS_PLATFORM_IOS )
 	#include "ChsRenderSystemIOS.h"
 #elif defined(CHS_PLATFORM_ANDROID)
-	#include "ChsRenderSystemAndroid.h"
+	#include "platform/android/ChsRenderSystemAndroid.h"
 #endif
 //--------------------------------------------------------------------------------------------------
 namespace Chaos{

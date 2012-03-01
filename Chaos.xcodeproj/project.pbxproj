@@ -536,7 +536,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "src/chaos/platform/ios/Chaos-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					/Users/toseuser/Documents/boost_1_47_0/,
+					./libs/boost,
 					"./src/**",
 				);
 				INFOPLIST_FILE = "Chaos-Info.plist";
@@ -554,7 +554,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "src/chaos/platform/ios/Chaos-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					/Users/toseuser/Documents/boost_1_47_0/,
+					./libs/boost,
 					"./src/**",
 				);
 				INFOPLIST_FILE = "Chaos-Info.plist";
