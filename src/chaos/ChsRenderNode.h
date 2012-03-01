@@ -22,6 +22,7 @@ namespace Chaos{
 		virtual ~ChsRenderNode( void );
 		
 		void add( std::string name, ChsRenderNode * node );
+		inline void add( ChsRenderNode * node );
 		ChsRenderNode * remove( std::string name );
 		ChsRenderNode * get( std::string name );
 
@@ -35,6 +36,10 @@ namespace Chaos{
 	
 	SYNTHESIZE_READONLY( ChsRenderNode, ChsMatrix *, worldMatrix )
 	SYNTHESIZE_READONLY_CONST( ChsRenderNode, std::string , name )	
-//--------------------------------------------------------------------------------------------------
+
+	inline void ChsRenderNode::add( ChsRenderNode * node ){
+		this->add( node->name(), node );
+	}
+	//--------------------------------------------------------------------------------------------------
 }//namespace
 #endif //_CHS_RENDERNODE_H
