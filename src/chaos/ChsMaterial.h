@@ -42,7 +42,8 @@ namespace Chaos {
     	void apply( void );
 	    void setShader( ChsShaderProgram * program );
 		void updateUniforms( void );
-		void connectUniform( std::string name, void * varAddr, ChsUniformDataType type, size_t count );
+		void registerUniform( std::string name, void * varAddr, ChsUniformDataType type, size_t count ); 
+
 	private:
 		UniformVariables uniformVariables;
 		
@@ -50,13 +51,15 @@ namespace Chaos {
 		PROPERTY( bool, hasVertexColor);
 		PROPERTY( bool, hasTexture);
 		PROPERTY( int, textureCount);
-		
+		PROPERTY( float, alpha);
+
 	};
 
 	SYNTHESIZE_READONLY( ChsMaterial, ChsShaderProgram *, shaderProgram );
 	SYNTHESIZE( ChsMaterial, bool, hasVertexColor );
 	SYNTHESIZE( ChsMaterial, bool, hasTexture );
 	SYNTHESIZE( ChsMaterial, int, textureCount );
+	SYNTHESIZE( ChsMaterial, float, alpha );
 	
 }//namespace
 #endif //_CHSMATERIAL_H
