@@ -8,14 +8,15 @@
 #include "ChsRenderSystem.h"
 
 namespace Chaos {
+	
 	//--------------------------------------------------------------------------------------------------------------------------------------------
-	ChsMesh::ChsMesh( ) : vertexBuffer( NULL ), 
-						  indexBuffer( NULL )
-	{
+	ChsMesh::ChsMesh( std::string name ) : ChsRenderNode( name ) {
+		vertexBuffer = NULL;
+		indexBuffer = NULL;
 	}
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
-	ChsMesh::~ChsMesh( ) {
+	ChsMesh::~ChsMesh( void ) {
 		safeDelete( &this->vertexBuffer );
 		safeDelete( &this->indexBuffer );
 		safeDelete( &this->material );

@@ -18,7 +18,7 @@ namespace Chaos{
 	protected:
 		virtual void doRender( ChsRenderSystem * render ) = 0;
 	public:
-		ChsRenderNode( void );
+		ChsRenderNode( std::string name = "unnamed" );
 		virtual ~ChsRenderNode( void );
 		
 		void add( std::string name, ChsRenderNode * node );
@@ -29,11 +29,12 @@ namespace Chaos{
 		
 	private:
 		std::map< std::string, ChsRenderNode * >  children;
-		PROPERTY_READONLY( ChsMatrix *, worldMatrix)
+		PROPERTY_READONLY( ChsMatrix *, worldMatrix);
+		PROPERTY_READONLY_CONST( std::string, name );
 	};
 	
 	SYNTHESIZE_READONLY( ChsRenderNode, ChsMatrix *, worldMatrix )
-
+	SYNTHESIZE_READONLY_CONST( ChsRenderNode, std::string , name )	
 //--------------------------------------------------------------------------------------------------
 }//namespace
 #endif //_CHS_RENDERNODE_H

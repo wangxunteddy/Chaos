@@ -15,10 +15,13 @@ namespace Chaos {
 	};
 	class ChsPlane : public ChsMesh {
 	public:
+		ChsPlane( std::string name, float w, float h );
 		ChsPlane( float w, float h );
 	private:
 		float w,h;
 		ChsPlaneVertex vertices[4];
+		
+		void init( float w, float h );
 	};
 }
 

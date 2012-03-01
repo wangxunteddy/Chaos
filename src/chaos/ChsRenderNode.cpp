@@ -6,9 +6,9 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 
 	typedef std::map< std::string, ChsRenderNode * > ChsRenderNodeList;
-	
+
 	//----------------------------------------------------------------------------------------------
-	ChsRenderNode::ChsRenderNode( void ) : _worldMatrix( NULL ) {
+	ChsRenderNode::ChsRenderNode( std::string name ) : _name( name ) {
 		this->children.clear();
 		this->_worldMatrix = new ChsMatrix();
 	}

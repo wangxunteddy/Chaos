@@ -5,7 +5,15 @@
 
 namespace Chaos {
 
-	ChsPlane::ChsPlane( float w, float h ){
+	ChsPlane::ChsPlane( std::string name, float w, float h ) : ChsMesh( name ) {
+		this->init( w, h);
+	}
+	
+	ChsPlane::ChsPlane( float w, float h ) : ChsMesh() {
+		this->init( w, h );
+	}
+
+	void ChsPlane::init( float w, float h ){
 		const GLfloat vertices[] = {
 			-w/2, -h/2,
 			1.0f, 1.0f,   0, 1.0f,
@@ -20,12 +28,12 @@ namespace Chaos {
 			1.0f,   0, 1.0f, 1.0f,
 		};
 		memcpy(this->vertices,vertices,sizeof(vertices));
-
+		
 		this->vertexBuffer = new ChsVertexBuffer( );
 		this->vertexBuffer->addAttrib( 2, GL_FLOAT, false, "position" );
 		this->vertexBuffer->addAttrib( 4, GL_FLOAT, true, "vertexColor" );
 		this->vertexBuffer->setData( vertices, sizeof(vertices) );
-
+		
 		const GLubyte indices[]={
 			0,1,2,3
 		};
@@ -33,7 +41,6 @@ namespace Chaos {
 		this->indexBuffer->setData( indices, 4, GL_UNSIGNED_BYTE, GL_TRIANGLE_STRIP);
 		
 	}
-
 
 
 

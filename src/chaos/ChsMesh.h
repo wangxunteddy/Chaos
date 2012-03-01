@@ -14,23 +14,25 @@ namespace Chaos {
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 	class ChsMesh : public ChsRenderNode{
 	public:
-		ChsMesh( void );
+		ChsMesh( std::string name = "unnamed" );
 		~ChsMesh( void );
 		void load( const float * vertices, int verCount, const void * indeices );
 		void setMaterial( void );
 		inline ChsMaterial * getMaterial( void );
+		
 	protected:
 		ChsMaterial * material;
 		ChsVertexBuffer * vertexBuffer;
 		ChsIndexBuffer * indexBuffer;
 		void doRender( ChsRenderSystem * render );
+		
 	};
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 	inline ChsMaterial * ChsMesh::getMaterial( ){
 		return this->material;
 	}
-
+	
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 }//namespace
 #endif //_CHSMESH_H
