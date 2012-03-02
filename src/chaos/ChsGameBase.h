@@ -15,7 +15,7 @@ namespace Chaos {
 		virtual void onUpdate( void ) = 0;
 		virtual void onShutdown( void ) = 0;
 
-		PROPERTY_READONLY( ChsRenderSystem *, render );
+		PROPERTY_READONLY( ChsRenderSystem *, renderer );
 		PROPERTY_READONLY( ChsEngine *, engine );
 	};
 
