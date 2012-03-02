@@ -20,14 +20,9 @@ namespace Chaos {
 	    return this->getStatus();
 	}
 
-	static GLuint lastUsedProgramHandle = -1;
 	//----------------------------------------------------------------------------------------------
 	void ChsShaderProgram::use( void ){
-		GLuint currentHandle = this->handle();
-		if( lastUsedProgramHandle != currentHandle ){
-			lastUsedProgramHandle = currentHandle;
-	    	glUseProgram( currentHandle );
-		}
+    	glUseProgram( this->handle() );
 	}
 
 	//----------------------------------------------------------------------------------------------
