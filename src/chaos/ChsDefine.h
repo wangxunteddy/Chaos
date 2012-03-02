@@ -23,6 +23,7 @@ namespace Chaos {
 		CHS_RENDER_ANDROID,
 		//		CHS_RENDER_D3D
 	};
+	
 	//----------------------------------------------------------------------------------------------
 	enum ChsShaderUniformDataType {
 		CHS_SHADER_UNIFORM_1_FLOAT,
@@ -36,6 +37,14 @@ namespace Chaos {
 		CHS_SHADER_UNIFORM_MAT2,
 		CHS_SHADER_UNIFORM_MAT3,
 		CHS_SHADER_UNIFORM_MAT4,
+	};
+	
+	//----------------------------------------------------------------------------------------------
+	struct ChsRect{
+		float x;
+		float y;
+		float w;
+		float h;
 	};
 }//namespace
 #endif//_CHSDEFINE_H
