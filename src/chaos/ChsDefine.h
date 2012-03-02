@@ -24,6 +24,18 @@ namespace Chaos {
 		//		CHS_RENDER_D3D
 	};
 	//----------------------------------------------------------------------------------------------
-
+	enum ChsUniformDataType {
+		CHS_UNIFORM_1_FLOAT,
+		CHS_UNIFORM_1_INT,
+		CHS_UNIFORM_VEC2_FLOAT,
+		CHS_UNIFORM_VEC2_INT,
+		CHS_UNIFORM_VEC3_FLOAT,
+		CHS_UNIFORM_VEC3_INT,
+		CHS_UNIFORM_VEC4_FLOAT,
+		CHS_UNIFORM_VEC4_INT,
+		CHS_UNIFORM_MAT2,
+		CHS_UNIFORM_MAT3,
+		CHS_UNIFORM_MAT4,
+	};
 }//namespace
 #endif//_CHSDEFINE_H
