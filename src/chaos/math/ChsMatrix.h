@@ -35,7 +35,7 @@ public:
 
 	void lookAt(const ChsVector3& eye, const ChsVector3& at, const ChsVector3& up);
 	void ortho(float w, float h, float zn, float zf);
-	void perspectiveFov(float fovy, float aspect, float zn, float zf);
+	void perspective(float fovy, float aspect, float zn, float zf);
 		
 	void identity();
 	void inverse();

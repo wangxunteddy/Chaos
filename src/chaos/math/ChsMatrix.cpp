@@ -66,7 +66,7 @@ void ChsMatrix::ortho(float w, float h, float zn, float zf){
 }
 
 //------------------------------------------------------------------------------------------
-void ChsMatrix::perspectiveFov(float fovy, float aspect, float zn, float zf){
+void ChsMatrix::perspective(float fovy, float aspect, float zn, float zf){
 	memset(&(this->m),0, sizeof(float) * 16);
 	float halfFovy = fovy / 2;
 	float yScale = cosf(halfFovy) / sinf(halfFovy);
