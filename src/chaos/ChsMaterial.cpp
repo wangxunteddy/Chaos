@@ -4,10 +4,8 @@
 
 namespace Chaos {
 	
-
-	
 	//--------------------------------------------------------------------------------------------------------------------------------------------
-	ChsMaterial::ChsMaterial( void ){
+	ChsMaterial::ChsMaterial( void ) {
 		this->_shaderProgram = NULL;
 		this->_hasVertexColor = false;
 		this->_hasTexture = false;
@@ -20,15 +18,19 @@ namespace Chaos {
 	}
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
-	ChsMaterial::~ChsMaterial( void ){
+	ChsMaterial::~ChsMaterial( void ) {
+		this->_shaderProgram = NULL;
 	}
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
-	void ChsMaterial::apply( void ) {
-    	this->shaderUniforms.update();
-		if( this->_shaderProgram ){
-        	this->_shaderProgram->use();
-		}
+	ChsShaderProgram * ChsMaterial::apply( ChsShaderProgram * sysProgram ) {
+		if( this->_shaderProgram == NULL && sysProgram == NULL )
+			return NULL;
+		ChsShaderProgram * currentProgram = this->_shaderProgram != NULL ? this->_shaderProgram : sysProgram;
+		if( currentProgram != sysProgram )
+			currentProgram->use();
+    	this->shaderUniforms.apply(currentProgram);
+		return currentProgram;
 	}
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
@@ -44,7 +46,6 @@ namespace Chaos {
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 	void ChsMaterial::setShader( ChsShaderProgram * program ){
 		this->_shaderProgram = program;
-		this->shaderUniforms.attachShader( program );
 	}
 	
 }//namespace

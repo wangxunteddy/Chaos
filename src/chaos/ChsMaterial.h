@@ -12,8 +12,8 @@ namespace Chaos {
 	class ChsMaterial {
 	public:
     	ChsMaterial( void );
-	    ~ChsMaterial( void );
-    	void apply( void );
+	    virtual ~ChsMaterial( void );
+    	ChsShaderProgram * apply( ChsShaderProgram * program );
 	    void setShader( ChsShaderProgram * program );
 	private:
 		ChsShaderUniform shaderUniforms;
