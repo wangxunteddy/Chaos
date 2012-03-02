@@ -2,6 +2,7 @@
 #define _CHS_RENDERSYSTEM_H
 #pragma once
 
+#include "ChsDefine.h"
 #include "ChsMacro.h"
 #include "platform/ChsOpenGL.h"
 
@@ -11,6 +12,7 @@ namespace Chaos {
 	class ChsMaterial;
 	class ChsIndexBuffer;
 	class ChsVertexBuffer;
+	class ChsCameraBase;
 	
 	struct ChsRenderUnit{
 		ChsMaterial * material;
@@ -35,7 +37,10 @@ namespace Chaos {
 		// The pixel dimensions of the CAEAGLLayer.
     	GLint renderbufferWidth;
 	    GLint renderbufferHeight;
-
+		
+		//viewport
+		ChsRect viewport;
+		
 	private:
 		void preRender( void );
 		void render( void );
@@ -55,10 +60,22 @@ namespace Chaos {
 		void setClearColor(unsigned char r,unsigned char g,unsigned char b,unsigned char a);
 		void setClearColor(unsigned int rgba);
 		
+		void setViewPort( int x, int y, int w, int h );
+		inline ChsRect getViewPort( void );
+		void resetToDefaultViewPort( void );
+		
 		PROPERTY_READONLY( ChsRenderNode *, root );
+		PROPERTY( ChsCameraBase *, currentCamera );
 	};
 	
+	//----------------------------------------------------------------------------------------------
+	inline ChsRect ChsRenderSystem::getViewPort( void ){
+		return this->viewport;
+	}
+
+	//----------------------------------------------------------------------------------------------
 	SYNTHESIZE_READONLY( ChsRenderSystem, ChsRenderNode *, root );
+	SYNTHESIZE( ChsRenderSystem, ChsCameraBase *, currentCamera );
 	//----------------------------------------------------------------------------------------------
 }//namespace
 #endif //_CHS_RENDERSYSTEM_H

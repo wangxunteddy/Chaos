@@ -9,7 +9,7 @@
 #include "shader/ChsShaderProgram.h"
 #include "ChsVertexBuffer.h"
 #include "ChsIndexBuffer.h"
-
+#include "camera/ChsCameraBase.h"
 
 namespace Chaos {
 
@@ -29,7 +29,8 @@ namespace Chaos {
 												framebuffer( 0 ),
 												renderbuffer( 0 ),
 												renderbufferWidth( 0 ),
-												renderbufferHeight( 0 )
+												renderbufferHeight( 0 ),
+												_currentCamera( NULL )
 	{
 	}
 
@@ -42,6 +43,7 @@ namespace Chaos {
 	void ChsRenderSystem::init( void ){
 		this->initContext();
 		this->initFrameAndRenderBuffers();
+		this->resetToDefaultViewPort();
 		this->setClearColor(1.0f, 0.5f, 0.5f, 1.0f);
 
 		//depth
@@ -69,19 +71,22 @@ namespace Chaos {
 
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::preRender( void ) {
+	//	if(this->_currentCamera)
+	//		this->_currentCamera->update();
 		this->_root->render( this );
 		glBindFramebuffer(GL_FRAMEBUFFER, this->framebuffer);
-		glViewport(0, 0, this->renderbufferWidth, this->renderbufferHeight);
+		glViewport( this->viewport.x, this->viewport.y, this->viewport.w, this->viewport.h );
     	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	}
 
+	static ChsShaderProgram * currentShaderProgram = NULL;
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::render( void ){
 		ChsRenderChain::iterator iter = renderChain.begin();
 		ChsRenderChain::iterator end = renderChain.end();
 		for(;iter!=end;iter++){
 			ChsMaterial * material = iter->first;
-			material->apply();
+			currentShaderProgram = material->apply(currentShaderProgram);
 			ChsRenderUnitList *list = iter->second;
 			for(int i=0;i<list->size();i++){
 				ChsRenderUnit unit = list->at(i);
@@ -90,7 +95,6 @@ namespace Chaos {
 				unit.vertexBuffer->postDraw();
 			}
 		}
-		
 	}
 	
 	//----------------------------------------------------------------------------------------------
@@ -161,5 +165,16 @@ namespace Chaos {
 	}
 
 	//----------------------------------------------------------------------------------------------
+	void ChsRenderSystem::resetToDefaultViewPort( void ){
+		setViewPort( 0, 0, this->renderbufferWidth, this->renderbufferHeight );
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	void ChsRenderSystem::setViewPort( int x, int y, int w, int h ){
+		this->viewport.x = x;
+		this->viewport.y = y;
+		this->viewport.w = w;
+		this->viewport.h = h;
+	}
 
 }//namespace
