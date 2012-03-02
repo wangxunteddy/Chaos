@@ -39,13 +39,13 @@ namespace Chaos {
 			}
 			
 			switch ( uniform.type ) {
-				case CHS_UNIFORM_MAT2:
+				case CHS_SHADER_UNIFORM_MAT2:
 					glUniformMatrix2fv(uniform.location, uniform.count, false, (const GLfloat*)uniform.varAddr);
 					break;
-				case CHS_UNIFORM_MAT3:
+				case CHS_SHADER_UNIFORM_MAT3:
 					glUniformMatrix3fv(uniform.location, uniform.count, false, (const GLfloat*)uniform.varAddr);
 					break;
-				case CHS_UNIFORM_MAT4:
+				case CHS_SHADER_UNIFORM_MAT4:
 					glUniformMatrix4fv(uniform.location, uniform.count, false, (const GLfloat*)uniform.varAddr);
 					break;
 				default:
@@ -62,7 +62,7 @@ namespace Chaos {
 	}
 	
 	//----------------------------------------------------------------------------------------------
-	void ChsShaderUniform::add( std::string name, void * varAddr, ChsUniformDataType type, size_t count ){
+	void ChsShaderUniform::add( std::string name, void * varAddr, ChsShaderUniformDataType type, size_t count ){
 		if( uniformVariables.find( name ) != uniformVariables.end() )
 			return;//already in list, do nothing
 		//leave location with -1

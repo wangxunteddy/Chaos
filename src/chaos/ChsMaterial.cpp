@@ -13,10 +13,10 @@ namespace Chaos {
 		this->_hasTexture = false;
 		this->_textureCount = 1;
 		this->_alpha = 1.0f;
-		this->shaderUniforms.add( "hasVertexColor", &this->_hasVertexColor, CHS_UNIFORM_1_INT, 1);
-		this->shaderUniforms.add( "hasTexture", &this->_hasVertexColor, CHS_UNIFORM_1_INT, 1);
-		this->shaderUniforms.add( "hasTexture", &this->_hasTexture, CHS_UNIFORM_1_INT, 1);
-		this->shaderUniforms.add( "alpha", &this->_alpha, CHS_UNIFORM_1_FLOAT, 1);
+		this->shaderUniforms.add( "hasVertexColor", &this->_hasVertexColor, CHS_SHADER_UNIFORM_1_INT, 1);
+		this->shaderUniforms.add( "hasTexture", &this->_hasVertexColor, CHS_SHADER_UNIFORM_1_INT, 1);
+		this->shaderUniforms.add( "hasTexture", &this->_hasTexture, CHS_SHADER_UNIFORM_1_INT, 1);
+		this->shaderUniforms.add( "alpha", &this->_alpha, CHS_SHADER_UNIFORM_1_FLOAT, 1);
 	}
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------

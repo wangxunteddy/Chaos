@@ -26,7 +26,7 @@ namespace Chaos {
 		ChsShaderUniform( void );
 		~ChsShaderUniform( void );
 		void update ( void );
-		void add( std::string name, void * varAddr, ChsUniformDataType type, size_t count ); 
+		void add( std::string name, void * varAddr, ChsShaderUniformDataType type, size_t count ); 
 		void attachShader( ChsShaderProgram * shaderProgram );
 	 private:
 		ChsShaderProgram * shaderProgram;
