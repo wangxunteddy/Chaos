@@ -7,16 +7,16 @@ namespace Chaos {
 	
 	//----------------------------------------------------------------------------------------------
 	ChsShaderUniform::ChsShaderUniform( void ){
-		this->init();
+		this->reset();
 	}
 	
 	//----------------------------------------------------------------------------------------------
 	ChsShaderUniform::~ChsShaderUniform( void ){
-		this->init();
+		this->reset();
 	}
 
 	//----------------------------------------------------------------------------------------------
-	void ChsShaderUniform::init( void ){
+	void ChsShaderUniform::reset( void ){
 		this->uniformVariables.clear();
 		this->program = NULL;
 	}

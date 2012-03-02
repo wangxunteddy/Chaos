@@ -26,13 +26,12 @@ namespace Chaos {
 	public:
 		ChsShaderUniform( void );
 		~ChsShaderUniform( void );
-		void apply ( ChsShaderProgram * program );
+		void reset( void );
+		void apply( ChsShaderProgram * program );
 		void add( std::string name, void * varAddr, ChsShaderUniformDataType type, size_t count ); 
 	 private:
 		ChsShaderProgram * program;
 		UniformVariables uniformVariables;
-		
-		void init( void );
 	};
 }
 
