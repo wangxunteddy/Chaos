@@ -13,6 +13,7 @@ namespace Chaos {
 		this->_hasTexture = false;
 		this->_textureCount = 1;
 		this->_alpha = 1.0f;
+		this->needUpdateUniformLocation = false;
 		this->uniformVariables.clear();
 		this->registerUniform( "hasVertexColor", &this->_hasVertexColor, CHS_UNIFORM_1_INT, 1);
 		this->registerUniform( "hasTexture", &this->_hasVertexColor, CHS_UNIFORM_1_INT, 1);
@@ -39,13 +40,15 @@ namespace Chaos {
 	// Validate program before drawing. This is a good check, but only really necessary in a debug build.
 	// DEBUG macro must be defined in your debug configurations if that's not already the case.
     	if ( this->shaderProgram && !this->shaderProgram->validate( ) ) 
-        	   printf("Failed to validate program: %d", this->shaderProgram->getHandle( ) );
+        	   printf("Failed to validate program: %d", this->shaderProgram->handle( ) );
 	}
 	#endif
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 	void ChsMaterial::setShader( ChsShaderProgram * program ){
 		this->_shaderProgram = program;
+		//shader was be changed, need update uniform location
+		this->needUpdateUniformLocation = true;
 	}
 	
 	//----------------------------------------------------------------------------------------------
@@ -56,8 +59,7 @@ namespace Chaos {
 			std::string name = iter->first;
 			Uniform uniform = iter->second;
 			
-			if( uniform.location == UNLOCATED ) {
-				//not connect with program location
+			if( uniform.location == UNLOCATED || this->needUpdateUniformLocation ) {
 				//looking for uniform in program
 				GLint location = this->_shaderProgram->getUniformLocation(name.c_str());
 				if( location < 0 )
@@ -87,6 +89,7 @@ namespace Chaos {
 					break;
 			}
 		}
+		this->needUpdateUniformLocation = false;
 	}
 	
 	//----------------------------------------------------------------------------------------------	

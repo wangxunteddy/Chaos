@@ -46,6 +46,7 @@ namespace Chaos {
 
 	private:
 		UniformVariables uniformVariables;
+		bool needUpdateUniformLocation;
 		
 		PROPERTY_READONLY(ChsShaderProgram *, shaderProgram);
 		PROPERTY( bool, hasVertexColor);
