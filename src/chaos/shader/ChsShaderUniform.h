@@ -5,6 +5,7 @@
 #include <map>
 
 #include "ChsDefine.h"
+#include "ChsMacro.h"
 
 namespace Chaos {
 	
@@ -25,16 +26,14 @@ namespace Chaos {
 	public:
 		ChsShaderUniform( void );
 		~ChsShaderUniform( void );
-		void update ( void );
+		void apply ( ChsShaderProgram * program );
 		void add( std::string name, void * varAddr, ChsShaderUniformDataType type, size_t count ); 
-		void attachShader( ChsShaderProgram * shaderProgram );
 	 private:
-		ChsShaderProgram * shaderProgram;
+		ChsShaderProgram * program;
 		UniformVariables uniformVariables;
-		bool needUpdateLocation;
+		
+		void init( void );
 	};
-	//----------------------------------------------------------------------------------------------
-	
 }
 
 //--------------------------------------------------------------------------------------------------

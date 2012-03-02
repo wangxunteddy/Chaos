@@ -7,31 +7,39 @@ namespace Chaos {
 	
 	//----------------------------------------------------------------------------------------------
 	ChsShaderUniform::ChsShaderUniform( void ){
-		this->shaderProgram = NULL;
-		this->uniformVariables.clear();
-		this->needUpdateLocation = false;
+		this->init();
 	}
 	
 	//----------------------------------------------------------------------------------------------
 	ChsShaderUniform::~ChsShaderUniform( void ){
-		this->uniformVariables.clear();
-		this->shaderProgram = NULL;
+		this->init();
 	}
 
 	//----------------------------------------------------------------------------------------------
-	void ChsShaderUniform::update ( void ){
-		if( this->shaderProgram == NULL )
+	void ChsShaderUniform::init( void ){
+		this->uniformVariables.clear();
+		this->program = NULL;
+	}
+	//----------------------------------------------------------------------------------------------
+	void ChsShaderUniform::apply ( ChsShaderProgram * program ){
+		if( program == NULL )
 			return;
 		
+		bool needUpdateLocation = false;
+		if(this->program != program ){
+			needUpdateLocation = true;
+			this->program = program;
+		}
+
 		UniformVariables::iterator iter = this->uniformVariables.begin();
 		UniformVariables::iterator end = this->uniformVariables.end();
 		for( ; iter != end; iter++ ){
 			std::string name = iter->first;
 			Uniform uniform = iter->second;
 			
-			if( uniform.location == UNLOCATED || this->needUpdateLocation ) {
+			if( uniform.location == UNLOCATED || needUpdateLocation ) {
 				//looking for uniform in program
-				GLint location = this->shaderProgram->getUniformLocation(name.c_str());
+				GLint location = program->getUniformLocation(name.c_str());
 				if( location < 0 )
 					continue;//no uniform named that in program, process next
 				uniform.location = location;//save location
@@ -58,7 +66,6 @@ namespace Chaos {
 					break;
 			}
 		}
-		this->needUpdateLocation = false;
 	}
 	
 	//----------------------------------------------------------------------------------------------
@@ -70,16 +77,4 @@ namespace Chaos {
 		//just add to list,
 		uniformVariables.insert( std::make_pair( name, uniform));
 	}
-
-	//----------------------------------------------------------------------------------------------
-	void ChsShaderUniform::attachShader( ChsShaderProgram * shaderProgram ){
-		this->shaderProgram = shaderProgram;
-		//shader was be changed, need update uniform location
-		if(this->shaderProgram)
-			this->needUpdateLocation = true;
-	}
-	
-	//----------------------------------------------------------------------------------------------
-	
-	
 }
