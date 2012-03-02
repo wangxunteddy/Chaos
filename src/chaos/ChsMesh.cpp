@@ -11,8 +11,9 @@ namespace Chaos {
 	
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 	ChsMesh::ChsMesh( std::string name ) : ChsRenderNode( name ) {
-		vertexBuffer = NULL;
-		indexBuffer = NULL;
+		this->vertexBuffer = NULL;
+		this->indexBuffer = NULL;
+		this->material = NULL;
 	}
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
@@ -43,7 +44,7 @@ namespace Chaos {
 		this->indexBuffer->setData( indices, 4, GL_UNSIGNED_BYTE, GL_TRIANGLE_STRIP);
 #endif
 	}
-
+	
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 	void ChsMesh::setMaterial( ) {
 		this->material = new ChsMaterial();
