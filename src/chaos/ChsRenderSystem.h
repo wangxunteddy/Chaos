@@ -34,22 +34,25 @@ namespace Chaos {
 		// The OpenGL ES names for the framebuffer and renderbuffer used to render to this view.
 	    GLuint framebuffer;
 		GLuint renderbuffer;
+		
 		// The pixel dimensions of the CAEAGLLayer.
     	GLint renderbufferWidth;
 	    GLint renderbufferHeight;
 		
+	private:
 		//viewport
 		ChsRect viewport;
-		
-	private:
+
 		void preRender( void );
 		void render( void );
 	    void postRender( void );
 		void deleteFrameAndRenderBuffers( void );
 
+		void initGL( void );
 	public:
 		ChsRenderSystem();
 		virtual ~ChsRenderSystem();
+		
 		void init( void );
 		void shutdown( void );
 		void update( void );

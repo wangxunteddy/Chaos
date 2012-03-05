@@ -8,6 +8,7 @@ namespace Chaos {
 	struct ChsPlaneVertex{
 		float x;
 		float y;
+		float z;
 		float r;
 		float g;
 		float b;
@@ -20,8 +21,6 @@ namespace Chaos {
 	private:
 		float w,h;
 		ChsPlaneVertex vertices[4];
-		
-		void init( float w, float h );
 	};
 }
 

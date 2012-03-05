@@ -7,9 +7,11 @@
 #include "geometry/ChsPlane.h"
 #include "ChsMaterial.h"
 #include "shader/ChsShaderProgram.h"
+#include "shader/ChsShaderUniform.h"
 #include "ChsVertexBuffer.h"
 #include "ChsIndexBuffer.h"
 #include "camera/ChsCameraBase.h"
+#include "math/ChsMath.h"
 
 namespace Chaos {
 
@@ -17,6 +19,12 @@ namespace Chaos {
 	
 	typedef std::map<ChsMaterial *, ChsRenderUnitList *> ChsRenderChain;
 	ChsRenderChain renderChain;
+	ChsShaderUniform globalUniforms;
+	
+	ChsMatrix mtxWorld;
+	ChsMatrix mtxView;
+	ChsMatrix mtxProjection;
+	ChsMatrix wvp;
 	
 	//----------------------------------------------------------------------------------------------
 	class ChsRenderRoot : public ChsRenderNode {
@@ -44,8 +52,27 @@ namespace Chaos {
 		this->initContext();
 		this->initFrameAndRenderBuffers();
 		this->resetToDefaultViewPort();
-		this->setClearColor(1.0f, 0.5f, 0.5f, 1.0f);
+		this->initGL();
+		
+		globalUniforms.reset();
+		//globalUniforms.add( "world", &mtxWorld, CHS_SHADER_UNIFORM_MAT4, 1 );
+		//globalUniforms.add( "view", &mtxView, CHS_SHADER_UNIFORM_MAT4, 1 );
+		//globalUniforms.add( "projection", &mtxProjection, CHS_SHADER_UNIFORM_MAT4, 1 );
+		globalUniforms.add( "wvp", &wvp, CHS_SHADER_UNIFORM_MAT4, 1 );
 
+		mtxWorld.translation(0.0f, 0.0f, 1.0f);
+		mtxProjection.perspective( degree2Radian(90), this->viewport.w/(float)this->viewport.h, 0.1f, 100.0f );
+		
+		ChsVector3 eye( 0.0f, 0.0f, -9.0f );
+		ChsVector3 at( 0.0f, 0.0f, 0.0f );
+		ChsVector3 up( 0.0f, 1.0f, 0.0f );
+		mtxView.lookAt( eye, at, up);
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	void ChsRenderSystem::initGL( void ){
+		this->setClearColor(1.0f, 0.5f, 0.5f, 1.0f);
+		
 		//depth
 		glEnable(GL_DEPTH_TEST);
 		glClearDepthf(1.0f);
@@ -61,7 +88,6 @@ namespace Chaos {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
 	}
-	
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::shutdown( void ){
 		safeDelete( &this->_root, "delete render root node");
@@ -70,16 +96,19 @@ namespace Chaos {
 	}
 
 	//----------------------------------------------------------------------------------------------
-	void ChsRenderSystem::preRender( void ) {
+	void ChsRenderSystem::preRender( void ){
 	//	if(this->_currentCamera)
 	//		this->_currentCamera->update();
+		wvp = mtxWorld * mtxView * mtxProjection;
 		this->_root->render( this );
 		glBindFramebuffer(GL_FRAMEBUFFER, this->framebuffer);
 		glViewport( this->viewport.x, this->viewport.y, this->viewport.w, this->viewport.h );
     	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	}
 
+	//----------------------------------------------------------------------------------------------
 	static ChsShaderProgram * currentShaderProgram = NULL;
+
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::render( void ){
 		ChsRenderChain::iterator iter = renderChain.begin();
@@ -87,6 +116,7 @@ namespace Chaos {
 		for(;iter!=end;iter++){
 			ChsMaterial * material = iter->first;
 			currentShaderProgram = material->apply(currentShaderProgram);
+			globalUniforms.apply( currentShaderProgram );
 			ChsRenderUnitList *list = iter->second;
 			for(int i=0;i<list->size();i++){
 				ChsRenderUnit unit = list->at(i);

@@ -11,15 +11,12 @@ uniform lowp int  textureCount;		//max support 2 right now
 //transform
 uniform mat4 wvp;
 
-uniform mediump float translate;
-
 varying vec4 colorVarying;
 varying vec2 texCoordVarying[TEXTURE_MAX];
 
 
 void main(){
-    gl_Position = position;// * wvp;
-	gl_Position.y += cos(translate);
+    gl_Position = wvp * position;
 	
 	if(hasVertexColor)
 	    colorVarying = vertexColor;

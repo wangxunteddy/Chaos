@@ -20,11 +20,11 @@ void GameDemo::onInit( void ) {
 	ChsPlane * planeMesh = new ChsPlane(1.0f,1.0f);
 	planeMesh->setMaterial();
 	material = planeMesh->getMaterial();
-	material->registerUniform("translate", (void *)&transY, CHS_UNIFORM_1_FLOAT,1);
+	//material->registerUniform("translate", (void *)&transY, CHS_UNIFORM_1_FLOAT,1);
 	material->hasVertexColor(true);
 	
 	plane->add( planeMesh );
-	this->render()->root()->add( plane->name(), plane );
+	this->renderer()->root()->add( plane->name(), plane );
 }
 
 //--------------------------------------------------------------------------------------------------
