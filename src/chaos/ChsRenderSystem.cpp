@@ -20,12 +20,8 @@ namespace Chaos {
 	typedef std::map<ChsMaterial *, ChsRenderUnitList *> ChsRenderChain;
 	ChsRenderChain renderChain;
 	ChsShaderUniform globalUniforms;
-	
-	ChsMatrix mtxWorld;
-	ChsMatrix mtxView;
-	ChsMatrix mtxProjection;
 	ChsMatrix wvp;
-	
+	ChsMatrix mtxWorld;
 	//----------------------------------------------------------------------------------------------
 	class ChsRenderRoot : public ChsRenderNode {
 	private:
@@ -55,18 +51,7 @@ namespace Chaos {
 		this->initGL();
 		
 		globalUniforms.reset();
-		//globalUniforms.add( "world", &mtxWorld, CHS_SHADER_UNIFORM_MAT4, 1 );
-		//globalUniforms.add( "view", &mtxView, CHS_SHADER_UNIFORM_MAT4, 1 );
-		//globalUniforms.add( "projection", &mtxProjection, CHS_SHADER_UNIFORM_MAT4, 1 );
 		globalUniforms.add( "wvp", &wvp, CHS_SHADER_UNIFORM_MAT4, 1 );
-
-		mtxWorld.translation(0.0f, 0.0f, 1.0f);
-		mtxProjection.perspective( degree2Radian(90), this->viewport.w/(float)this->viewport.h, 0.1f, 100.0f );
-		
-		ChsVector3 eye( 0.0f, 0.0f, -9.0f );
-		ChsVector3 at( 0.0f, 0.0f, 0.0f );
-		ChsVector3 up( 0.0f, 1.0f, 0.0f );
-		mtxView.lookAt( eye, at, up);
 	}
 	
 	//----------------------------------------------------------------------------------------------
@@ -97,12 +82,12 @@ namespace Chaos {
 
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::preRender( void ){
-	//	if(this->_currentCamera)
-	//		this->_currentCamera->update();
-		wvp = mtxWorld * mtxView * mtxProjection;
+		if(this->_currentCamera){
+			this->_currentCamera->update();
+			wvp = mtxWorld * this->_currentCamera->getViewProjectionMatrix();
+		}
 		this->_root->render( this );
 		glBindFramebuffer(GL_FRAMEBUFFER, this->framebuffer);
-		glViewport( this->viewport.x, this->viewport.y, this->viewport.w, this->viewport.h );
     	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	}
 
@@ -205,6 +190,7 @@ namespace Chaos {
 		this->viewport.y = y;
 		this->viewport.w = w;
 		this->viewport.h = h;
+		glViewport( this->viewport.x, this->viewport.y, this->viewport.w, this->viewport.h );
 	}
 
 }//namespace
