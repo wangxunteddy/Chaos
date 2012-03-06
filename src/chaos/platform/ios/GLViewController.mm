@@ -2,6 +2,7 @@
 #import "GLViewController.h"
 #import "EAGLView.h"
 #include "chaos/Chaos.h"
+
 //----------------------------------------------------------------------------
 @interface GLViewController (){
 	Chaos::ChsEngine * engine;
@@ -60,11 +61,12 @@
 - (void) 
 viewDidLoad {
 	[super viewDidLoad];
+	
 	//frameInterval must greater then 0, 1 = 60fps, 2 = 30fps etc...
 	self.frameInterval = 1;
 	Chaos::ChsRenderSystemIOSSetTargetGLLayer((CAEAGLLayer *)self.view.layer);
 	engine = Chaos::ChsEngine::sharedInstance();
-	engine->start();
+	
 }
 
 //----------------------------------------------------------------------------
@@ -76,12 +78,15 @@ viewDidLoad {
 //----------------------------------------------------------------------------
 -(void) viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[self setDisplayLinkToPresent];
 }
 
 //----------------------------------------------------------------------------
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+	//at this time, the view`s frame was set,
+	//renderer will get the last render frame buffer size, as orientation init
+	engine->start();
+	[self setDisplayLinkToPresent];
 }
 
 //----------------------------------------------------------------------------
@@ -97,7 +102,8 @@ viewDidLoad {
 
 //----------------------------------------------------------------------------
 -(BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
+	return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft || 
+			interfaceOrientation == UIInterfaceOrientationLandscapeRight);
 }
 
 @end

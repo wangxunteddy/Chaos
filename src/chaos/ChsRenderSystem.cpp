@@ -47,9 +47,7 @@ namespace Chaos {
 	void ChsRenderSystem::init( void ){
 		this->initContext();
 		this->initFrameAndRenderBuffers();
-		this->resetToDefaultViewPort();
 		this->initGL();
-		
 		globalUniforms.reset();
 		globalUniforms.add( "wvp", &wvp, CHS_SHADER_UNIFORM_MAT4, 1 );
 	}
@@ -57,7 +55,8 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::initGL( void ){
 		this->setClearColor(1.0f, 0.5f, 0.5f, 1.0f);
-		
+		this->setViewPort( 0, 0, this->renderbufferWidth, this->renderbufferHeight );
+
 		//depth
 		glEnable(GL_DEPTH_TEST);
 		glClearDepthf(1.0f);
@@ -143,6 +142,7 @@ namespace Chaos {
 	
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::initFrameAndRenderBuffers( void ){
+		this->deleteFrameAndRenderBuffers();
 		glGenFramebuffers(1, &(this->framebuffer));
 		glGenRenderbuffers(1, &(this->renderbuffer));
 		glBindFramebuffer(GL_FRAMEBUFFER, this->framebuffer);
@@ -178,11 +178,6 @@ namespace Chaos {
 							(unsigned char)(rgba & 0xff),
 							(unsigned char)(rgba & 0xff000000)>>24);
 	}
-
-	//----------------------------------------------------------------------------------------------
-	void ChsRenderSystem::resetToDefaultViewPort( void ){
-		setViewPort( 0, 0, this->renderbufferWidth, this->renderbufferHeight );
-	}
 	
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::setViewPort( int x, int y, int w, int h ){
@@ -192,5 +187,4 @@ namespace Chaos {
 		this->viewport.h = h;
 		glViewport( this->viewport.x, this->viewport.y, this->viewport.w, this->viewport.h );
 	}
-
 }//namespace

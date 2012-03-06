@@ -3,6 +3,7 @@
 #pragma once
 
 #include "ChsEngine.h"
+#include "ChsRenderSystem.h"
 
 namespace Chaos {
 
@@ -12,6 +13,8 @@ namespace Chaos {
 	//set layer before engine start
 	void ChsRenderSystemIOSSetTargetGLLayer( CAEAGLLayer * layer );
 #endif
+	
+	extern CHsOrientation orientation;
 	
 	//----------------------------------------------------------------------------------------------
 

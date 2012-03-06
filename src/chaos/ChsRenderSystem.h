@@ -65,7 +65,6 @@ namespace Chaos {
 		
 		void setViewPort( int x, int y, int w, int h );
 		inline ChsRect getViewPort( void );
-		void resetToDefaultViewPort( void );
 		
 		PROPERTY_READONLY( ChsRenderNode *, root );
 		PROPERTY( ChsCameraBase *, currentCamera );
