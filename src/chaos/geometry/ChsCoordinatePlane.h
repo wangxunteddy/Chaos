@@ -7,7 +7,7 @@ namespace Chaos {
 	class ChsCoordinatePlane : public ChsMesh {
 	public:
 		ChsCoordinatePlane( float size, int divide );
-		ChsCoordinatePlane( std::string name, float size, int divide );
+		void setMaterial( void );
 	};
 }
 

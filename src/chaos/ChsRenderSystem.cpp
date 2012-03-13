@@ -89,11 +89,11 @@ namespace Chaos {
 
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::preRender( void ){
-		if(this->_currentCamera){
-			this->_currentCamera->update();
-			wvp = mtxWorld * this->_currentCamera->getViewProjectionMatrix();
+		if(this->currentCamera()){
+			this->currentCamera()->update();
+			wvp = mtxWorld * this->currentCamera()->getViewProjectionMatrix();
 		}
-		this->_root->render( this );
+		this->root()->render( this );
 		glBindFramebuffer(GL_FRAMEBUFFER, this->framebuffer);
     	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	}
@@ -107,7 +107,7 @@ namespace Chaos {
 		ChsRenderChain::iterator end = renderChain.end();
 		for(;iter!=end;iter++){
 			ChsMaterial * material = iter->first;
-			currentShaderProgram = material->apply(currentShaderProgram);
+			currentShaderProgram = material->apply( currentShaderProgram );
 			globalUniforms.apply( currentShaderProgram );
 			ChsRenderUnitList *list = iter->second;
 			for(int i=0;i<list->size();i++){
@@ -198,13 +198,11 @@ namespace Chaos {
 	
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::showDebugCoordinate( bool isShow ){
-		if( this->_showDebugCoordinate != isShow ){
-			if(isShow){
-				this->root()->add( "debugCoordinateGrid", debugCoordinatePlane );
-			}
-			else{
-				this->root()->remove( "debugCoordinateGrid" );
-			}
+		if( this->showDebugCoordinate() != isShow ){
+			if(isShow)
+				this->root()->add( debugCoordinatePlane->name(), debugCoordinatePlane );
+			else
+				this->root()->remove( debugCoordinatePlane->name() );
 			this->_showDebugCoordinate = isShow;
 		}
 	}
