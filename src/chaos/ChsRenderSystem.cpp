@@ -4,7 +4,7 @@
 #include "ChsRenderSystem.h"
 #include "ChsRenderNode.h"
 #include "ChsUtility.h"
-#include "geometry/ChsPlane.h"
+//#include "geometry/ChsPlane.h"
 #include "ChsMaterial.h"
 #include "shader/ChsShaderProgram.h"
 #include "shader/ChsShaderUniform.h"
@@ -12,6 +12,7 @@
 #include "ChsIndexBuffer.h"
 #include "camera/ChsCameraBase.h"
 #include "math/ChsMath.h"
+#include "geometry/ChsCoordinatePlane.h"
 
 namespace Chaos {
 
@@ -22,6 +23,7 @@ namespace Chaos {
 	ChsShaderUniform globalUniforms;
 	ChsMatrix wvp;
 	ChsMatrix mtxWorld;
+	ChsCoordinatePlane * debugCoordinatePlane;
 	//----------------------------------------------------------------------------------------------
 	class ChsRenderRoot : public ChsRenderNode {
 	private:
@@ -41,6 +43,7 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	ChsRenderSystem::~ChsRenderSystem( void ){
 		safeDelete( &this->_root );
+		safeDelete( &debugCoordinatePlane );
 	}
 
 	//----------------------------------------------------------------------------------------------
@@ -50,26 +53,31 @@ namespace Chaos {
 		this->initGL();
 		globalUniforms.reset();
 		globalUniforms.add( "wvp", &wvp, CHS_SHADER_UNIFORM_MAT4, 1 );
+		
+		//add debug coordinate plane
+		debugCoordinatePlane = new ChsCoordinatePlane( 50, 50 );
+		debugCoordinatePlane->setMaterial();
 	}
 	
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::initGL( void ){
-		this->setClearColor(1.0f, 0.5f, 0.5f, 1.0f);
+		this->setClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
 		this->setViewPort( 0, 0, this->renderbufferWidth, this->renderbufferHeight );
 
+		//以下内容在渲染过程中可能会被更改，如何更改，
 		//depth
-		glEnable(GL_DEPTH_TEST);
-		glClearDepthf(1.0f);
-		glDepthFunc(GL_LEQUAL);
+		glEnable( GL_DEPTH_TEST );
+		glClearDepthf( 1.0f );
+		glDepthFunc( GL_LEQUAL );
 		
 		//cull
-		glEnable(GL_CULL_FACE);
-		glCullFace(GL_FRONT);
-		glFrontFace(GL_CW);
+		//glEnable( GL_CULL_FACE );
+		glCullFace( GL_FRONT );
+		glFrontFace( GL_CW );
 		
 		//blend
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable( GL_BLEND );
+		glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 		
 	}
 	//----------------------------------------------------------------------------------------------
@@ -186,5 +194,18 @@ namespace Chaos {
 		this->viewport.w = w;
 		this->viewport.h = h;
 		glViewport( this->viewport.x, this->viewport.y, this->viewport.w, this->viewport.h );
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	void ChsRenderSystem::showDebugCoordinate( bool isShow ){
+		if( this->_showDebugCoordinate != isShow ){
+			if(isShow){
+				this->root()->add( "debugCoordinateGrid", debugCoordinatePlane );
+			}
+			else{
+				this->root()->remove( "debugCoordinateGrid" );
+			}
+			this->_showDebugCoordinate = isShow;
+		}
 	}
 }//namespace

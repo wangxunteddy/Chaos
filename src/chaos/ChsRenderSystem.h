@@ -68,6 +68,7 @@ namespace Chaos {
 		
 		PROPERTY_READONLY( ChsRenderNode *, root );
 		PROPERTY( ChsCameraBase *, currentCamera );
+		PROPERTY( bool, showDebugCoordinate );
 	};
 	
 	//----------------------------------------------------------------------------------------------
@@ -78,6 +79,7 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	SYNTHESIZE_READONLY( ChsRenderSystem, ChsRenderNode *, root );
 	SYNTHESIZE( ChsRenderSystem, ChsCameraBase *, currentCamera );
+	SYNTHESIZE_GETTER( ChsRenderSystem, bool, showDebugCoordinate );
 	//----------------------------------------------------------------------------------------------
 }//namespace
 #endif //_CHS_RENDERSYSTEM_H
