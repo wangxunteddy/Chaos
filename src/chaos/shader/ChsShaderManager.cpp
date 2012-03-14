@@ -16,12 +16,15 @@ namespace Chaos{
 		if( !source )
 			return NULL;
 
-	    ShaderType * shader = new ShaderType( );
+	    ShaderType * shader = new ShaderType();
     	if(  !shader->load( source ) ){
+			safeDelete( &source );
 			safeDelete( &shader );
     	    return NULL;
 	    }
-    
+		
+		safeDelete( &source );
+		
 		printf("生成Shader:%s\n",name.c_str());
     	this->cache.insert( std::make_pair( name, shader ) );
 	    return shader;
