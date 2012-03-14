@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 #include "ChsFileSystemIOS.h"
-
+#include <string.h>
 //--------------------------------------------------------------------------------------------------
 
 namespace Chaos {
@@ -18,7 +18,11 @@ namespace Chaos {
 		NSString * source = [NSString stringWithContentsOfFile:vertShaderPathname
 													  encoding:NSUTF8StringEncoding
 														 error:nil];
-	    const char * data = (const char *)[source UTF8String];
+		int length = [source length];
+		if(length<=0)
+			return NULL;
+		const char * data = new char [length];
+	    strcpy( (char *)data, (const char *)[source UTF8String]);
     	return data;
 	}
 
