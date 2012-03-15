@@ -2,63 +2,76 @@
 #include <assert.h>
 
 namespace Chaos {
-	//------------------------------------------------------------------------------------------
-	ChsVector2::ChsVector2(float _x, float _y) : x(_x), y(_y){
+	
+	//----------------------------------------------------------------------------------------------
+	ChsVector2::ChsVector2( float _x, float _y ) : x( _x ), y( _y ){
 	}
+	
 	//------------------------------------------------------------------------------------------
-	ChsVector2::ChsVector2(): ChsVector2(0.0f, 0.0f){
+	ChsVector2::ChsVector2( void ) : ChsVector2( 0.0f, 0.0f ){
 	}
-	//------------------------------------------------------------------------------------------
-	ChsVector2::ChsVector2(const ChsVector2& vec): ChsVector2(vec.x, vec.y){
+
+	//----------------------------------------------------------------------------------------------
+	ChsVector2::ChsVector2( const ChsVector2 & vec ) : ChsVector2( vec.x, vec.y ){
 	}
-	//------------------------------------------------------------------------------------------
-	ChsVector2& ChsVector2::operator += (const ChsVector2& vec2){
+	
+	//----------------------------------------------------------------------------------------------
+	ChsVector2 & ChsVector2::operator += ( const ChsVector2 & vec2 ){
 		this->x += vec2.x;
 		this->y += vec2.y;
 		return *this;
 	}
-	//------------------------------------------------------------------------------------------
-	ChsVector2& ChsVector2::operator -= (const ChsVector2& vec2){
+	
+	//----------------------------------------------------------------------------------------------
+	ChsVector2 & ChsVector2::operator -= ( const ChsVector2 & vec2 ){
 		this->x -= vec2.x;
 		this->y -= vec2.y;
 		return *this;
 	}
-	//------------------------------------------------------------------------------------------
-	ChsVector2&	ChsVector2::operator *= (float scale){
+	
+	//----------------------------------------------------------------------------------------------
+	ChsVector2 & ChsVector2::operator *= ( float scale ){
 		this->x *= scale;
 		this->y *= scale;
 		return *this;
 	}
-	//------------------------------------------------------------------------------------------
-	ChsVector2& ChsVector2::operator /= (float scale){
+
+	//----------------------------------------------------------------------------------------------
+	ChsVector2 & ChsVector2::operator /= ( float scale ){
 		this->x /= scale;
 		this->y /= scale;
 		return *this;
 	}
-	//------------------------------------------------------------------------------------------
-	ChsVector2 ChsVector2::operator + (const ChsVector2& vec2)const{
-		return ChsVector2(this->x + vec2.x, this->y + vec2.y);
+	
+	//----------------------------------------------------------------------------------------------
+	ChsVector2 ChsVector2::operator + ( const ChsVector2 & vec2 )const{
+		return ChsVector2( this->x + vec2.x, this->y + vec2.y );
 	}
-	//------------------------------------------------------------------------------------------
-	ChsVector2 ChsVector2::operator - (const ChsVector2& vec2)const{
-		return ChsVector2(this->x - vec2.x, this->y - vec2.y);
+	
+	//----------------------------------------------------------------------------------------------
+	ChsVector2 ChsVector2::operator - ( const ChsVector2 & vec2 )const{
+		return ChsVector2( this->x - vec2.x, this->y - vec2.y );
 	}
-	//------------------------------------------------------------------------------------------
-	ChsVector2 ChsVector2::operator * (float scale)const{
-		return ChsVector2(this->x * scale, this->y * scale);
+
+	//----------------------------------------------------------------------------------------------
+	ChsVector2 ChsVector2::operator * ( float scale )const{
+		return ChsVector2( this->x * scale, this->y * scale );
 	}
-	//------------------------------------------------------------------------------------------
-	ChsVector2	ChsVector2::operator / (float scale)const{
-		assert(scale != 0);
-		return ChsVector2(this->x / scale, this->y / scale);
+	
+	//----------------------------------------------------------------------------------------------
+	ChsVector2	ChsVector2::operator / ( float scale )const{
+		assert( scale != 0 );
+		return ChsVector2( this->x / scale, this->y / scale );
 	}
-	//------------------------------------------------------------------------------------------
-	ChsVector2& ChsVector2::operator = (const ChsVector2& vec2){
+	
+	//----------------------------------------------------------------------------------------------
+	ChsVector2 & ChsVector2::operator = ( const ChsVector2 & vec2 ){
 		this->x = vec2.x;
 		this->y = vec2.y;
 		return *this;
 	}
-	//------------------------------------------------------------------------------------------
+	
+	//----------------------------------------------------------------------------------------------
 	/*
 	 void ChsVector2::Normalize()
 	 {
@@ -95,6 +108,5 @@ namespace Chaos {
 	 }
 	 */
 
-		
-	//------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------
 }//namespace

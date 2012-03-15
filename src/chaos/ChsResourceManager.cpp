@@ -10,12 +10,12 @@ namespace Chaos{
 	
 	//----------------------------------------------------------------------------------------------
 	ChsEntityManager * ChsResourceManager::sharedEntityManager( void ) {
-		return (ChsEntityManager*)ChsResourceManager::sharedInstance();
+		return ( ChsEntityManager * )ChsResourceManager::sharedInstance();
 	}
 	
 	//----------------------------------------------------------------------------------------------
 	ChsShaderManager * ChsResourceManager::sharedShaderManager( void ) {
-		return (ChsShaderManager*)ChsResourceManager::sharedInstance();
+		return ( ChsShaderManager * )ChsResourceManager::sharedInstance();
 	}
 
 	//----------------------------------------------------------------------------------------------

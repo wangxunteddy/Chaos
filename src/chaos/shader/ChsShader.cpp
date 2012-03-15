@@ -3,9 +3,9 @@
 
 namespace Chaos {
 	
-		//----------------------------------------------------------------------------------------------
-	ChsShader::ChsShader( int type ) : _handle(0) {
-		if(type){
+	//----------------------------------------------------------------------------------------------
+	ChsShader::ChsShader( int type ) : _handle( 0 ){
+		if( type ){
 	    	this->type = type;
 		    this->_handle = glCreateShader( type );
 		}
@@ -13,7 +13,7 @@ namespace Chaos {
 
 	//----------------------------------------------------------------------------------------------
 	ChsShader::~ChsShader( void ){
-		if(this->_handle){
+		if( this->_handle ){
 		   	glDeleteShader( this->_handle );
 	    	this->_handle = 0;
 		}
@@ -26,7 +26,7 @@ namespace Chaos {
 	        return false;
     	}
 	    glShaderSource( this->handle(), 1, &source, NULL );
-    	return this->compile( );
+    	return this->compile();
 	}
 
 	//----------------------------------------------------------------------------------------------
@@ -41,10 +41,10 @@ namespace Chaos {
     	GLint logLength;
 	    glGetShaderiv( this->handle(), GL_INFO_LOG_LENGTH, &logLength );
     	if ( logLength > 0 ) {
-        	GLchar *log = new GLchar[ logLength ];
+        	GLchar *log = new GLchar[logLength];
 	        glGetShaderInfoLog( this->handle(), logLength, &logLength, log );
-    	    printf("Shader compile log:\n%s", log);
-        	delete [ ] log;
+    	    printf( "Shader compile log:\n%s", log );
+        	delete [] log;
 	    }
 	#endif
     	GLint status;

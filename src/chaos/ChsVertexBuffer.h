@@ -24,18 +24,18 @@ namespace Chaos {
 		int stride;
 		int offset;
 		std::string  name;
-		ChsAttribUnit(int count, int type, bool isNormalized, std::string name ){
+		ChsAttribUnit( int count, int type, bool isNormalized, std::string name ){
 			this->count = count;
 			this->type = type;
 			this->isNormalized = isNormalized;
 			this->size = count * getGLDataTypeSize( type );
 			this->name = name;
 		}
-		void bind( ) {
+		void bind( void ){
 			glVertexAttribPointer( index, count, type, isNormalized, stride, (void *)offset );
 			glEnableVertexAttribArray( index );
 		}
-		void unbind( ) {
+		void unbind( void ){
 			glDisableVertexAttribArray( index );
 		}
 	};

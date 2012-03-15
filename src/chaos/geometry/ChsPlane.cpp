@@ -19,23 +19,19 @@ namespace Chaos {
 			w/2,  h/2, 0.0f,
 			1.0f,   0, 1.0f, 1.0f,
 		};
-		memcpy(this->vertices,vertices,sizeof(vertices));
+		memcpy( this->vertices, vertices, sizeof( vertices ) );
 		
-		this->vertexBuffer = new ChsVertexBuffer( );
 		this->vertexBuffer->addAttrib( 3, GL_FLOAT, false, "position" );
 		this->vertexBuffer->addAttrib( 4, GL_FLOAT, true, "vertexColor" );
-		this->vertexBuffer->setData( vertices, sizeof(vertices) );
+		this->vertexBuffer->setData( vertices, sizeof( vertices ) );
 		
 		const GLubyte indices[]={
 			0,1,2,3
 		};
-		this->indexBuffer = new ChsIndexBuffer( );
-		this->indexBuffer->setData( indices, 4, GL_UNSIGNED_BYTE, GL_TRIANGLE_STRIP);
+		this->indexBuffer->setData( indices, 4, GL_UNSIGNED_BYTE, GL_TRIANGLE_STRIP );
 	}
 	
 	ChsPlane::ChsPlane( float w, float h ) : ChsPlane( "unnamed", w, h ) {
 	}
-
-
 
 }

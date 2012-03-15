@@ -14,7 +14,7 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	template< typename Type > void safeRelease( Type **pptr ) {
 		if ( * pptr ) {
-			( * pptr )->Release( );
+			( * pptr )->Release();
 			* pptr = NULL;
 		}
 	}
@@ -22,7 +22,7 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	template< typename Type > void safeRelease( Type **pptr, std::string msg ) {
 		if ( * pptr ) {
-			( * pptr )->Release( );
+			( * pptr )->Release();
 			* pptr = NULL;
 			//if(!msg.empty())
 			//LOGMSG(msg.c_str());

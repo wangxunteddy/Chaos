@@ -7,7 +7,7 @@
 
 namespace Chaos {
 	
-	
+	//----------------------------------------------------------------------------------------------
 	class ChsNode {
 	public:
 		ChsNode( std::string name );
@@ -22,14 +22,17 @@ namespace Chaos {
 		PROPERTY_READONLY_CONST( std::string, name );
 	};
 
+	//----------------------------------------------------------------------------------------------
 	inline void ChsNode::add( ChsNode * node ){
 		this->add( node->name(), node );
 	}
-	
-	typedef std::map< std::string, ChsNode * > ChsNodeList;
-	
+
+	//----------------------------------------------------------------------------------------------
 	SYNTHESIZE_READONLY_CONST( ChsNode, std::string , name )	
 
+	//----------------------------------------------------------------------------------------------
+	typedef std::map< std::string, ChsNode * > ChsNodeList;
+	
 }
 
 

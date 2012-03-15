@@ -4,7 +4,7 @@
 namespace Chaos {
 	
 	//----------------------------------------------------------------------------------------------
-	ChsShaderProgram:: ChsShaderProgram( void ) : ChsShader(0) {
+	ChsShaderProgram:: ChsShaderProgram( void ) : ChsShader( 0 ) {
     	this->handle( glCreateProgram() );
 	}
 
@@ -35,12 +35,12 @@ namespace Chaos {
 	int ChsShaderProgram::getStatus( void ) {
 	#if defined(DEBUG)
     	GLint logLength;
-	    glGetProgramiv( this->handle(), GL_INFO_LOG_LENGTH, &logLength);
-    	if (logLength > 0) {
-        	GLchar *log = new GLchar[ logLength ];
+	    glGetProgramiv( this->handle(), GL_INFO_LOG_LENGTH, &logLength );
+    	if ( logLength > 0 ){
+        	GLchar *log = new GLchar[logLength];
 	        glGetProgramInfoLog( this->handle(), logLength, &logLength, log );
-    	    printf("Program link log:\n%s", log);
-        	delete [ ] log;
+    	    printf( "Program link log:\n%s", log );
+        	delete [] log;
 	    }
 	#endif
     	GLint status;

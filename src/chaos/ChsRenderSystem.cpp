@@ -89,12 +89,12 @@ namespace Chaos {
 
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::preRender( void ){
-		if(this->currentCamera()){
+		if( this->currentCamera() ){
 			this->currentCamera()->update();
 			wvp = mtxWorld * this->currentCamera()->getViewProjectionMatrix();
 		}
 		this->root()->render( this );
-		glBindFramebuffer(GL_FRAMEBUFFER, this->framebuffer);
+		glBindFramebuffer( GL_FRAMEBUFFER, this->framebuffer );
     	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	}
 
@@ -105,13 +105,13 @@ namespace Chaos {
 	void ChsRenderSystem::render( void ){
 		ChsRenderChain::iterator iter = renderChain.begin();
 		ChsRenderChain::iterator end = renderChain.end();
-		for(;iter!=end;iter++){
+		for( ; iter!=end; iter++ ){
 			ChsMaterial * material = iter->first;
 			currentShaderProgram = material->apply( currentShaderProgram );
 			globalUniforms.apply( currentShaderProgram );
 			ChsRenderUnitList *list = iter->second;
-			for(int i=0;i<list->size();i++){
-				ChsRenderUnit unit = list->at(i);
+			for( int i=0; i<list->size(); i++ ){
+				ChsRenderUnit unit = list->at( i );
 				unit.vertexBuffer->preDraw();
 				unit.indexBuffer->draw();
 				unit.vertexBuffer->postDraw();
@@ -134,54 +134,54 @@ namespace Chaos {
 	}
 	
 	//----------------------------------------------------------------------------------------------
-	void ChsRenderSystem::sendToRender(ChsRenderUnit unit){
+	void ChsRenderSystem::sendToRender( ChsRenderUnit unit ){
 		ChsMaterial * material = unit.material;
-		ChsRenderChain::iterator iter = renderChain.find(material);
-		if( iter!= renderChain.end() ){
+		ChsRenderChain::iterator iter = renderChain.find( material );
+		if( iter != renderChain.end() ){
 			ChsRenderUnitList * list = iter->second;
-			list->push_back(unit);
+			list->push_back( unit );
 		}
 		else{
 			ChsRenderUnitList * list = new ChsRenderUnitList();
-			list->push_back(unit);
-			renderChain.insert(std::make_pair(material, list));
+			list->push_back( unit );
+			renderChain.insert( std::make_pair( material, list ) );
 		}
 	}
 	
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::initFrameAndRenderBuffers( void ){
 		this->deleteFrameAndRenderBuffers();
-		glGenFramebuffers(1, &(this->framebuffer));
-		glGenRenderbuffers(1, &(this->renderbuffer));
-		glBindFramebuffer(GL_FRAMEBUFFER, this->framebuffer);
-		glBindRenderbuffer(GL_RENDERBUFFER, this->renderbuffer);
+		glGenFramebuffers( 1, &(this->framebuffer) );
+		glGenRenderbuffers( 1, &(this->renderbuffer) );
+		glBindFramebuffer( GL_FRAMEBUFFER, this->framebuffer );
+		glBindRenderbuffer( GL_RENDERBUFFER, this->renderbuffer );
 	}
 	
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::deleteFrameAndRenderBuffers( void ){
-		if(this->framebuffer){
-            glDeleteFramebuffers(1, &(this->framebuffer));
+		if( this->framebuffer ){
+            glDeleteFramebuffers( 1, &(this->framebuffer) );
             this->framebuffer = 0;
         }
-		if(this->renderbuffer) {
-            glDeleteRenderbuffers(1, &(this->renderbuffer));
+		if( this->renderbuffer ){
+            glDeleteRenderbuffers( 1, &(this->renderbuffer) );
             this->renderbuffer = 0;
         }
 	}
 	
 	//----------------------------------------------------------------------------------------------
-	void ChsRenderSystem::setClearColor(float r,float g,float b,float a){
-		glClearColor(r, g, b, a);
+	void ChsRenderSystem::setClearColor( float r, float g, float b, float a ){
+		glClearColor( r, g, b, a );
 	}
 	
 	//----------------------------------------------------------------------------------------------
-	void ChsRenderSystem::setClearColor(unsigned char r,unsigned char g,unsigned char b,unsigned char a){
+	void ChsRenderSystem::setClearColor( unsigned char r, unsigned char g, unsigned char b, unsigned char a ){
 		this->setClearColor( r/255.f, g/255.f, b/255.f, a/255.f );
 	}
 	
 	//----------------------------------------------------------------------------------------------
-	void ChsRenderSystem::setClearColor(unsigned int rgba){
-		this->setClearColor((unsigned char)(rgba & 0xff0000)>>16,
+	void ChsRenderSystem::setClearColor( unsigned int rgba ){
+		this->setClearColor( (unsigned char)(rgba & 0xff0000)>>16,
 							(unsigned char)(rgba & 0xff00)>>8,
 							(unsigned char)(rgba & 0xff),
 							(unsigned char)(rgba & 0xff000000)>>24);
@@ -199,7 +199,7 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::showDebugCoordinate( bool isShow ){
 		if( this->showDebugCoordinate() != isShow ){
-			if(isShow)
+			if( isShow )
 				this->root()->add( debugCoordinatePlane->name(), debugCoordinatePlane );
 			else
 				this->root()->remove( debugCoordinatePlane->name() );

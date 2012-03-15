@@ -50,18 +50,18 @@ namespace Chaos {
 
 		void initGL( void );
 	public:
-		ChsRenderSystem();
-		virtual ~ChsRenderSystem();
+		ChsRenderSystem( void );
+		virtual ~ChsRenderSystem( void );
 		
 		void init( void );
 		void shutdown( void );
 		void update( void );
 	
-		void sendToRender(ChsRenderUnit unit);
+		void sendToRender( ChsRenderUnit unit );
 		
-		void setClearColor(float r,float g,float b,float a);
-		void setClearColor(unsigned char r,unsigned char g,unsigned char b,unsigned char a);
-		void setClearColor(unsigned int rgba);
+		void setClearColor( float r, float g, float b, float a );
+		void setClearColor( unsigned char r, unsigned char g, unsigned char b, unsigned char a );
+		void setClearColor( unsigned int rgba );
 		
 		void setViewPort( int x, int y, int w, int h );
 		inline ChsRect getViewPort( void );

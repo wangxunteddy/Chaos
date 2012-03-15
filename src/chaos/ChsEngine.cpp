@@ -7,7 +7,7 @@
 namespace Chaos {
 	
 	//----------------------------------------------------------------------------------------------
-	ChsEngine::ChsEngine( void ) : _renderSystem(NULL),_game(NULL) {
+	ChsEngine::ChsEngine( void ) : _renderSystem( NULL ), _game( NULL ){
 	}
 	
 	//----------------------------------------------------------------------------------------------
@@ -19,7 +19,7 @@ namespace Chaos {
 		//init rendersystem
 		this->_renderSystem = ChsRenderFactory::create();
 		//init game
-		assert(this->game());
+		assert( this->game() );
 		this->game()->onInit();
 	}
 	
@@ -32,7 +32,7 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	void ChsEngine::shutdown( void ){
 		this->game()->onShutdown();
-		this->game(NULL);
+		this->game( NULL );
 		ChsRenderFactory::shutdown();
 		ChsResourceManager::sharedInstance()->purge();
 	}

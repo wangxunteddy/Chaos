@@ -8,6 +8,7 @@
 #include "shader/ChsShaderUniform.h"
 
 namespace Chaos {
+	
 	//----------------------------------------------------------------------------------------------
 	class ChsMaterial {
 	public:
@@ -17,19 +18,20 @@ namespace Chaos {
 	    void setShader( ChsShaderProgram * program );
 	private:
 		ChsShaderUniform shaderUniforms;
-		PROPERTY_READONLY(ChsShaderProgram *, shaderProgram);
+		PROPERTY_READONLY( ChsShaderProgram *, shaderProgram );
 		
-		PROPERTY( bool, hasVertexColor);
-		PROPERTY( float, alpha);
+		PROPERTY( bool, hasVertexColor );
+		PROPERTY( float, alpha );
 
 		//texture
-		PROPERTY( bool, hasTexture);
-		PROPERTY( int, textureCount);
+		PROPERTY( bool, hasTexture );
+		PROPERTY( int, textureCount );
 
 		//light
 		
 	};
 
+	//----------------------------------------------------------------------------------------------
 	SYNTHESIZE_READONLY( ChsMaterial, ChsShaderProgram *, shaderProgram );
 	
 	//color

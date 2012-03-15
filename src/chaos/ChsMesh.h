@@ -13,6 +13,7 @@ namespace Chaos {
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 	class ChsMesh : public ChsRenderNode{
+		friend class ChsDaeLoader;
 	public:
 		ChsMesh( std::string name = "unnamed" );
 		virtual ~ChsMesh( void );

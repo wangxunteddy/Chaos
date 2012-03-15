@@ -4,7 +4,7 @@
 #include "chaos/Chaos.h"
 
 //----------------------------------------------------------------------------
-@interface GLViewController (){
+@interface GLViewController(){
 	Chaos::ChsEngine * engine;
 }
 
@@ -25,23 +25,29 @@
 @synthesize frameInterval = _frameInterval;
 
 //----------------------------------------------------------------------------
--(void) update {
+-( void )
+update
+{
 	engine->run();
 }
 
 //----------------------------------------------------------------------------
--(void) setDisplayLinkToPresent {
+-( void )
+setDisplayLinkToPresent
+{
 	if ( !self.isPresenting ) {
-		CADisplayLink *aDisplayLink = [[UIScreen mainScreen] displayLinkWithTarget:self selector:@selector(update)];
+		CADisplayLink * aDisplayLink = [[UIScreen mainScreen] displayLinkWithTarget: self selector: @selector( update )];
 		[aDisplayLink setFrameInterval: self.frameInterval];
-		[aDisplayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+		[aDisplayLink addToRunLoop: [NSRunLoop currentRunLoop] forMode: NSDefaultRunLoopMode];
 		self.displayLink = aDisplayLink;
 		self.isPresenting = TRUE;
 	}
 }
 
 //----------------------------------------------------------------------------
--(void) resetDisplayLink {
+-( void )
+resetDisplayLink
+{
 	if( self.isPresenting ){
 		[self.displayLink invalidate];
     	self.displayLink = nil;
@@ -50,7 +56,9 @@
 }
 
 //----------------------------------------------------------------------------
--(void) didReceiveMemoryWarning {
+-( void )
+didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
 }
@@ -58,30 +66,37 @@
 //----------------------------------------------------------------------------
 #pragma mark - View lifecycle
 
-- (void) 
-viewDidLoad {
+-( void ) 
+viewDidLoad
+{
 	[super viewDidLoad];
 	
 	//frameInterval must greater then 0, 1 = 60fps, 2 = 30fps etc...
 	self.frameInterval = 1;
-	Chaos::ChsRenderSystemIOSSetTargetGLLayer((CAEAGLLayer *)self.view.layer);
+	Chaos::ChsRenderSystemIOSSetTargetGLLayer( ( CAEAGLLayer * )self.view.layer );
 	engine = Chaos::ChsEngine::sharedInstance();
 	
 }
 
 //----------------------------------------------------------------------------
--(void) viewDidUnload {
+-( void )
+viewDidUnload
+{
 	[super viewDidUnload];
 	engine->shutdown();
 }
 
 //----------------------------------------------------------------------------
--(void) viewWillAppear:(BOOL)animated {
+-( void )
+viewWillAppear: ( BOOL )animated
+{
 	[super viewWillAppear:animated];
 }
 
 //----------------------------------------------------------------------------
--(void) viewDidAppear:(BOOL)animated {
+-( void )
+viewDidAppear: ( BOOL )animated
+{
     [super viewDidAppear:animated];
 	//at this time, the view`s frame was set,
 	//renderer will get the last render frame buffer size, as orientation init
@@ -90,20 +105,26 @@ viewDidLoad {
 }
 
 //----------------------------------------------------------------------------
--(void) viewWillDisappear:(BOOL)animated {
+-( void )
+viewWillDisappear: ( BOOL )animated
+{
 	[super viewWillDisappear:animated];
 	[self resetDisplayLink];
 }
 
 //----------------------------------------------------------------------------
--(void) viewDidDisappear:(BOOL)animated {
+-( void )
+viewDidDisappear: ( BOOL )animated
+{
 	[super viewDidDisappear:animated];
 }
 
 //----------------------------------------------------------------------------
--(BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft || 
-			interfaceOrientation == UIInterfaceOrientationLandscapeRight);
+-( BOOL )
+shouldAutorotateToInterfaceOrientation: ( UIInterfaceOrientation )interfaceOrientation
+{
+	return ( interfaceOrientation == UIInterfaceOrientationLandscapeLeft || 
+			interfaceOrientation == UIInterfaceOrientationLandscapeRight );
 }
 
 @end

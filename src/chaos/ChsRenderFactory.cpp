@@ -7,6 +7,7 @@
 #elif defined(CHS_PLATFORM_ANDROID)
 	#include "platform/android/ChsRenderSystemAndroid.h"
 #endif
+
 //--------------------------------------------------------------------------------------------------
 namespace Chaos{
 	
@@ -31,9 +32,9 @@ namespace Chaos{
 	
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderFactory::shutdown( void ){
-		if(currentRender){
+		if( currentRender ){
 			currentRender->shutdown();
-			safeDelete(&currentRender, "delete current render");
+			safeDelete( &currentRender, "delete current render" );
 		}
 	}
 	

@@ -11,15 +11,15 @@ namespace Chaos {
 	class ChsShader{
 	public :
 		ChsShader( int type );
-		virtual ~ChsShader( );
+		virtual ~ChsShader( void );
 		bool load( const char * source );
 		
 	protected:
 		int type;
 
 	private:
-		bool compile( );
-		int getStatus( );
+		bool compile( void );
+		int getStatus( void );
 
 		PROPERTY_CONST( GLuint, handle )
 
@@ -31,13 +31,13 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	class ChsFragmentShader : public ChsShader{
 	public:
-		ChsFragmentShader( ) : ChsShader( GL_FRAGMENT_SHADER ){}
+		ChsFragmentShader( void ) : ChsShader( GL_FRAGMENT_SHADER ){}
 	};
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
-	class ChsVertexShader : public ChsShader {
+	class ChsVertexShader : public ChsShader{
 	public:
-		ChsVertexShader( ) : ChsShader( GL_VERTEX_SHADER ){}
+		ChsVertexShader( void ) : ChsShader( GL_VERTEX_SHADER ){}
 	};
 	//----------------------------------------------------------------------------------------------
 }//namespace

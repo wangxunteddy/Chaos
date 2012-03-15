@@ -24,11 +24,13 @@ namespace Chaos {
 		while ( iter != end ) {
 			ValueType * obj = iter->second;
 			//delete obj;
-			safeDelete( &obj ,"删除对象" );
+			safeDelete( &obj, "删除对象" );
 		}
 		this->cache.clear();
-	
 	}
+	
+	//----------------------------------------------------------------------------------------------
+	
 }
 
 

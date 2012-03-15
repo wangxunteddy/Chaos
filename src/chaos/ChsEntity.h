@@ -6,6 +6,8 @@
 namespace Chaos {
 
 	class ChsRenderSystem;
+	
+	//----------------------------------------------------------------------------------------------
 	class ChsEntity : public ChsRenderNode {
 	private:
 		void doRender( ChsRenderSystem * render );
@@ -16,6 +18,7 @@ namespace Chaos {
 		PROPERTY_READONLY( std::string , name );
 	};
 	
+	//----------------------------------------------------------------------------------------------
 	SYNTHESIZE_READONLY( ChsEntity, std::string, name );
 }
 

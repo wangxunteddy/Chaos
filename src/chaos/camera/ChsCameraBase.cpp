@@ -24,7 +24,7 @@ namespace Chaos {
 	}
 	
 	//----------------------------------------------------------------------------------------------
-	void ChsCameraBase::lookAt(const ChsVector3& position , const ChsVector3& target){
+	void ChsCameraBase::lookAt(const ChsVector3 & position , const ChsVector3 & target){
 		this->moveTo( position );
 		this->targetTo( target );
 	}

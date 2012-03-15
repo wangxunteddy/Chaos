@@ -25,7 +25,7 @@ namespace Chaos{
 		
 		safeDelete( &source );
 		
-		printf("生成Shader:%s\n",name.c_str());
+		printf( "生成Shader:%s\n", name.c_str() );
     	this->cache.insert( std::make_pair( name, shader ) );
 	    return shader;
 	}
@@ -49,12 +49,12 @@ namespace Chaos{
         	return ( ChsShaderProgram * )this->cache[name]; //cache hit
 		ChsShaderProgram * program = new ChsShaderProgram();
 		ChsVertexShader * vs = this->getVertexShader( vertexShaderName );
-		assert(vs);
+		assert( vs );
 		ChsFragmentShader * fs = this->getFragmentShader( fragmentShaderName );
-		assert(fs);
-		program->attachShader(vs);
-		program->attachShader(fs);
-		printf("生成ShaderProgram:%s\n",name.c_str());
+		assert( fs );
+		program->attachShader( vs );
+		program->attachShader( fs );
+		printf( "生成ShaderProgram:%s\n", name.c_str() );
     	this->cache.insert( std::make_pair( name, program ) );
 		return program;
 	}

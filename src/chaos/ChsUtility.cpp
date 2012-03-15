@@ -5,7 +5,7 @@ namespace Chaos {
 
 	//----------------------------------------------------------------------------------------------
 	size_t getGLDataTypeSize( int type ){
-		switch (type) {
+		switch( type ){
 			case GL_BYTE:
 			case GL_UNSIGNED_BYTE:
 				return sizeof( char );

@@ -15,7 +15,7 @@ namespace Chaos {
 
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderNode::render( ChsRenderSystem * render ){
-		if(!this->visible())
+		if( !this->visible() )
 			return;//if this node is invisible,then all chilren are invisible too
 		this->doRender( render );
 		ChsNodeList::iterator iter =  this->children.begin();

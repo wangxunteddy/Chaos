@@ -29,17 +29,17 @@ namespace Chaos {
 		ChsShaderProgram * currentProgram = this->_shaderProgram != NULL ? this->_shaderProgram : sysProgram;
 		if( currentProgram != sysProgram )
 			currentProgram->use();
-    	this->shaderUniforms.apply(currentProgram);
+    	this->shaderUniforms.apply( currentProgram );
 		return currentProgram;
 	}
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 	#if 0
-	void ChsMaterial::validate( ) {
+	void ChsMaterial::validate( void ) {
 	// Validate program before drawing. This is a good check, but only really necessary in a debug build.
 	// DEBUG macro must be defined in your debug configurations if that's not already the case.
-    	if ( this->shaderProgram && !this->shaderProgram->validate( ) ) 
-        	   printf("Failed to validate program: %d", this->shaderProgram->handle( ) );
+    	if ( this->shaderProgram && !this->shaderProgram->validate() ) 
+        	   printf("Failed to validate program: %d", this->shaderProgram->handle() );
 	}
 	#endif
 

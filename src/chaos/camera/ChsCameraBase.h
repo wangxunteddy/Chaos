@@ -16,7 +16,7 @@ namespace Chaos {
 
 		virtual	void update( void );
 		
-		virtual	void lookAt( const ChsVector3& position , const ChsVector3& target );
+		virtual	void lookAt( const ChsVector3 & position , const ChsVector3 & target );
 		virtual	void lookAt( float posX, float posY, float posZ, float targetX, float targetY, float targetZ );
 		virtual	void perspective( float fovy , float aspect , float near , float far );
 

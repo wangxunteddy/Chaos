@@ -6,10 +6,12 @@
 #include "ChsSingleton.h"
 
 namespace Chaos {
-
+	
+	//----------------------------------------------------------------------------------------------
 	class ChsRenderSystem;
 	class ChsGameBase;
 	
+	//----------------------------------------------------------------------------------------------
 	class ChsEngine : public ChsSingleton<ChsEngine>, boost::noncopyable {
 	public:
 		ChsEngine();
@@ -23,6 +25,7 @@ namespace Chaos {
 		PROPERTY( ChsGameBase *, game );
 	};
 
+	//----------------------------------------------------------------------------------------------
 	SYNTHESIZE_READONLY( ChsEngine, ChsRenderSystem *, renderSystem )
 	SYNTHESIZE( ChsEngine, ChsGameBase *, game )
 

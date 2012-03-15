@@ -8,6 +8,7 @@
 
 namespace Chaos {
 	
+	//----------------------------------------------------------------------------------------------
 	class ChsEntityManager : public ChsManagerWithCache< std::string, ChsEntity > {
 	private:
 		ChsEntity * getEntityFromCache( std::string entityName );
@@ -23,6 +24,8 @@ namespace Chaos {
 
 		void releaseEntity( std::string entityName );
 	};
+	
+	//----------------------------------------------------------------------------------------------
 	
 }
 

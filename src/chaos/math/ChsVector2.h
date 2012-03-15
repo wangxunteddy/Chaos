@@ -3,37 +3,39 @@
 #pragma once
 
 namespace Chaos {
-//---------------------------------------------------------------------------------------------------------------------
-class ChsVector2 {
-public:
-	float x;
-	float y;
+	
+	//----------------------------------------------------------------------------------------------
+	class ChsVector2 {
+	public:
+		float x;
+		float y;
 
-	ChsVector2();
-	ChsVector2(const ChsVector2& vec2);
-	ChsVector2(float x, float y);
-	~ChsVector2(){};
+		ChsVector2( void );
+		ChsVector2( const ChsVector2 & vec2 );
+		ChsVector2( float x, float y );
+		~ChsVector2( void ){};
 
-	//casting
-//	operator float* ();
-//	operator CONST float* () const;
+		//casting
+	//	operator float* ();
+	//	operator CONST float* () const;
 
-	ChsVector2& operator += (const ChsVector2& vec2);
-	ChsVector2& operator -= (const ChsVector2& vec2);
-	ChsVector2& operator *= (float scale);
-	ChsVector2 & operator /= (float scale);
+		ChsVector2 & operator += ( const ChsVector2 & vec2 );
+		ChsVector2 & operator -= ( const ChsVector2 & vec2 );
+		ChsVector2 & operator *= ( float scale );
+		ChsVector2 & operator /= ( float scale );
 
-    ChsVector2 operator + (const ChsVector2& vec2)const;
-	ChsVector2 operator - (const ChsVector2& vec2)const;
-	ChsVector2 operator * (float scale)const;
-	ChsVector2 operator / (float scale)const;
+		ChsVector2 operator + ( const ChsVector2 & vec2 )const;
+		ChsVector2 operator - ( const ChsVector2 & vec2 )const;
+		ChsVector2 operator * ( float scale )const;
+		ChsVector2 operator / ( float scale )const;
 
-	ChsVector2& operator = (const ChsVector2& vec2);
+		ChsVector2 & operator = ( const ChsVector2 & vec2 );
 
-	bool operator == (const ChsVector2& vec2)const;
-	bool operator != (const ChsVector2& vec2) const;
-};
+		bool operator == ( const ChsVector2 & vec2 )const;
+		bool operator != ( const ChsVector2 & vec2 )const;
+	};
 
-//---------------------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------
+	
 }//namespace
 #endif		//_CHS_VECTOR2_H

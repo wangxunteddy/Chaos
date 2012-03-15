@@ -10,6 +10,9 @@
 		7403105114FB4D330009FF1B /* ChsMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7403104F14FB4D320009FF1B /* ChsMesh.cpp */; };
 		7403105C14FB6F910009FF1B /* ChsCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7403105814FB6F8E0009FF1B /* ChsCube.cpp */; };
 		7403105D14FB6F910009FF1B /* ChsPlane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7403105914FB6F8E0009FF1B /* ChsPlane.cpp */; };
+		7405DEB415102E3B00824770 /* sofa.dae in Resources */ = {isa = PBXBuildFile; fileRef = 7405DEB215102E3B00824770 /* sofa.dae */; };
+		7405DEB515102E3B00824770 /* sofaLeather.png in Resources */ = {isa = PBXBuildFile; fileRef = 7405DEB315102E3B00824770 /* sofaLeather.png */; };
+		740C3A5C150EDFE40093E952 /* ChsCoordinatePlane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 740C3A5B150EDFE40093E952 /* ChsCoordinatePlane.cpp */; };
 		7414711B14FC5F1C00964FA3 /* ChsMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7414711A14FC5F1C00964FA3 /* ChsMaterial.cpp */; };
 		7414711D14FC5FAD00964FA3 /* ChsOpenGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7414711C14FC5FAD00964FA3 /* ChsOpenGL.cpp */; };
 		741ABD4A14EE37BD00995232 /* ChsEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 741ABD4814EE37BD00995232 /* ChsEngine.cpp */; };
@@ -44,10 +47,13 @@
 		749D79E614ECD7B80046F2D9 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 749D799C14ECD5D90046F2D9 /* Shader.fsh */; };
 		749D79E714ECD7B80046F2D9 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 749D799D14ECD5D90046F2D9 /* Shader.vsh */; };
 		749D79F014ECE5690046F2D9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 749D79EF14ECE5690046F2D9 /* QuartzCore.framework */; };
+		74BC079C151034FB003C4429 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74BC079A151034FB003C4429 /* tinyxml2.cpp */; };
+		74BC079F15103ADC003C4429 /* ChsDaeLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74BC079E15103ADC003C4429 /* ChsDaeLoader.cpp */; };
 		74C7BE02150062E500194E72 /* ChsShaderUniform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74C7BE01150062E500194E72 /* ChsShaderUniform.cpp */; };
-		74C7BE051500705500194E72 /* default.material in Resources */ = {isa = PBXBuildFile; fileRef = 74C7BE041500705500194E72 /* default.material */; };
 		74C7BE091500727600194E72 /* ChsCameraBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74C7BE071500727600194E72 /* ChsCameraBase.cpp */; };
 		74C7BE0C1500AF9200194E72 /* ChsNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74C7BE0B1500AF9100194E72 /* ChsNode.cpp */; };
+		74DAC52D150F24640078B24F /* Wireframe.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 74DAC528150F21960078B24F /* Wireframe.vsh */; };
+		74DAC52E150F24640078B24F /* Wireframe.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 74DAC52B150F21A80078B24F /* Wireframe.fsh */; };
 		74E047C614ECC88B0024586A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74E047C514ECC88B0024586A /* UIKit.framework */; };
 		74E047C814ECC88B0024586A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74E047C714ECC88B0024586A /* Foundation.framework */; };
 		74E047ED14ECCA690024586A /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74E047EB14ECCA690024586A /* MainStoryboard_iPad.storyboard */; };
@@ -65,6 +71,10 @@
 		7403105914FB6F8E0009FF1B /* ChsPlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsPlane.cpp; path = src/chaos/geometry/ChsPlane.cpp; sourceTree = "<group>"; };
 		7403105A14FB6F8F0009FF1B /* ChsCube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChsCube.h; path = src/chaos/geometry/ChsCube.h; sourceTree = "<group>"; };
 		7403105B14FB6F900009FF1B /* ChsPlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChsPlane.h; path = src/chaos/geometry/ChsPlane.h; sourceTree = "<group>"; };
+		7405DEB215102E3B00824770 /* sofa.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = sofa.dae; sourceTree = "<group>"; };
+		7405DEB315102E3B00824770 /* sofaLeather.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sofaLeather.png; sourceTree = "<group>"; };
+		740C3A59150EDF420093E952 /* ChsCoordinatePlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChsCoordinatePlane.h; path = src/chaos/geometry/ChsCoordinatePlane.h; sourceTree = "<group>"; };
+		740C3A5B150EDFE40093E952 /* ChsCoordinatePlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsCoordinatePlane.cpp; path = src/chaos/geometry/ChsCoordinatePlane.cpp; sourceTree = "<group>"; };
 		7414711A14FC5F1C00964FA3 /* ChsMaterial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsMaterial.cpp; path = src/chaos/ChsMaterial.cpp; sourceTree = "<group>"; };
 		7414711C14FC5FAD00964FA3 /* ChsOpenGL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsOpenGL.cpp; path = src/chaos/platform/ChsOpenGL.cpp; sourceTree = "<group>"; };
 		741ABD3D14EE33CD00995232 /* ChsRenderSystemIOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ChsRenderSystemIOS.mm; path = src/chaos/platform/ios/ChsRenderSystemIOS.mm; sourceTree = "<group>"; };
@@ -131,6 +141,10 @@
 		749D79DB14ECD6080046F2D9 /* ChsVector4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChsVector4.h; sourceTree = "<group>"; };
 		749D79E214ECD77A0046F2D9 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		749D79EF14ECE5690046F2D9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		74BC079A151034FB003C4429 /* tinyxml2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml2.cpp; sourceTree = "<group>"; };
+		74BC079B151034FB003C4429 /* tinyxml2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml2.h; sourceTree = "<group>"; };
+		74BC079D15103A43003C4429 /* ChsDaeLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChsDaeLoader.h; path = src/chaos/ChsDaeLoader.h; sourceTree = "<group>"; };
+		74BC079E15103ADC003C4429 /* ChsDaeLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsDaeLoader.cpp; path = src/chaos/ChsDaeLoader.cpp; sourceTree = "<group>"; };
 		74C7BE00150061D800194E72 /* ChsShaderUniform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChsShaderUniform.h; sourceTree = "<group>"; };
 		74C7BE01150062E500194E72 /* ChsShaderUniform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChsShaderUniform.cpp; sourceTree = "<group>"; };
 		74C7BE041500705500194E72 /* default.material */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = default.material; sourceTree = "<group>"; };
@@ -138,6 +152,8 @@
 		74C7BE081500727600194E72 /* ChsCameraBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChsCameraBase.h; sourceTree = "<group>"; };
 		74C7BE0A1500AD1200194E72 /* ChsNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChsNode.h; path = src/chaos/ChsNode.h; sourceTree = "<group>"; };
 		74C7BE0B1500AF9100194E72 /* ChsNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsNode.cpp; path = src/chaos/ChsNode.cpp; sourceTree = "<group>"; };
+		74DAC528150F21960078B24F /* Wireframe.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Wireframe.vsh; path = shaders/Wireframe.vsh; sourceTree = "<group>"; };
+		74DAC52B150F21A80078B24F /* Wireframe.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Wireframe.fsh; path = shaders/Wireframe.fsh; sourceTree = "<group>"; };
 		74E047C114ECC88B0024586A /* Chaos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chaos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74E047C514ECC88B0024586A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		74E047C714ECC88B0024586A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -169,6 +185,8 @@
 				7403105A14FB6F8F0009FF1B /* ChsCube.h */,
 				7403105914FB6F8E0009FF1B /* ChsPlane.cpp */,
 				7403105B14FB6F900009FF1B /* ChsPlane.h */,
+				740C3A59150EDF420093E952 /* ChsCoordinatePlane.h */,
+				740C3A5B150EDFE40093E952 /* ChsCoordinatePlane.cpp */,
 			);
 			name = geometry;
 			sourceTree = "<group>";
@@ -206,6 +224,8 @@
 			children = (
 				749D799C14ECD5D90046F2D9 /* Shader.fsh */,
 				749D799D14ECD5D90046F2D9 /* Shader.vsh */,
+				74DAC528150F21960078B24F /* Wireframe.vsh */,
+				74DAC52B150F21A80078B24F /* Wireframe.fsh */,
 			);
 			name = shaders;
 			sourceTree = "<group>";
@@ -253,6 +273,8 @@
 				742F869314F609DB00693E51 /* ChsEntity.h */,
 				74C7BE0A1500AD1200194E72 /* ChsNode.h */,
 				74C7BE0B1500AF9100194E72 /* ChsNode.cpp */,
+				74BC079D15103A43003C4429 /* ChsDaeLoader.h */,
+				74BC079E15103ADC003C4429 /* ChsDaeLoader.cpp */,
 			);
 			name = chaos;
 			sourceTree = "<group>";
@@ -312,9 +334,21 @@
 			path = src/platform/ios/io;
 			sourceTree = "<group>";
 		};
+		74BC0799151034FB003C4429 /* tinyxml2 */ = {
+			isa = PBXGroup;
+			children = (
+				74BC079A151034FB003C4429 /* tinyxml2.cpp */,
+				74BC079B151034FB003C4429 /* tinyxml2.h */,
+			);
+			name = tinyxml2;
+			path = src/tinyxml2;
+			sourceTree = "<group>";
+		};
 		74C7BE031500703100194E72 /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				7405DEB215102E3B00824770 /* sofa.dae */,
+				7405DEB315102E3B00824770 /* sofaLeather.png */,
 				74C7BE041500705500194E72 /* default.material */,
 			);
 			path = assets;
@@ -375,6 +409,7 @@
 		74E047EF14ECCA750024586A /* src */ = {
 			isa = PBXGroup;
 			children = (
+				74BC0799151034FB003C4429 /* tinyxml2 */,
 				749D79A014ECD5DF0046F2D9 /* chaos */,
 				742F868A14F5E6AC00693E51 /* GameDemo.h */,
 				742F868B14F5ECAB00693E51 /* GameDemo.cpp */,
@@ -449,12 +484,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74DAC52D150F24640078B24F /* Wireframe.vsh in Resources */,
+				74DAC52E150F24640078B24F /* Wireframe.fsh in Resources */,
 				749D79E614ECD7B80046F2D9 /* Shader.fsh in Resources */,
 				749D79E714ECD7B80046F2D9 /* Shader.vsh in Resources */,
 				74E047ED14ECCA690024586A /* MainStoryboard_iPad.storyboard in Resources */,
 				74E047EE14ECCA690024586A /* MainStoryboard_iPhone.storyboard in Resources */,
 				74E047FE14ECCD880024586A /* InfoPlist.strings in Resources */,
-				74C7BE051500705500194E72 /* default.material in Resources */,
+				7405DEB415102E3B00824770 /* sofa.dae in Resources */,
+				7405DEB515102E3B00824770 /* sofaLeather.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -501,6 +539,9 @@
 				74C7BE02150062E500194E72 /* ChsShaderUniform.cpp in Sources */,
 				74C7BE091500727600194E72 /* ChsCameraBase.cpp in Sources */,
 				74C7BE0C1500AF9200194E72 /* ChsNode.cpp in Sources */,
+				740C3A5C150EDFE40093E952 /* ChsCoordinatePlane.cpp in Sources */,
+				74BC079C151034FB003C4429 /* tinyxml2.cpp in Sources */,
+				74BC079F15103ADC003C4429 /* ChsDaeLoader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,6 +624,10 @@
 					"./src/**",
 				);
 				INFOPLIST_FILE = "Chaos-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libs\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
@@ -601,6 +646,10 @@
 					"./src/**",
 				);
 				INFOPLIST_FILE = "Chaos-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libs\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;

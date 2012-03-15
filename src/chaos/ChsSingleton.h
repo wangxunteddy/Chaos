@@ -23,7 +23,7 @@ namespace Chaos
 	//------------------------------------------------------------------------------------------
 	template < typename T >ChsSingleton< T >::ChsSingleton( void ) {
     	assert( !_shareInstance );
-	    _shareInstance = static_cast< T * >(this);
+	    _shareInstance = static_cast< T * >( this );
 	}
 
 	//------------------------------------------------------------------------------------------

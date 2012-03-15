@@ -31,7 +31,7 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	ChsNode * ChsNode::get( std::string name ){
 		ChsNodeList::iterator iter = this->children.find( name );
-		return  ( iter == this->children.end( ) ) ? NULL : iter->second;
+		return  ( iter == this->children.end() ) ? NULL : iter->second;
 	}
 
 }

@@ -10,7 +10,6 @@ namespace Chaos {
 	}
 	
 	void ChsEntity::doRender( ChsRenderSystem * render ){
-		
 	}
 	
 }
