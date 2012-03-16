@@ -24,21 +24,27 @@ void GameDemo::onInit( void ) {
 
 	planeMesh1 = new ChsPlane(4.0f,4.0f);
 	
-	planeMesh1->setMaterial();
-	material = planeMesh1->getMaterial();
-	material->hasVertexColor(true);
+	//planeMesh1->setMaterial();
+	//material = planeMesh1->getMaterial();
+	//material->hasVertexColor(true);
 	
 	plane1->add( planeMesh1 );
 	
-	this->renderer()->root()->add( plane1->name(), plane1 );
+	//this->renderer()->root()->add( plane1->name(), plane1 );
 	
 	ChsRect viewport = this->renderer()->getViewPort();
-	camera.perspective( degree2Radian(60), viewport.w/(float)viewport.h, 0.001f, 1000.0f  );
+	camera.perspective( degree2Radian(60), viewport.w/(float)viewport.h, 0.1f, 1000.0f  );
 	camera.lookAt( 0,20,0,0,0,0 );
 	this->renderer()->currentCamera( &camera );
 	this->renderer()->showDebugCoordinate( true );
+	
 	Chaos::ChsDaeLoader loader;
 	ChsMesh * mesh = loader.load( "sofa.dae" );
+	mesh->setMaterial();
+	material = mesh->getMaterial();
+	material->hasVertexColor(true);
+	
+	this->renderer()->root()->add( mesh->name(), mesh );
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -47,8 +53,8 @@ void GameDemo::onUpdate( void ) {
 	float alpha = sin(transY);
 	camera.moveTo( cos(transY)*3, 2, sin(transY)*3);
 	alpha = alpha >=0 ? alpha : -alpha;
-	material = planeMesh1->getMaterial();
-	material->alpha(1.0f-alpha);
+	//material = planeMesh1->getMaterial();
+	//material->alpha(1.0f-alpha);
 	
 }
 
