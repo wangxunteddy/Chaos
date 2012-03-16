@@ -49,7 +49,7 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::init( void ){
 		this->initContext();
-		this->initFrameAndRenderBuffers();
+		this->initAllBuffers();
 		this->initGL();
 		globalUniforms.reset();
 		globalUniforms.add( "wvp", &wvp, CHS_SHADER_UNIFORM_MAT4, 1 );
@@ -68,11 +68,11 @@ namespace Chaos {
 		//depth
 		glEnable( GL_DEPTH_TEST );
 		glClearDepthf( 1.0f );
-		glDepthFunc( GL_LEQUAL );
+		glDepthFunc( GL_LESS );
 		
 		//cull
-		//glEnable( GL_CULL_FACE );
-		glCullFace( GL_FRONT );
+		glEnable( GL_CULL_FACE );
+		glCullFace( GL_BACK );
 		glFrontFace( GL_CW );
 		
 		//blend
@@ -83,7 +83,7 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::shutdown( void ){
 		safeDelete( &this->_root, "delete render root node");
-		this->deleteFrameAndRenderBuffers();
+		this->deleteAllBuffers();
 		this->releaseContext();
 	}
 
@@ -149,16 +149,31 @@ namespace Chaos {
 	}
 	
 	//----------------------------------------------------------------------------------------------
-	void ChsRenderSystem::initFrameAndRenderBuffers( void ){
-		this->deleteFrameAndRenderBuffers();
-		glGenFramebuffers( 1, &(this->framebuffer) );
-		glGenRenderbuffers( 1, &(this->renderbuffer) );
-		glBindFramebuffer( GL_FRAMEBUFFER, this->framebuffer );
-		glBindRenderbuffer( GL_RENDERBUFFER, this->renderbuffer );
+	void ChsRenderSystem::initAllBuffers( void ){
+		this->deleteAllBuffers();
+		this->initRenderBuffer();
+		this->initFrameBuffer();
+		this->initDepthBuffer();
+		if ( glCheckFramebufferStatus( GL_FRAMEBUFFER ) != GL_FRAMEBUFFER_COMPLETE )
+            printf( "Failed to make complete framebuffer object %x\n", glCheckFramebufferStatus( GL_FRAMEBUFFER ) );
 	}
 	
 	//----------------------------------------------------------------------------------------------
-	void ChsRenderSystem::deleteFrameAndRenderBuffers( void ){
+	void ChsRenderSystem::initFrameBuffer( void ){
+		glGenFramebuffers( 1, &(this->framebuffer) );
+		glBindFramebuffer( GL_FRAMEBUFFER, this->framebuffer );
+		glFramebufferRenderbuffer( GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, this->renderbuffer );
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	void ChsRenderSystem::initDepthBuffer( void ){
+		glGenRenderbuffers(1, &(this->depthRenderbuffer) );
+		glBindRenderbuffer(GL_RENDERBUFFER, this->depthRenderbuffer);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, this->renderbufferWidth, this->renderbufferHeight );
+		glFramebufferRenderbuffer( GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, this->depthRenderbuffer );
+	}
+	//----------------------------------------------------------------------------------------------
+	void ChsRenderSystem::deleteAllBuffers( void ){
 		if( this->framebuffer ){
             glDeleteFramebuffers( 1, &(this->framebuffer) );
             this->framebuffer = 0;
@@ -166,6 +181,10 @@ namespace Chaos {
 		if( this->renderbuffer ){
             glDeleteRenderbuffers( 1, &(this->renderbuffer) );
             this->renderbuffer = 0;
+        }
+		if( this->depthRenderbuffer ){
+            glDeleteRenderbuffers( 1, &(this->depthRenderbuffer) );
+            this->depthRenderbuffer = 0;
         }
 	}
 	

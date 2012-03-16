@@ -15,20 +15,16 @@ namespace Chaos {
 	}
 
 	//----------------------------------------------------------------------------------------------
-	void ChsRenderSystemIOS::initFrameAndRenderBuffers( void ){
-		ChsRenderSystem::initFrameAndRenderBuffers();
+	void ChsRenderSystemIOS::initRenderBuffer( void ){
+		glGenRenderbuffers( 1, &(this->renderbuffer) );
+		glBindRenderbuffer( GL_RENDERBUFFER, this->renderbuffer );
 		
 		//connect with layer
 		assert( glLayer );
 		[glContext renderbufferStorage:GL_RENDERBUFFER fromDrawable:glLayer];
-		//attachment
-		glFramebufferRenderbuffer( GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, this->renderbuffer );
-		
-        glGetRenderbufferParameteriv( GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &(this->renderbufferWidth) );
+
+		glGetRenderbufferParameteriv( GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &(this->renderbufferWidth) );
         glGetRenderbufferParameteriv( GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &(this->renderbufferHeight) );
-		
-		if ( glCheckFramebufferStatus( GL_FRAMEBUFFER ) != GL_FRAMEBUFFER_COMPLETE )
-            printf( "Failed to make complete framebuffer object %x", glCheckFramebufferStatus( GL_FRAMEBUFFER ) );
 	}
 	
 	//----------------------------------------------------------------------------------------------

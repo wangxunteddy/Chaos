@@ -28,12 +28,13 @@ namespace Chaos {
 		virtual void initContext( void ) = 0;
 		virtual void releaseContext( void ) = 0;
 		virtual void attachContext( void ) = 0;
+		virtual void initRenderBuffer( void ) = 0;
 	
-		virtual void initFrameAndRenderBuffers( void );
-
+		
 		// The OpenGL ES names for the framebuffer and renderbuffer used to render to this view.
 	    GLuint framebuffer;
 		GLuint renderbuffer;
+		GLuint depthRenderbuffer;
 		
 		// The pixel dimensions of the CAEAGLLayer.
     	GLint renderbufferWidth;
@@ -46,8 +47,11 @@ namespace Chaos {
 		void preRender( void );
 		void render( void );
 	    void postRender( void );
-		void deleteFrameAndRenderBuffers( void );
 
+		void initAllBuffers( void );
+		void deleteAllBuffers( void );
+		void initFrameBuffer( void );
+		void initDepthBuffer( void );
 		void initGL( void );
 	public:
 		ChsRenderSystem( void );

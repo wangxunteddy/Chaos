@@ -17,7 +17,7 @@ namespace Chaos {
 		void releaseContext( void );
 		void attachContext( void );
 		
-		void initFrameAndRenderBuffers( void );
+		void initRenderBuffer( void );
 	};
 
 	//----------------------------------------------------------------------------------------------
