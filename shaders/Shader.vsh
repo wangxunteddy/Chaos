@@ -1,29 +1,22 @@
-#define TEXTURE_MAX 2
 attribute vec4 position;
+attribute vec3 normal;
+attribute vec2 texcoord0;
 attribute vec4 vertexColor;
-attribute mat4 texCoord;
 
 //material
 uniform bool hasVertexColor;
 uniform bool hasTexture;
-uniform lowp int  textureCount;		//max support 2 right now
 
 //transform
 uniform mat4 wvp;
 
 varying vec4 colorVarying;
-varying vec2 texCoordVarying[TEXTURE_MAX];
-
 
 void main(){
     gl_Position = wvp * position;
 	
+	vec4 c = vec4(normal,1.0);
+	c = ( c + vec4(1.0) )/vec4(2.0);
 	if(hasVertexColor)
-	    colorVarying = vertexColor;
-	
-	if(hasTexture){
-		for(int i=0;i<textureCount;i++){
-			texCoordVarying[i] = vec2(texCoord[i][0],texCoord[i][1]);
-		}
-	}
+		colorVarying = c;//vertexColor;
 }
