@@ -57,6 +57,7 @@ namespace Chaos {
 		//add debug coordinate plane
 		debugCoordinatePlane = new ChsCoordinatePlane( 50, 50 );
 		debugCoordinatePlane->setMaterial();
+		debugCoordinatePlane->getMaterial()->hasVertexColor( true );
 	}
 	
 	//----------------------------------------------------------------------------------------------

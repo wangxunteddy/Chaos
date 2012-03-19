@@ -4,6 +4,7 @@
 
 #include <map>
 #include <string>
+#include "ChsDefine.h"
 #include "ChsMacro.h"
 #include "shader/ChsShaderUniform.h"
 
@@ -20,26 +21,26 @@ namespace Chaos {
 		ChsShaderUniform shaderUniforms;
 		PROPERTY_READONLY( ChsShaderProgram *, shaderProgram );
 		
-		PROPERTY( bool, hasVertexColor );
+		PROPERTY( boolean, hasVertexColor );
 		PROPERTY( float, alpha );
 
 		//texture
-		PROPERTY( bool, hasTexture );
+		PROPERTY( boolean, hasTexture );
 		PROPERTY( int, textureCount );
 
 		//light
-		
+
 	};
 
 	//----------------------------------------------------------------------------------------------
 	SYNTHESIZE_READONLY( ChsMaterial, ChsShaderProgram *, shaderProgram );
 	
 	//color
-	SYNTHESIZE( ChsMaterial, bool, hasVertexColor );
+	SYNTHESIZE( ChsMaterial, boolean, hasVertexColor );
 	SYNTHESIZE( ChsMaterial, float, alpha );
 
 	//texture
-	SYNTHESIZE( ChsMaterial, bool, hasTexture );
+	SYNTHESIZE( ChsMaterial, boolean, hasTexture );
 	SYNTHESIZE( ChsMaterial, int, textureCount );
 	
 	//lighting

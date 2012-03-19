@@ -18,6 +18,13 @@ namespace Chaos {
 #endif
 
 	//----------------------------------------------------------------------------------------------
+	
+#if defined(boolean)
+#undef boolean
+#endif
+#define boolean unsigned int
+
+	//----------------------------------------------------------------------------------------------
 	enum ChsRenderType{
 		CHS_RENDER_IOS,
 		CHS_RENDER_ANDROID,
@@ -52,5 +59,7 @@ namespace Chaos {
 		float w;
 		float h;
 	};
+
+	
 }//namespace
 #endif//_CHSDEFINE_H
