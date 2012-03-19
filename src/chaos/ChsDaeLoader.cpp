@@ -93,7 +93,8 @@ namespace Chaos {
 		void setValue( tinyxml2::XMLElement * inputElement ){
 			DaeUnsharedInput::setValue( inputElement );
 			this->offset = inputElement->IntAttribute( "offset" );
-			this->set = inputElement->IntAttribute( "set" );
+			this->set = -1;
+			inputElement->QueryIntAttribute( "set", &(this->set) );
 		}
 	};
 	
@@ -189,7 +190,6 @@ namespace Chaos {
 		int triangleIndexCount = daeMesh.triangles.p.size();
 		int vertexComponentCount = daeMesh.triangles.input.size();
 		std::map<std::string, int> vertexLookupList;//store vertex whitch be use,
-
 		std::vector<int> vertexIndex;
 		for( int triangleIndex = 0; triangleIndex < triangleIndexCount; triangleIndex += vertexComponentCount ){
 			std::string key = "";
@@ -221,9 +221,75 @@ namespace Chaos {
 	}
 	
 	//----------------------------------------------------------------------------------------------
+	void vertexInputRedirection( const DaeMesh & daeMesh, DaeSharedInput & input );
+	void vertexInputRedirection( const DaeMesh & daeMesh, DaeSharedInput & input ){
+		if( input.semantic.compare( "VERTEX" ) )
+			return;
+		//from verteices
+		int vertexInputCount = daeMesh.vertices.input.size();
+		for( int i = 0; i< vertexInputCount; i++ ){
+			const DaeUnsharedInput & vertexInput = daeMesh.vertices.input[i];
+			if( !vertexInput.semantic.compare( "POSITION" )){
+				input.source = vertexInput.source;
+				input.semantic = vertexInput.semantic;
+				return;							
+			}
+		}
+	}
+
+	//----------------------------------------------------------------------------------------------
+	struct VertexAttribute{
+		std::string name;
+		const float * array;
+		int stride;
+	};
+	
+	//----------------------------------------------------------------------------------------------
+	void makeVertexList( const std::vector<int> & vertexIndexList, std::vector<float> & vertexList, 
+						int vertexAttributeCount, const VertexAttribute * VertexAttributes );
+	
+	void makeVertexList( const std::vector<int> & vertexIndexList, std::vector<float> & vertexList, 
+						int vertexAttributeCount, const VertexAttribute * VertexAttributes ){
+		int vertexIndexCount = vertexIndexList.size();
+		for( int vertexIndex = 0; vertexIndex < vertexIndexCount; vertexIndex += vertexAttributeCount ){
+			for( int attribute = 0; attribute < vertexAttributeCount; attribute++ ){
+				int index = vertexIndexList[vertexIndex+attribute];
+				int stride = VertexAttributes[attribute].stride;
+				const float * array = VertexAttributes[attribute].array;
+				for( int i = 0; i < stride; i++ )
+					vertexList.push_back( array[index*stride + i] );
+			}
+		}
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	int makeVertexAttributes( DaeMesh & daeMesh, VertexAttribute ** vertexAttributes );
+	
+	int makeVertexAttributes( DaeMesh & daeMesh, VertexAttribute ** vertexAttributes ){
+		int vertexAttributeCount = daeMesh.triangles.input.size();
+		*vertexAttributes = new VertexAttribute [vertexAttributeCount];
+		for( int attributeIndex = 0; attributeIndex < vertexAttributeCount; attributeIndex++ ){
+			DaeSharedInput input = daeMesh.triangles.input[attributeIndex];
+			vertexInputRedirection( daeMesh, input );
+			std::string sourceId = input.source;
+			std::string semantic = input.semantic;
+			boost::to_lower( semantic );
+			std::map<std::string,DaeSource>::iterator iter =  daeMesh.sources.find( sourceId );
+			if( iter != daeMesh.sources.end() ){
+				const DaeSource & source = iter->second;
+				if( input.set >= 0 )
+					semantic += boost::lexical_cast<std::string>( input.set );
+				(*vertexAttributes)[input.offset].name = semantic;
+				(*vertexAttributes)[input.offset].array = source.floatArray.data.data();
+				(*vertexAttributes)[input.offset].stride = source.techniqueCommon.accessor.stride;
+			}
+		}
+		return vertexAttributeCount;
+	}
+	
+	//----------------------------------------------------------------------------------------------
 	ChsMesh * ChsDaeLoader::load( std::string filename ){
-		
-		char * file = (char *)ChsFileSystem::sharedInstance()->readFileAsRaw( filename.c_str() );
+		char * file = ( char * )ChsFileSystem::sharedInstance()->readFileAsRaw( filename.c_str() );
 		if( file == NULL ){
 			printf( "has no contents in xml file, or not found this file" );
 			return NULL;
@@ -239,73 +305,34 @@ namespace Chaos {
 		
 		ChsMesh * mesh = NULL;
 		tinyxml2::XMLElement * geometryElement = doc.FirstChildElement( "COLLADA" )
-														->FirstChildElement( "library_geometries" )
-														->FirstChildElement( "geometry" );
+													->FirstChildElement( "library_geometries" )
+													->FirstChildElement( "geometry" );
 		
+		std::vector<int> vertexIndexList;//store vertex index, include position normal and etc..
+		std::vector<float> vertexList;//store all vertex infomation, 
+		std::vector<unsigned short> triangleList;
+		tinyxml2::XMLElement * meshElement;
 		do{
-			tinyxml2::XMLElement * meshElement = geometryElement->FirstChildElement( "mesh" );
+			meshElement = geometryElement->FirstChildElement( "mesh" );
 			DaeMesh daeMesh;
 			daeMesh.setValue( meshElement );
-			
-			std::vector<int> vertexIndexList;//store vertex index, include position normal and etc..
-			std::vector<unsigned short> triangleList;
 			reduceTriangleListAndVertexIndexList( daeMesh, vertexIndexList, triangleList );
-			
-			mesh = new ChsMesh();
-			
-			//get size of vertex array, need calculate all components of vertex
-			//looking for components from triangle inputs
-			std::vector<float> vertexArray;
-			int vertexComponentCount = daeMesh.triangles.input.size();
-			float ** vertexArrayList = new float*[vertexComponentCount];
-			int *strideList = new int[vertexComponentCount];
-			for( int componentIndex = 0; componentIndex < vertexComponentCount; componentIndex++ ){
-				DaeSharedInput input = daeMesh.triangles.input[componentIndex];
-				std::string sourceId = input.source;
-				std::string semantic = input.semantic;
-				if( !semantic.compare( "VERTEX" ) ){
-					//from verteices
-					for( int i = 0; i< daeMesh.vertices.input.size(); i++ ){
-						if( !daeMesh.vertices.input[i].semantic.compare( "POSITION" )){
-							sourceId = daeMesh.vertices.input[0].source;
-							semantic = daeMesh.vertices.input[0].semantic;
-							break;							
-						}
-					}
-				}
-				boost::to_lower( semantic );
-				std::map<std::string,DaeSource>::iterator iter =  daeMesh.sources.find( sourceId );
-				if( iter != daeMesh.sources.end() ){
-					const DaeSource & source = iter->second;
-					bool isNormalized = false;
-					int stride = source.techniqueCommon.accessor.stride;
-					if( !semantic.compare( "normal" ) )
-						isNormalized = true;//normal data is normalized
-					if( !semantic.compare( "texcoord" ) )
-						semantic += boost::lexical_cast<std::string>( input.set );
-					mesh->vertexBuffer->addAttrib( stride, GL_FLOAT, isNormalized, semantic );
-					vertexArrayList[input.offset] = ( float * )source.floatArray.data.data();
-					strideList[input.offset] = stride;
-				}
-			}
-			
-			std::vector<float> vertexList;
-			for( int i = 0; i < vertexIndexList.size(); i += vertexComponentCount ){
-				for( int component = 0; component < vertexComponentCount; component++ ){
-	 				int index = vertexIndexList[i+component];
-					int stride = strideList[component];
-					float * componentArray = vertexArrayList[component];
-					for( int k = 0; k < stride; k++ )
-						vertexList.push_back( componentArray[index*stride + k] );
-				}
-			}
-			
-			mesh->vertexBuffer->setData( vertexList.data(), vertexList.size() * sizeof(float) );
-			mesh->indexBuffer->setData( triangleList.data(), triangleList.size() , GL_UNSIGNED_SHORT, GL_TRIANGLES );
-
-			vertexList.clear();
+			VertexAttribute * vertexAttributes = NULL ;
+			int vertexAttributeCount = makeVertexAttributes( daeMesh, &vertexAttributes );
+			makeVertexList( vertexIndexList, vertexList, vertexAttributeCount, vertexAttributes );
 			vertexIndexList.clear();
+			mesh = new ChsMesh();
+			for( int i = 0; i < vertexAttributeCount ; i++ ){
+				const VertexAttribute & attribute = vertexAttributes[i];
+				bool isNormalized = attribute.name.compare( "normal" ) ? false : true;
+				mesh->vertexBuffer->addAttrib( attribute.stride, GL_FLOAT, isNormalized, attribute.name );
+			}
+			safeDeleteArray( &vertexAttributes );
+			mesh->vertexBuffer->setData( vertexList );
+			vertexList.clear();
+			mesh->indexBuffer->setData( triangleList );
 			triangleList.clear();
+			mesh->indexBuffer->mode( GL_TRIANGLES );
 			geometryElement = geometryElement->NextSiblingElement();
 		}while( geometryElement != NULL );
 		return mesh;
