@@ -1,6 +1,5 @@
 #include <string>
 #include "ChsIndexBuffer.h"
-#include "platform/ChsOpenGL.h"
 #include "ChsUtility.h"
 
 namespace Chaos {
@@ -18,8 +17,7 @@ namespace Chaos {
 	}
 
 	//----------------------------------------------------------------------------------------------
-	void ChsIndexBuffer::setData( const void * triangles, int count, int type, int mode ){
-    	this->mode = mode;
+	void ChsIndexBuffer::setData( const void * triangles, int count, int type ){
 	    this->type = type;
     	this->count = count;
 	    this->size = getGLDataTypeSize( type ) * count ;
@@ -36,7 +34,7 @@ namespace Chaos {
 			glBufferData( GL_ELEMENT_ARRAY_BUFFER, this->size, this->triangles, GL_STATIC_DRAW ); 
 			this->isNeedUpdate = false;
 		}
-	    glDrawElements( this->mode, this->count, this->type, 0 );
+	    glDrawElements( this->_mode, this->count, this->type, 0 );
 	}
 
 	//----------------------------------------------------------------------------------------------

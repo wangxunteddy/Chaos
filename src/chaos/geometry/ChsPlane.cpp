@@ -28,7 +28,8 @@ namespace Chaos {
 		const GLubyte indices[]={
 			0,1,2,3
 		};
-		this->indexBuffer->setData( indices, 4, GL_UNSIGNED_BYTE, GL_TRIANGLE_STRIP );
+		this->indexBuffer->setData( indices, 4, GL_UNSIGNED_BYTE );
+		this->indexBuffer->mode( GL_TRIANGLE_STRIP );
 	}
 	
 	ChsPlane::ChsPlane( float w, float h ) : ChsPlane( "unnamed", w, h ) {

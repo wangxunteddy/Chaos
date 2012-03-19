@@ -49,6 +49,7 @@ namespace Chaos {
 		void bindAttribLocations( const ChsShaderProgram * program );
 		void addAttrib( int count, int type, bool isNormalized, std::string name );
 		void setData( const void * vertices, int size );
+		inline void setData( const std::vector<float> & vertices );
 		void preDraw( void );
 		void postDraw( void );
 		
@@ -67,6 +68,9 @@ namespace Chaos {
 		bool isNeedUpdate;
 	};
 	
+	inline void ChsVertexBuffer::setData( const std::vector<float> & vertices ){
+		this->setData( vertices.data(), vertices.size() * sizeof(float) );
+	}
 //--------------------------------------------------------------------------------------------------------------------------------------------
 }//namespace
 #endif //_CHS_VERTEXBUFFER_H

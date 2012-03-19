@@ -62,7 +62,8 @@ namespace Chaos {
 		for( int i = 0; i < indexCount; i++ )
 			indices[i] = ( GLushort )i;
 		
-		this->indexBuffer->setData( indices, indexCount, GL_UNSIGNED_SHORT, GL_LINES );
+		this->indexBuffer->setData( indices, indexCount, GL_UNSIGNED_SHORT );
+		this->indexBuffer->mode( GL_LINES );
 		delete [] indices;
 	}
 
