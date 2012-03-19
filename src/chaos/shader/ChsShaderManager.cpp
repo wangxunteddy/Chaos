@@ -12,7 +12,8 @@ namespace Chaos{
         	return ( ShaderType * )this->cache[name]; //cache hit
     
 	    //not in cache, so load source from file
-    	const char * source = ChsFileSystem::sharedInstance()->readFileAsRaw( name.c_str() );
+    	char * source ;
+		ChsFileSystem::sharedInstance()->readFileAsRaw( name.c_str(), &source );
 		if( !source )
 			return NULL;
 

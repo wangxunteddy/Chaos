@@ -3,9 +3,7 @@
 #pragma once
 
 //--------------------------------------------------------------------------------------------------
-#include <string>
 #include "ChsManagerWithCache.h"
-#include "ChsShader.h"
 #include "ChsShaderProgram.h"
 
 namespace Chaos {

@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
-#include "ChsFileSystemIOS.h"
 #include <string.h>
+#include "ChsFileSystemIOS.h"
+
 //--------------------------------------------------------------------------------------------------
 
 namespace Chaos {
@@ -9,7 +10,7 @@ namespace Chaos {
 	ChsFileSystemIOS gFileSystem;
 
 	//----------------------------------------------------------------------------------------------
-	const char * ChsFileSystemIOS::readFileAsRaw( const char * path ){
+	int ChsFileSystemIOS::readFileAsRaw( const char * path, char ** data ){
     	NSString * fileName = [NSString stringWithUTF8String:path ];
 	    NSString * type = [ fileName pathExtension];
     	fileName = [ [ fileName lastPathComponent ] stringByDeletingPathExtension ];
@@ -21,11 +22,8 @@ namespace Chaos {
 		int length = [source length];
 		if(length<=0)
 			return NULL;
-		const char * data = new char [length];
-	    strcpy( (char *)data, (const char *)[source UTF8String]);
-    	return data;
+		*data = new char [length];
+	    strcpy( (char *)*data, (const char *)[source UTF8String]);
+    	return length;
 	}
-
-	//----------------------------------------------------------------------------------------------
-
 }//namespace

@@ -11,7 +11,7 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	class ChsFileSystem : public ChsSingleton< ChsFileSystem >{
 	public:
-    	virtual const char * readFileAsRaw( const char *  path ) = 0;
+    	virtual int readFileAsRaw( const char *  path , char ** data ) = 0;
 	};
 
 }//namespace

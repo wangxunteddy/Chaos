@@ -9,7 +9,7 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	class ChsFileSystemIOS : public ChsFileSystem {
 	public:
-    	const char * readFileAsRaw( const char * path );
+    	int readFileAsRaw( const char * path, char ** data );
 	};
 
 	//----------------------------------------------------------------------------------------------
