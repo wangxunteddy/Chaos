@@ -289,15 +289,16 @@ namespace Chaos {
 	
 	//----------------------------------------------------------------------------------------------
 	ChsMesh * ChsDaeLoader::load( std::string filename ){
-		char * file = ( char * )ChsFileSystem::sharedInstance()->readFileAsRaw( filename.c_str() );
-		if( file == NULL ){
+		char * fileData;
+		ChsFileSystem::sharedInstance()->readFileAsRaw( filename.c_str(), &fileData );
+		if( fileData == NULL ){
 			printf( "has no contents in xml file, or not found this file" );
 			return NULL;
 		}
 		
 		tinyxml2::XMLDocument doc;
-		int ret = doc.Parse( file );
-		safeDelete( &file );
+		int ret = doc.Parse( fileData );
+		safeDelete( &fileData );
 		if( tinyxml2::XML_NO_ERROR != ret ){
 			doc.PrintError();//get some error
 			return NULL;
