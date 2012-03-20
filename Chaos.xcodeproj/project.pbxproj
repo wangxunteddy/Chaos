@@ -25,6 +25,7 @@
 		743A296614F337B400486634 /* ChsSingleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 743A296414F337B400486634 /* ChsSingleton.cpp */; };
 		744EA4AA14F22F2700669446 /* ChsRenderSystemIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 741ABD3D14EE33CD00995232 /* ChsRenderSystemIOS.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		744EA4AB14F22F2700669446 /* ChsFileSystemIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 741ABD4014EE33DA00995232 /* ChsFileSystemIOS.mm */; };
+		745C30F31516FD8F0061F510 /* ChsTexture2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 745C30F21516FD8E0061F510 /* ChsTexture2D.cpp */; };
 		748936FA14F64490006CDF7B /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 748936F414F64490006CDF7B /* EAGLView.mm */; };
 		748936FB14F64490006CDF7B /* GLViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 748936F514F64490006CDF7B /* GLViewController.mm */; };
 		748936FC14F64490006CDF7B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 748936F614F64490006CDF7B /* AppDelegate.m */; };
@@ -59,6 +60,10 @@
 		74E047ED14ECCA690024586A /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74E047EB14ECCA690024586A /* MainStoryboard_iPad.storyboard */; };
 		74E047EE14ECCA690024586A /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74E047EC14ECCA690024586A /* MainStoryboard_iPhone.storyboard */; };
 		74E047FE14ECCD880024586A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 74E047FC14ECCD880024586A /* InfoPlist.strings */; };
+		74EE3A651517147600FC9420 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74EE3A641517147600FC9420 /* CoreGraphics.framework */; };
+		74EE3A6B15171D7F00FC9420 /* ChsTextureFactoryIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 74EE3A6A15171D7F00FC9420 /* ChsTextureFactoryIOS.mm */; };
+		74EE3A6E1517229400FC9420 /* ChsTextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74EE3A6D1517229300FC9420 /* ChsTextureManager.cpp */; };
+		74EE3A7015172E0B00FC9420 /* ChsTextureFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74EE3A6F15172E0B00FC9420 /* ChsTextureFactory.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +103,8 @@
 		742F869814F61F2300693E51 /* ChsResourceManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsResourceManager.cpp; path = src/chaos/ChsResourceManager.cpp; sourceTree = "<group>"; };
 		743A296414F337B400486634 /* ChsSingleton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsSingleton.cpp; path = src/chaos/ChsSingleton.cpp; sourceTree = "<group>"; };
 		743A296514F337B400486634 /* Chaos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Chaos.h; path = src/chaos/Chaos.h; sourceTree = "<group>"; };
+		745C30F01516FD290061F510 /* ChsTexture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChsTexture2D.h; path = src/chaos/ChsTexture2D.h; sourceTree = "<group>"; };
+		745C30F21516FD8E0061F510 /* ChsTexture2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsTexture2D.cpp; path = src/chaos/ChsTexture2D.cpp; sourceTree = "<group>"; };
 		74614B8C14F4BB85003396BA /* ChsDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChsDefine.h; path = src/chaos/ChsDefine.h; sourceTree = "<group>"; };
 		74614B8E14F4CCD0003396BA /* ChsOpenGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChsOpenGL.h; path = src/chaos/platform/ChsOpenGL.h; sourceTree = "<group>"; };
 		748936F214F620EF006CDF7B /* ChsManagerWithCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChsManagerWithCache.h; path = src/chaos/ChsManagerWithCache.h; sourceTree = "<group>"; };
@@ -161,6 +168,13 @@
 		74E047EC14ECCA690024586A /* MainStoryboard_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = MainStoryboard_iPhone.storyboard; path = view/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		74E047FD14ECCD880024586A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		74E047FF14ECCE020024586A /* Chaos-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Chaos-Info.plist"; sourceTree = "<group>"; };
+		74EE3A641517147600FC9420 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		74EE3A6815171BF300FC9420 /* ChsTextureFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChsTextureFactory.h; path = src/chaos/ChsTextureFactory.h; sourceTree = "<group>"; };
+		74EE3A6915171CCA00FC9420 /* ChsTextureFactoryIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChsTextureFactoryIOS.h; path = src/chaos/platform/ios/ChsTextureFactoryIOS.h; sourceTree = "<group>"; };
+		74EE3A6A15171D7F00FC9420 /* ChsTextureFactoryIOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ChsTextureFactoryIOS.mm; path = src/chaos/platform/ios/ChsTextureFactoryIOS.mm; sourceTree = "<group>"; };
+		74EE3A6C1517209200FC9420 /* ChsTextureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChsTextureManager.h; path = src/chaos/ChsTextureManager.h; sourceTree = "<group>"; };
+		74EE3A6D1517229300FC9420 /* ChsTextureManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsTextureManager.cpp; path = src/chaos/ChsTextureManager.cpp; sourceTree = "<group>"; };
+		74EE3A6F15172E0B00FC9420 /* ChsTextureFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsTextureFactory.cpp; path = src/chaos/ChsTextureFactory.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +186,7 @@
 				74E047C814ECC88B0024586A /* Foundation.framework in Frameworks */,
 				749D79E314ECD77A0046F2D9 /* OpenGLES.framework in Frameworks */,
 				749D79F014ECE5690046F2D9 /* QuartzCore.framework in Frameworks */,
+				74EE3A651517147600FC9420 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,6 +230,8 @@
 				741ABD3D14EE33CD00995232 /* ChsRenderSystemIOS.mm */,
 				741ABD3E14EE33CD00995232 /* ChsRenderSystemIOS.h */,
 				749D79E814ECD8120046F2D9 /* io */,
+				74EE3A6915171CCA00FC9420 /* ChsTextureFactoryIOS.h */,
+				74EE3A6A15171D7F00FC9420 /* ChsTextureFactoryIOS.mm */,
 			);
 			name = ios;
 			sourceTree = "<group>";
@@ -275,6 +292,12 @@
 				74C7BE0B1500AF9100194E72 /* ChsNode.cpp */,
 				74BC079D15103A43003C4429 /* ChsDaeLoader.h */,
 				74BC079E15103ADC003C4429 /* ChsDaeLoader.cpp */,
+				745C30F01516FD290061F510 /* ChsTexture2D.h */,
+				745C30F21516FD8E0061F510 /* ChsTexture2D.cpp */,
+				74EE3A6815171BF300FC9420 /* ChsTextureFactory.h */,
+				74EE3A6F15172E0B00FC9420 /* ChsTextureFactory.cpp */,
+				74EE3A6C1517209200FC9420 /* ChsTextureManager.h */,
+				74EE3A6D1517229300FC9420 /* ChsTextureManager.cpp */,
 			);
 			name = chaos;
 			sourceTree = "<group>";
@@ -389,6 +412,7 @@
 		74E047C414ECC88B0024586A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				74EE3A641517147600FC9420 /* CoreGraphics.framework */,
 				749D79EF14ECE5690046F2D9 /* QuartzCore.framework */,
 				749D79E214ECD77A0046F2D9 /* OpenGLES.framework */,
 				74E047C514ECC88B0024586A /* UIKit.framework */,
@@ -542,6 +566,10 @@
 				740C3A5C150EDFE40093E952 /* ChsCoordinatePlane.cpp in Sources */,
 				74BC079C151034FB003C4429 /* tinyxml2.cpp in Sources */,
 				74BC079F15103ADC003C4429 /* ChsDaeLoader.cpp in Sources */,
+				745C30F31516FD8F0061F510 /* ChsTexture2D.cpp in Sources */,
+				74EE3A6B15171D7F00FC9420 /* ChsTextureFactoryIOS.mm in Sources */,
+				74EE3A6E1517229400FC9420 /* ChsTextureManager.cpp in Sources */,
+				74EE3A7015172E0B00FC9420 /* ChsTextureFactory.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
