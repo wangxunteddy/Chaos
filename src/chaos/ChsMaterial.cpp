@@ -18,13 +18,21 @@ namespace Chaos {
 		this->shaderUniforms.add( "alpha", &(this->_alpha), CHS_SHADER_UNIFORM_1_FLOAT, 1);
 
 		this->_textureCount = 1;
+		
+		this->textures.clear();
 	}
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 	ChsMaterial::~ChsMaterial( void ) {
 		this->_shaderProgram = NULL;
+		this->textures.clear();
 	}
 
+	//--------------------------------------------------------------------------------------------------------------------------------------------
+	void ChsMaterial::addTexture( ChsTexture2D * texture ){
+		this->textures.push_back( texture );
+	}
+	
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 	ChsShaderProgram * ChsMaterial::apply( ChsShaderProgram * sysProgram ) {
 		if( this->_shaderProgram == NULL && sysProgram == NULL )
@@ -33,6 +41,8 @@ namespace Chaos {
 		if( currentProgram != sysProgram )
 			currentProgram->use();
     	this->shaderUniforms.apply( currentProgram );
+		for( int i = 0; i < this->textures.size(); i++ )
+			this->textures[i]->bind();
 		return currentProgram;
 	}
 
