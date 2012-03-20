@@ -69,7 +69,7 @@ namespace Chaos {
 	}
 	
 	//----------------------------------------------------------------------------------------------
-	void ChsShaderUniform::add( std::string name, void * varAddr, ChsShaderUniformDataType type, size_t count ){
+	void ChsShaderUniform::add( std::string name, void * varAddr, ChsShaderUniformDataType type, unsigned int count ){
 		if( uniformVariables.find( name ) != uniformVariables.end() )
 			return;//already in list, do nothing
 		//leave location with -1

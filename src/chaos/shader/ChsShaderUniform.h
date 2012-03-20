@@ -14,7 +14,7 @@ namespace Chaos {
 	
 	struct Uniform {
 		int type;
-		int count;
+		unsigned int count;
 		int location;
 		void * varAddr;
 	};
@@ -28,7 +28,7 @@ namespace Chaos {
 		~ChsShaderUniform( void );
 		void reset( void );
 		void apply( ChsShaderProgram * program );
-		void add( std::string name, void * varAddr, ChsShaderUniformDataType type, size_t count ); 
+		void add( std::string name, void * varAddr, ChsShaderUniformDataType type, unsigned int count ); 
 	 private:
 		ChsShaderProgram * program;
 		UniformVariables uniformVariables;
