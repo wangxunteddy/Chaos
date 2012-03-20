@@ -1,8 +1,6 @@
 #ifndef _CHS_ENTITYMANAGER_H
 #define _CHS_ENTITYMANAGER_H
 
-#include <map>
-#include <string>
 #include "ChsManagerWithCache.h"
 #include "ChsEntity.h"
 
