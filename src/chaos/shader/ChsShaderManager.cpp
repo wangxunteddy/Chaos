@@ -13,7 +13,7 @@ namespace Chaos{
     
 	    //not in cache, so load source from file
     	char * source ;
-		ChsFileSystem::sharedInstance()->readFileAsRaw( name.c_str(), &source );
+		ChsFileSystem::sharedInstance()->readFileAsUTF8( name.c_str(), &source );
 		if( !source )
 			return NULL;
 

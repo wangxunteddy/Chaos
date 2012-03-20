@@ -5,11 +5,13 @@
 //--------------------------------------------------------------------------------------------------
 #include "ChsFileSystem.h"
 namespace Chaos {
-
+	
 	//----------------------------------------------------------------------------------------------
 	class ChsFileSystemIOS : public ChsFileSystem {
 	public:
-    	int readFileAsRaw( const char * path, char ** data );
+    	int readFileAsUTF8( const char * path, char ** data );
+		int readFileAsRaw( const char *  path , char ** data );
+		static NSString * getFullPath( const char * path );
 	};
 
 	//----------------------------------------------------------------------------------------------
