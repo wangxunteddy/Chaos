@@ -290,7 +290,7 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	ChsMesh * ChsDaeLoader::load( std::string filename ){
 		char * fileData;
-		ChsFileSystem::sharedInstance()->readFileAsRaw( filename.c_str(), &fileData );
+		ChsFileSystem::sharedInstance()->readFileAsUTF8( filename.c_str(), &fileData );
 		if( fileData == NULL ){
 			printf( "has no contents in xml file, or not found this file" );
 			return NULL;

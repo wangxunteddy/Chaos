@@ -7,6 +7,8 @@
 #include "ChsUtility.h"
 #include "ChsRenderSystem.h"
 
+#include "ChsTexture2D.h"
+
 namespace Chaos {
 	
 	//--------------------------------------------------------------------------------------------------------------------------------------------
@@ -46,7 +48,7 @@ namespace Chaos {
 	}
 	
 	//--------------------------------------------------------------------------------------------------------------------------------------------
-	void ChsMesh::setMaterial( ) {
+	void ChsMesh::setMaterial( void ) {
 		this->material = new ChsMaterial();
 		ChsShaderProgram *shaderProgram = ChsResourceManager::sharedInstance()->getShaderProgram("Shader.vsh", "Shader.fsh");
 
@@ -61,6 +63,10 @@ namespace Chaos {
 			this->material = NULL;
 		}
 		this->material->setShader(shaderProgram);
+		
+		ChsTexture2D * texture = ChsResourceManager::sharedInstance()->getTexture2D( "sofaLeather.png" );
+		this->material->addTexture( texture );
+		
 	}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------

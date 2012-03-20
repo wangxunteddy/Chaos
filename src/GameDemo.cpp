@@ -19,7 +19,7 @@ ChsMaterial * material;
 ChsPlane * planeMesh1;
 //--------------------------------------------------------------------------------------------------
 void GameDemo::onInit( void ) {
-	ChsEntityManager * resMgr = ChsResourceManager::sharedEntityManager();
+	ChsEntityManager * resMgr = ChsResourceManager::sharedInstance();
 	ChsEntity * plane1 = resMgr->getEntity( "planeEntity1" );
 
 	planeMesh1 = new ChsPlane(4.0f,4.0f);
