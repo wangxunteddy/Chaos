@@ -64,9 +64,6 @@ namespace Chaos {
 		}
 		this->material->setShader(shaderProgram);
 		
-		ChsTexture2D * texture = ChsResourceManager::sharedInstance()->getTexture2D( "sofaLeather.png" );
-		this->material->addTexture( texture );
-		
 	}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------
