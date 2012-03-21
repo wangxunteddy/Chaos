@@ -11,6 +11,7 @@
 #define BOOST_NO_CHAR32_T
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string.hpp>
+#include <boost/foreach.hpp>
 
 namespace Chaos {
 	//----------------------------------------------------------------------------------------------
@@ -219,14 +220,13 @@ namespace Chaos {
 	}
 	
 	//----------------------------------------------------------------------------------------------
+
 	void vertexInputRedirection( const DaeMesh & daeMesh, DaeSharedInput & input );
 	void vertexInputRedirection( const DaeMesh & daeMesh, DaeSharedInput & input ){
 		if( input.semantic.compare( "VERTEX" ) )
 			return;
 		//from verteices
-		int vertexInputCount = daeMesh.vertices.input.size();
-		for( int i = 0; i< vertexInputCount; i++ ){
-			const DaeUnsharedInput & vertexInput = daeMesh.vertices.input[i];
+		BOOST_FOREACH( const DaeUnsharedInput & vertexInput, daeMesh.vertices.input ){
 			if( !vertexInput.semantic.compare( "POSITION" )){
 				input.source = vertexInput.source;
 				input.semantic = vertexInput.semantic;
@@ -264,10 +264,10 @@ namespace Chaos {
 	int makeVertexAttributes( DaeMesh & daeMesh, VertexAttribute ** vertexAttributes );
 	
 	int makeVertexAttributes( DaeMesh & daeMesh, VertexAttribute ** vertexAttributes ){
-		int vertexAttributeCount = daeMesh.triangles.input.size();
+		std::vector<DaeSharedInput> & inputs = daeMesh.triangles.input;
+		int vertexAttributeCount = inputs.size();
 		*vertexAttributes = new VertexAttribute [vertexAttributeCount];
-		for( int attributeIndex = 0; attributeIndex < vertexAttributeCount; attributeIndex++ ){
-			DaeSharedInput input = daeMesh.triangles.input[attributeIndex];
+		BOOST_FOREACH( DaeSharedInput &input , inputs ){
 			vertexInputRedirection( daeMesh, input );
 			std::string sourceId = input.source;
 			std::string semantic = input.semantic;
