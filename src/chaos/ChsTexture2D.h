@@ -14,8 +14,6 @@ namespace Chaos {
 		~ChsTexture2D( void );
 		void build( GLuint width, GLuint height, GLenum format, GLubyte * data );
 		void bind( void );
-
-		inline const GLuint * activeUnitPtr( void ) const ;
 	private:
 
 		PROPERTY_READONLY_CONST( GLuint, handle );
@@ -26,14 +24,9 @@ namespace Chaos {
 		PROPERTY_READONLY_CONST( std::string, name );
 		PROPERTY_READONLY_CONST( boolean, hasAlpha );
 		PROPERTY_READONLY_CONST( GLubyte *, data );
-		PROPERTY( GLuint, activeUnit );
+		PROPERTY( GLint, activeUnit );
 		PROPERTY( std::string, sampleName );
 	};
-	
-	//----------------------------------------------------------------------------------------------
-	inline const GLuint * ChsTexture2D::activeUnitPtr( void ) const {
-		return &(this->_activeUnit);
-	}
 	
 	//----------------------------------------------------------------------------------------------
 	SYNTHESIZE_READONLY_CONST( ChsTexture2D, GLuint, handle );
@@ -44,7 +37,7 @@ namespace Chaos {
 	SYNTHESIZE_READONLY_CONST( ChsTexture2D, std::string, name );
 	SYNTHESIZE_READONLY_CONST( ChsTexture2D, boolean, hasAlpha );
 	SYNTHESIZE_READONLY_CONST( ChsTexture2D, GLubyte*, data );
-	SYNTHESIZE( ChsTexture2D, GLuint, activeUnit );
+	SYNTHESIZE( ChsTexture2D, GLint, activeUnit );
 	SYNTHESIZE( ChsTexture2D, std::string, sampleName );
 }
 
