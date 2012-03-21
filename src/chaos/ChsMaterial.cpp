@@ -1,7 +1,7 @@
 #include "ChsMaterial.h"
 #include "shader/ChsShaderProgram.h"
 #include "ChsResourceManager.h"
-
+#include <boost/foreach.hpp>
 namespace Chaos {
 	
 	//--------------------------------------------------------------------------------------------------------------------------------------------
@@ -43,8 +43,9 @@ namespace Chaos {
 		if( currentProgram != sysProgram )
 			currentProgram->use();
     	this->shaderUniforms.apply( currentProgram );
-		for( int i = 0; i < this->textures.size(); i++ )
-			this->textures[i]->bind();
+		BOOST_FOREACH( ChsTexture2D * texture, this->textures ){
+			texture->bind();
+		}
 		return currentProgram;
 	}
 
