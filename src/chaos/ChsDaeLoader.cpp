@@ -6,8 +6,6 @@
 #include "platform/ChsOpenGL.h"
 #include "ChsIndexBuffer.h"
 #include "ChsVertexBuffer.h"
-#include <vector>
-#include <map>
 
 #define BOOST_NO_CHAR16_T
 #define BOOST_NO_CHAR32_T
@@ -288,9 +286,9 @@ namespace Chaos {
 	}
 	
 	//----------------------------------------------------------------------------------------------
-	ChsMesh * ChsDaeLoader::load( std::string filename ){
+	ChsMesh * ChsDaeLoader::load( const char * filename ){
 		char * fileData;
-		ChsFileSystem::sharedInstance()->readFileAsUTF8( filename.c_str(), &fileData );
+		ChsFileSystem::sharedInstance()->readFileAsUTF8( filename, &fileData );
 		if( fileData == NULL ){
 			printf( "has no contents in xml file, or not found this file" );
 			return NULL;
