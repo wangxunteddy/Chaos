@@ -1,6 +1,6 @@
 #include "ChsShaderUniform.h"
 #include "ChsShaderProgram.h"
-
+#include <boost/foreach.hpp>
 namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	ChsShaderUniform::ChsShaderUniform( void ){
@@ -100,12 +100,10 @@ namespace Chaos {
 			this->program = program;
 		}
 
-		UniformVariables::iterator iter = this->uniformVariables.begin();
-		UniformVariables::iterator end = this->uniformVariables.end();
-		for( ; iter != end; iter++ ){
-			std::string name = iter->first;
-			Uniform uniform = iter->second;
-			
+		std::pair<std::string, Uniform> p;
+		BOOST_FOREACH( p, this->uniformVariables ){
+			std::string name = p.first;
+			Uniform uniform = p.second;
 			if( uniform.location == UNLOCATED || needUpdateLocation ) {
 				//looking for uniform in program
 				GLint location = program->getUniformLocation(name.c_str());

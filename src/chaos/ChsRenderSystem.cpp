@@ -1,10 +1,10 @@
 #include <map>
 #include <vector>
+#include <boost/foreach.hpp>
 
 #include "ChsRenderSystem.h"
 #include "ChsRenderNode.h"
 #include "ChsUtility.h"
-//#include "geometry/ChsPlane.h"
 #include "ChsMaterial.h"
 #include "shader/ChsShaderProgram.h"
 #include "shader/ChsShaderUniform.h"
@@ -104,15 +104,12 @@ namespace Chaos {
 
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::render( void ){
-		ChsRenderChain::iterator iter = renderChain.begin();
-		ChsRenderChain::iterator end = renderChain.end();
-		for( ; iter!=end; iter++ ){
-			ChsMaterial * material = iter->first;
+		std::pair<ChsMaterial *, ChsRenderUnitList *> p;
+		BOOST_FOREACH( p, renderChain ){
+			ChsMaterial * material = p.first;
 			currentShaderProgram = material->apply( currentShaderProgram );
 			globalUniforms.apply( currentShaderProgram );
-			ChsRenderUnitList *list = iter->second;
-			for( int i=0; i<list->size(); i++ ){
-				ChsRenderUnit unit = list->at( i );
+			BOOST_FOREACH( ChsRenderUnit & unit, *p.second ){
 				unit.vertexBuffer->preDraw();
 				unit.indexBuffer->draw();
 				unit.vertexBuffer->postDraw();

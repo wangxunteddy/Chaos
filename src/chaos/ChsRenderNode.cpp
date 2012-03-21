@@ -1,6 +1,7 @@
 #include "ChsRenderNode.h"
 #include "ChsUtility.h"
 #include "math/ChsMatrix.h"
+#include <boost/foreach.hpp>
 
 namespace Chaos {
 
@@ -18,12 +19,9 @@ namespace Chaos {
 		if( !this->visible() )
 			return;//if this node is invisible,then all chilren are invisible too
 		this->doRender( render );
-		ChsNodeList::iterator iter =  this->children.begin();
-		ChsNodeList::iterator endIter =  this->children.end();
-		while( iter != endIter ){
-			ChsRenderNode * node = ( ChsRenderNode * )iter->second;
-			node->render( render );
-			iter++;
+		std::pair<std::string, ChsNode *> p;
+		BOOST_FOREACH( p, this->children ){
+			( ( ChsRenderNode * )p.second )->render( render );
 		}
 	}
 
