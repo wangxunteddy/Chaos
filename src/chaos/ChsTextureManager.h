@@ -6,10 +6,13 @@
 
 namespace Chaos{
 	
+	//----------------------------------------------------------------------------------------------
 	class ChsTextureManager : public ChsManagerWithCache<std::string,ChsTexture2D>{
 	public:
 		ChsTexture2D * getTexture2D( std::string name );
 	};
+	
+	//----------------------------------------------------------------------------------------------
 	
 }
 
