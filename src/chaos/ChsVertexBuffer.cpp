@@ -1,6 +1,7 @@
 #include "ChsVertexBuffer.h"
 #include "shader/ChsShaderProgram.h"
 #include "ChsUtility.h"
+#include <boost/foreach.hpp>
 
 namespace Chaos {
 
@@ -21,20 +22,18 @@ namespace Chaos {
 	    if( this->vaoHandle )
     	    glDeleteVertexArraysOES( 1, &this->vaoHandle);
 
-		for( int i=0; i< this->attribs.size(); i++ ){
-    	    ChsAttribUnit * attrib = this->attribs[i];
-	       	safeDelete( &attrib );
-    	}
+		BOOST_FOREACH( ChsAttribUnit * attrib, this->attribs ){
+			safeDelete( &attrib );
+		}
 		attribs.clear();
 		safeDeleteArray( &this->vertices );
 	}
 
 	//----------------------------------------------------------------------------------------------
 	void ChsVertexBuffer::bindAttribLocations( const ChsShaderProgram * program ) {
-    	for( int i=0; i< this->attribs.size(); i++ ){
-        	ChsAttribUnit * attrib = this->attribs[i];
-	        glBindAttribLocation( program->handle(), attrib->index, attrib->name.c_str() );
-    	}
+		BOOST_FOREACH( ChsAttribUnit * attrib, this->attribs ){
+			glBindAttribLocation( program->handle(), attrib->index, attrib->name.c_str() );
+		}
 	}
 
 	//----------------------------------------------------------------------------------------------
@@ -70,18 +69,16 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	void ChsVertexBuffer::bindAttribArrays( void ){
     	glBindBuffer( GL_ARRAY_BUFFER, this->vboHandle );
-	    for( int i=0; i<this->attribs.size(); i++ ){
-    	    ChsAttribUnit * attrib = this->attribs[i];
-	       	attrib->bind();
-    	}
+		BOOST_FOREACH( ChsAttribUnit * attrib, this->attribs ){
+			attrib->bind();
+		}
 	}
 
 	//----------------------------------------------------------------------------------------------
 	void ChsVertexBuffer::unbindAttribArrays( void ){
-	    for( int i=0; i< this->attribs.size(); i++ ){
-    	    ChsAttribUnit * attrib = this->attribs[i];
-        	attrib->unbind();
-	    }
+	    BOOST_FOREACH( ChsAttribUnit * attrib, this->attribs ){
+			attrib->unbind();
+		}
 	}
 
 	//----------------------------------------------------------------------------------------------
