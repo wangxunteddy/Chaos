@@ -43,7 +43,7 @@ namespace Chaos {
 				if( location < 0 )
 					continue;//no uniform named that in program, process next
 				uniform.location = location;//save location
-				uniformVariables[name] = uniform;
+				this->uniformVariables[name] = uniform;
 			}
 			
 			switch ( uniform.type ) {
@@ -69,7 +69,7 @@ namespace Chaos {
 	}
 	
 	//----------------------------------------------------------------------------------------------
-	void ChsShaderUniform::add( std::string name, void * varAddr, ChsShaderUniformDataType type, unsigned int count ){
+	void ChsShaderUniform::add( std::string name, const void * varAddr, ChsShaderUniformDataType type, unsigned int count ){
 		if( uniformVariables.find( name ) != uniformVariables.end() )
 			return;//already in list, do nothing
 		//leave location with -1

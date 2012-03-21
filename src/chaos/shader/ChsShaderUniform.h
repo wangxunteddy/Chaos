@@ -16,7 +16,7 @@ namespace Chaos {
 		int type;
 		unsigned int count;
 		int location;
-		void * varAddr;
+		const void * varAddr;
 	};
 	
 	typedef std::map< std::string, Uniform > UniformVariables;
@@ -28,7 +28,7 @@ namespace Chaos {
 		~ChsShaderUniform( void );
 		void reset( void );
 		void apply( ChsShaderProgram * program );
-		void add( std::string name, void * varAddr, ChsShaderUniformDataType type, unsigned int count ); 
+		void add( std::string name, const void * varAddr, ChsShaderUniformDataType type, unsigned int count ); 
 	 private:
 		ChsShaderProgram * program;
 		UniformVariables uniformVariables;
