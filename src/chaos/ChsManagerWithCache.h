@@ -3,6 +3,7 @@
 
 #include <map>
 #include "ChsUtility.h"
+#include <boost/foreach.hpp>
 
 namespace Chaos {
 	
@@ -18,12 +19,9 @@ namespace Chaos {
 	//------------------------------------------------------------------------------------------
 	template < typename KeyType, typename ValueType >
 	void ChsManagerWithCache< KeyType, ValueType >::purge( void ) {
-		
-		typename CacheType::iterator iter = this->cache.begin();
-		typename CacheType::iterator end = this->cache.end();
-		while ( iter != end ) {
-			ValueType * obj = iter->second;
-			//delete obj;
+		std::pair<KeyType, ValueType *> p;
+		BOOST_FOREACH( p, this->cache ){
+			ValueType * obj = p.second;
 			safeDelete( &obj, "删除对象" );
 		}
 		this->cache.clear();

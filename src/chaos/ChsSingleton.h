@@ -2,11 +2,9 @@
 #define _CHS_SINGLETON_H
 #pragma once
 //------------------------------------------------------------------------------------------
-
 #include <assert.h>
 
-namespace Chaos
-{
+namespace Chaos{
 	//------------------------------------------------------------------------------------------
 	template < typename T > class ChsSingleton {
 	public:

@@ -1,5 +1,6 @@
 #include "ChsEntityManager.h"
-
+#include <boost/assign.hpp>
+using namespace boost::assign;
 //--------------------------------------------------------------------------------------------------
 namespace Chaos {
 
@@ -20,7 +21,7 @@ namespace Chaos {
 		if( entity == NULL ){
 			entity = new ChsEntity( entityName );
 			printf( "生成Entity:%s\n", entityName.c_str() );
-			this->cache.insert( std::make_pair( entityName, entity ) );
+			insert( this->cache )( entityName, entity );
 		}
 		return entity;
 	}

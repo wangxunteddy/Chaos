@@ -2,6 +2,9 @@
 #include "shader/ChsShaderProgram.h"
 #include "ChsResourceManager.h"
 #include <boost/foreach.hpp>
+#include <boost/assign.hpp>
+using namespace boost::assign;
+
 namespace Chaos {
 	
 	//--------------------------------------------------------------------------------------------------------------------------------------------
@@ -32,7 +35,7 @@ namespace Chaos {
 	void ChsMaterial::addTexture( ChsTexture2D * texture ){
 		this->hasTexture( true );
 		this->shaderUniforms.add( texture->sampleName(), CHS_SHADER_UNIFORM_1_INT, (int[]){texture->activeUnit()} );
-		this->textures.push_back( texture );
+		this->textures += texture;
 	}
 	
 	//--------------------------------------------------------------------------------------------------------------------------------------------
@@ -43,9 +46,8 @@ namespace Chaos {
 		if( currentProgram != sysProgram )
 			currentProgram->use();
     	this->shaderUniforms.apply( currentProgram );
-		BOOST_FOREACH( ChsTexture2D * texture, this->textures ){
+		BOOST_FOREACH( ChsTexture2D * texture, this->textures )
 			texture->bind();
-		}
 		return currentProgram;
 	}
 
@@ -55,7 +57,7 @@ namespace Chaos {
 	// Validate program before drawing. This is a good check, but only really necessary in a debug build.
 	// DEBUG macro must be defined in your debug configurations if that's not already the case.
     	if ( this->shaderProgram && !this->shaderProgram->validate() ) 
-        	   printf("Failed to validate program: %d", this->shaderProgram->handle() );
+           printf("Failed to validate program: %d", this->shaderProgram->handle() );
 	}
 	#endif
 

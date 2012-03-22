@@ -1,6 +1,8 @@
 #include "ChsShaderManager.h"
 #include "io/ChsFileSystem.h"
 #include "ChsUtility.h"
+#include <boost/assign.hpp>
+using namespace boost::assign;
 
 namespace Chaos{
 	//----------------------------------------------------------------------------------------------
@@ -27,7 +29,7 @@ namespace Chaos{
 		safeDelete( &source );
 		
 		printf( "生成Shader:%s\n", name.c_str() );
-    	this->cache.insert( std::make_pair( name, shader ) );
+		insert( this->cache )( name, shader );
 	    return shader;
 	}
 
@@ -56,7 +58,7 @@ namespace Chaos{
 		program->attachShader( vs );
 		program->attachShader( fs );
 		printf( "生成ShaderProgram:%s\n", name.c_str() );
-    	this->cache.insert( std::make_pair( name, program ) );
+		insert( this->cache )( name, program );
 		return program;
 	}
 

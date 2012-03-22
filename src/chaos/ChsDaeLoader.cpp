@@ -12,6 +12,9 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/foreach.hpp>
+#include <boost/assign.hpp>
+using namespace boost::assign;
+#include <boost/algorithm/string/split.hpp>
 
 namespace Chaos {
 	//----------------------------------------------------------------------------------------------
@@ -143,7 +146,7 @@ namespace Chaos {
 				if( !elementName.compare( "source" ) ){
 					DaeSource source;
 					source.setValue( element );
-					this->sources.insert( std::make_pair( source.id, source ) );
+					insert( this-> sources ) ( source.id, source );
 				}
 				else if(!elementName.compare( "vertices" )){
 					this->vertices.setValue( element );
@@ -162,7 +165,7 @@ namespace Chaos {
 		do{
 			DaeInputType input;
 			input.setValue( inputElement );
-			inputs.push_back( input );
+			inputs += input;
 			inputElement = inputElement->NextSiblingElement( "input" );
 		}while( inputElement != NULL );
 	}
@@ -170,17 +173,10 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	template<typename T>
 	void lexicalCastToArray( std::vector<T> & array, std::string stream ){
-		std::string::size_type start = 0;
-		std::string::size_type to = stream.find( " " );
-		int idx = 0;
-		while ( to != std::string::npos ) {
-			array.push_back( boost::lexical_cast<T>( stream.substr( start, to-start ) ) );
-			idx++;
-			start = ++to;
-			to = stream.find( " ", to );
-		}
-		//last one
-		array.push_back( boost::lexical_cast<T>( stream.substr( start, stream.length() - start ) ) );
+		std::vector<std::string> rs;
+		boost::split( rs, stream, boost::is_any_of(" ") );
+		BOOST_FOREACH( const std::string & str, rs)
+			array += boost::lexical_cast<T>( str );
 	}
 
 	//----------------------------------------------------------------------------------------------
@@ -197,24 +193,24 @@ namespace Chaos {
 			for( int inputIndex = 0; inputIndex < vertexComponentCount; inputIndex++ ){
 				int idx = daeMesh.triangles.p[triangleIndex + inputIndex];
 				key += boost::lexical_cast<std::string>( idx );
-				vertexIndex.push_back( idx );
+				vertexIndex += idx;
 			}
 			int index = 0;
-			std::map<std::string, int>::iterator iter = vertexLookupList.find( key );
+			auto iter = vertexLookupList.find( key );
 			if( iter == vertexLookupList.end() ){
 				//this is a new vertex,it will add into last of vertex list
 				index = vertexIndexList.size() / vertexComponentCount;
 				for( int inputIndex = 0; inputIndex < vertexComponentCount; inputIndex++ )
-					vertexIndexList.push_back( vertexIndex[inputIndex] );//store all vertex component index
+					vertexIndexList += vertexIndex[inputIndex];//store all vertex component index
 				//save this vertex into lookup table
-				vertexLookupList.insert( std::make_pair( key, index) );
+				insert( vertexLookupList ) ( key, index );
 			}
 			else{
 				//this vertex was exist in vertex list,
 				//just use it`s index
 				index = iter->second;
 			}
-			triangleList.push_back( index );
+			triangleList += index;
 		}
 		vertexLookupList.clear();
 	}
@@ -255,7 +251,7 @@ namespace Chaos {
 				int stride = VertexAttributes[attribute].stride;
 				const float * array = VertexAttributes[attribute].array;
 				for( int i = 0; i < stride; i++ )
-					vertexList.push_back( array[index*stride + i] );
+					vertexList += array[index*stride + i];
 			}
 		}
 	}
@@ -267,12 +263,12 @@ namespace Chaos {
 		std::vector<DaeSharedInput> & inputs = daeMesh.triangles.input;
 		int vertexAttributeCount = inputs.size();
 		*vertexAttributes = new VertexAttribute [vertexAttributeCount];
-		BOOST_FOREACH( DaeSharedInput &input , inputs ){
+		BOOST_FOREACH( DaeSharedInput & input , inputs ){
 			vertexInputRedirection( daeMesh, input );
 			std::string sourceId = input.source;
 			std::string semantic = input.semantic;
 			boost::to_lower( semantic );
-			std::map<std::string,DaeSource>::iterator iter =  daeMesh.sources.find( sourceId );
+			auto iter = daeMesh.sources.find( sourceId );
 			if( iter != daeMesh.sources.end() ){
 				const DaeSource & source = iter->second;
 				if( input.set >= 0 )

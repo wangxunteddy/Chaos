@@ -1,6 +1,8 @@
 #include <map>
 #include <vector>
 #include <boost/foreach.hpp>
+#include <boost/assign.hpp>
+using namespace boost::assign;
 
 #include "ChsRenderSystem.h"
 #include "ChsRenderNode.h"
@@ -17,7 +19,6 @@
 namespace Chaos {
 
 	typedef std::vector<ChsRenderUnit> ChsRenderUnitList;
-	
 	typedef std::map<ChsMaterial *, ChsRenderUnitList *> ChsRenderChain;
 	ChsRenderChain renderChain;
 	ChsShaderUniform globalUniforms;
@@ -109,7 +110,7 @@ namespace Chaos {
 			ChsMaterial * material = p.first;
 			currentShaderProgram = material->apply( currentShaderProgram );
 			globalUniforms.apply( currentShaderProgram );
-			BOOST_FOREACH( ChsRenderUnit & unit, *p.second ){
+			BOOST_FOREACH( const ChsRenderUnit & unit, *p.second ){
 				unit.vertexBuffer->preDraw();
 				unit.indexBuffer->draw();
 				unit.vertexBuffer->postDraw();
@@ -134,7 +135,7 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::sendToRender( ChsRenderUnit unit ){
 		ChsMaterial * material = unit.material;
-		ChsRenderChain::iterator iter = renderChain.find( material );
+		auto iter = renderChain.find( material );
 		if( iter != renderChain.end() ){
 			ChsRenderUnitList * list = iter->second;
 			list->push_back( unit );
@@ -142,7 +143,7 @@ namespace Chaos {
 		else{
 			ChsRenderUnitList * list = new ChsRenderUnitList();
 			list->push_back( unit );
-			renderChain.insert( std::make_pair( material, list ) );
+			insert( renderChain )( material, list );
 		}
 	}
 	

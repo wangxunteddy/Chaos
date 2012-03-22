@@ -20,9 +20,8 @@ namespace Chaos {
 			return;//if this node is invisible,then all chilren are invisible too
 		this->doRender( render );
 		std::pair<std::string, ChsNode *> p;
-		BOOST_FOREACH( p, this->children ){
+		BOOST_FOREACH( p, this->children )
 			( ( ChsRenderNode * )p.second )->render( render );
-		}
 	}
 
 	//----------------------------------------------------------------------------------------------

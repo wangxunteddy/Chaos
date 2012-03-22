@@ -2,6 +2,8 @@
 #include "shader/ChsShaderProgram.h"
 #include "ChsUtility.h"
 #include <boost/foreach.hpp>
+#include <boost/assign.hpp>
+using namespace boost::assign;
 
 namespace Chaos {
 
@@ -21,19 +23,16 @@ namespace Chaos {
         	glDeleteBuffers( 1, &this->vboHandle );
 	    if( this->vaoHandle )
     	    glDeleteVertexArraysOES( 1, &this->vaoHandle);
-
-		BOOST_FOREACH( ChsAttribUnit * attrib, this->attribs ){
+		BOOST_FOREACH( ChsAttribUnit * attrib, this->attribs )
 			safeDelete( &attrib );
-		}
 		attribs.clear();
 		safeDeleteArray( &this->vertices );
 	}
 
 	//----------------------------------------------------------------------------------------------
 	void ChsVertexBuffer::bindAttribLocations( const ChsShaderProgram * program ) {
-		BOOST_FOREACH( ChsAttribUnit * attrib, this->attribs ){
+		BOOST_FOREACH( const ChsAttribUnit * attrib, this->attribs )
 			glBindAttribLocation( program->handle(), attrib->index, attrib->name.c_str() );
-		}
 	}
 
 	//----------------------------------------------------------------------------------------------
@@ -59,26 +58,23 @@ namespace Chaos {
     	else{
 	        attrib->offset = 0;
     	}
-	    this->attribs.push_back( attrib );
+	    this->attribs += attrib;
     	stride += attrib->size;
-	    lastOne = this->attribs.size();
-    	for( int i=0; i<lastOne; i++ )
-	        this->attribs[i]->stride = stride;
+		BOOST_FOREACH( ChsAttribUnit * attrib, this->attribs )
+			attrib->stride =stride;
 	}
 
 	//----------------------------------------------------------------------------------------------
 	void ChsVertexBuffer::bindAttribArrays( void ){
     	glBindBuffer( GL_ARRAY_BUFFER, this->vboHandle );
-		BOOST_FOREACH( ChsAttribUnit * attrib, this->attribs ){
+		BOOST_FOREACH( ChsAttribUnit * attrib, this->attribs )
 			attrib->bind();
-		}
 	}
 
 	//----------------------------------------------------------------------------------------------
 	void ChsVertexBuffer::unbindAttribArrays( void ){
-	    BOOST_FOREACH( ChsAttribUnit * attrib, this->attribs ){
+	    BOOST_FOREACH( ChsAttribUnit * attrib, this->attribs )
 			attrib->unbind();
-		}
 	}
 
 	//----------------------------------------------------------------------------------------------

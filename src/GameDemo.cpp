@@ -42,7 +42,7 @@ void GameDemo::onInit( void ) {
 	ChsMesh * mesh = loader.load( "sofa.dae" );
 	mesh->setMaterial();
 	material = mesh->getMaterial();
-	//material->hasVertexColor(true);
+	material->hasVertexColor(true);
 	ChsTexture2D * texture = ChsResourceManager::sharedInstance()->getTexture2D( "sofaLeather.png" );
 	texture->sampleName( "diffuseTexture" );
 	texture->activeUnit( 0 );
@@ -59,7 +59,7 @@ void GameDemo::onUpdate( void ) {
 	camera.moveTo( cos(transY)*3, 2, sin(transY)*3);
 	alpha = alpha >=0 ? alpha : -alpha;
 	//material = planeMesh1->getMaterial();
-	//material->alpha(1.0f-alpha);
+	material->alpha(1.0f-alpha);
 	
 }
 

@@ -1,4 +1,6 @@
 #include "ChsNode.h"
+#include <boost/assign.hpp>
+using namespace boost::assign;
 
 namespace Chaos {
 	
@@ -14,10 +16,8 @@ namespace Chaos {
 
 	//----------------------------------------------------------------------------------------------
 	void ChsNode::add( std::string name, ChsNode * node ){
-		ChsNodeList::iterator iter = this->children.find( name );
-		if( iter == this->children.end() ){
-			this->children.insert( make_pair( name, node ) );
-		}
+		if( this->children.find( name ) == this->children.end() )
+			insert( this->children )( name, node );
 	}
 	
 	//----------------------------------------------------------------------------------------------
@@ -30,7 +30,7 @@ namespace Chaos {
 	
 	//----------------------------------------------------------------------------------------------
 	ChsNode * ChsNode::get( std::string name ){
-		ChsNodeList::iterator iter = this->children.find( name );
+		auto iter = this->children.find( name );
 		return  ( iter == this->children.end() ) ? NULL : iter->second;
 	}
 

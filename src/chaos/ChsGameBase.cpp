@@ -13,10 +13,7 @@ namespace Chaos {
 
 	//----------------------------------------------------------------------------------------------
 	ChsRenderSystem * ChsGameBase::renderer( void ) {
-		if( this->_renderer )
-			return this->_renderer;
-		else
-			return this->_renderer = this->_engine->renderSystem();
+		return this->_renderer ? this->_renderer : this->_renderer = this->engine()->renderSystem();
 	}
 	//----------------------------------------------------------------------------------------------
 

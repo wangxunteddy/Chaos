@@ -5,6 +5,8 @@
 #include <vector>
 #include <map>
 #include <boost/any.hpp>
+#include <boost/assign.hpp>
+using namespace boost::assign;
 
 #include "ChsDefine.h"
 #include "ChsMacro.h"
@@ -34,8 +36,7 @@ namespace Chaos {
 		void reset( void );
 		void apply( ChsShaderProgram * program );
 		void add( std::string name, const void * varAddr, ChsShaderUniformDataType type, unsigned int count ); 
-		template<typename T>
-		void add( std::string name, ChsShaderUniformDataType type, T * values );
+		template<typename T> void add( std::string name, ChsShaderUniformDataType type, T * values );
 	 private:
 		bool isExist( std::string name );
 		
@@ -52,9 +53,9 @@ namespace Chaos {
 		//leave location with -1
 		Uniform uniform = { type, count, UNLOCATED, NULL };
 		for( int i = 0; i < count; i++ )
-			uniform.values.push_back( values[i] );
+			uniform.values += values[i];
 		//just add to list,
-		uniformVariables.insert( std::make_pair( name, uniform ) );
+		insert( this->uniformVariables )( name, uniform );
 	}
 
 }

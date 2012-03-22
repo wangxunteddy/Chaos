@@ -1,6 +1,7 @@
 #include "ChsShaderUniform.h"
 #include "ChsShaderProgram.h"
 #include <boost/foreach.hpp>
+
 namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	ChsShaderUniform::ChsShaderUniform( void ){
@@ -37,7 +38,7 @@ namespace Chaos {
 				if( uniform.type % 2 )
 					glUniform1iv( uniform.location, count, ( const GLint * )uniform.varAddr );
 				else
-					glUniform1fv( uniform.location, count,(const GLfloat * )uniform.varAddr );
+					glUniform1fv( uniform.location, count, ( const GLfloat * )uniform.varAddr );
 				break;
 		}
 	}
@@ -103,16 +104,14 @@ namespace Chaos {
 		std::pair<std::string, Uniform> p;
 		BOOST_FOREACH( p, this->uniformVariables ){
 			std::string name = p.first;
-			Uniform uniform = p.second;
+			Uniform & uniform = p.second;
 			if( uniform.location == UNLOCATED || needUpdateLocation ) {
 				//looking for uniform in program
 				GLint location = program->getUniformLocation(name.c_str());
 				if( location < 0 )
 					continue;//no uniform named that in program, process next
-				uniform.location = location;//save location
-				this->uniformVariables[name] = uniform;
+				uniform.location = location;//save location, because it is a reference
 			}
-			
 			if( uniform.varAddr == NULL )
 				setUniformWithValues( uniform );
 			else
@@ -124,10 +123,8 @@ namespace Chaos {
 	void ChsShaderUniform::add( std::string name, const void * varAddr, ChsShaderUniformDataType type, unsigned int count ){
 		if( this->isExist( name ) )
 			return;
-		//leave location with -1
-		Uniform uniform = { type, count, UNLOCATED, varAddr };
-		//just add to list,
-		uniformVariables.insert( std::make_pair( name, uniform ) );
+		//leave location with -1, and add to list,
+		insert( this->uniformVariables )( name, (Uniform){ type, count, UNLOCATED, varAddr } );
 	}
 
 	//----------------------------------------------------------------------------------------------

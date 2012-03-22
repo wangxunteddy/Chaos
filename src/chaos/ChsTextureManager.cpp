@@ -1,6 +1,7 @@
 #include "ChsTextureManager.h"
 #include "ChsTextureFactory.h"
-
+#include <boost/assign.hpp>
+using namespace boost::assign;
 namespace Chaos {
 
 	//----------------------------------------------------------------------------------------------
@@ -12,7 +13,7 @@ namespace Chaos {
 		ChsTexture2D * texture = ChsTextureFactory::sharedInstance()->createTexture2D( name.c_str() );
 		if( texture ){
 			printf( "生成texture:%s\n", name.c_str() );
-    		this->cache.insert( std::make_pair( name, texture ) );
+			insert( this->cache )( name, texture );
 		}
 	    return texture;
 	}

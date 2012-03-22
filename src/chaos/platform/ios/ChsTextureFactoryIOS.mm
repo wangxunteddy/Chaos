@@ -26,7 +26,8 @@ namespace Chaos {
 		unsigned char * imgData = new unsigned char[height * rowByteSize];
 	
 		CGContextRef context = CGBitmapContextCreate( imgData, width, height, 8, rowByteSize,
-													 CGImageGetColorSpace(cgImage), kCGImageAlphaNoneSkipLast );
+													 CGImageGetColorSpace(cgImage),
+													 kCGImageAlphaNoneSkipLast );
 		CGContextSetBlendMode( context, kCGBlendModeCopy );
 		CGContextTranslateCTM( context, 0.0, height );
 		CGContextScaleCTM( context, 1.0, -1.0);
