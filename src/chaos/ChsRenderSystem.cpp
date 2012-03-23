@@ -43,7 +43,6 @@ namespace Chaos {
 
 	//----------------------------------------------------------------------------------------------
 	ChsRenderSystem::~ChsRenderSystem( void ){
-		safeDelete( &this->_root );
 		safeDelete( &debugCoordinatePlane );
 	}
 
@@ -66,6 +65,8 @@ namespace Chaos {
 		this->setClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
 		this->setViewPort( 0, 0, this->renderbufferWidth, this->renderbufferHeight );
 
+		glHint( GL_GENERATE_MIPMAP_HINT, GL_FASTEST );
+		
 		//以下内容在渲染过程中可能会被更改，如何更改，
 		//depth
 		glEnable( GL_DEPTH_TEST );
@@ -84,7 +85,6 @@ namespace Chaos {
 	}
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::shutdown( void ){
-		safeDelete( &this->_root, "delete render root node");
 		this->deleteAllBuffers();
 		this->releaseContext();
 	}

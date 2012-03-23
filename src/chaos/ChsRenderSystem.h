@@ -6,6 +6,8 @@
 #include "ChsMacro.h"
 #include "platform/ChsOpenGL.h"
 
+#include <boost/scoped_ptr.hpp>
+
 namespace Chaos {
 
 	class ChsRenderNode;
@@ -43,7 +45,8 @@ namespace Chaos {
 	private:
 		//viewport
 		ChsRect viewport;
-
+		boost::scoped_ptr<ChsRenderNode> _root;
+		
 		void preRender( void );
 		void render( void );
 	    void postRender( void );
@@ -70,7 +73,8 @@ namespace Chaos {
 		void setViewPort( int x, int y, int w, int h );
 		inline ChsRect getViewPort( void );
 		
-		PROPERTY_READONLY( ChsRenderNode *, root );
+		inline ChsRenderNode * root( void );
+		
 		PROPERTY( ChsCameraBase *, currentCamera );
 		PROPERTY( bool, showDebugCoordinate );
 	};
@@ -81,7 +85,11 @@ namespace Chaos {
 	}
 
 	//----------------------------------------------------------------------------------------------
-	SYNTHESIZE_READONLY( ChsRenderSystem, ChsRenderNode *, root );
+	inline ChsRenderNode * ChsRenderSystem::root( void ){
+		return this->_root.get();
+	}
+	
+	//----------------------------------------------------------------------------------------------
 	SYNTHESIZE( ChsRenderSystem, ChsCameraBase *, currentCamera );
 	SYNTHESIZE_GETTER( ChsRenderSystem, bool, showDebugCoordinate );
 	//----------------------------------------------------------------------------------------------

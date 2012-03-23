@@ -12,16 +12,15 @@
 namespace Chaos {
 	
 	//--------------------------------------------------------------------------------------------------------------------------------------------
-	ChsMesh::ChsMesh( std::string name ) : ChsRenderNode( name ) {
-		this->vertexBuffer = new ChsVertexBuffer();
-		this->indexBuffer = new ChsIndexBuffer();
+	ChsMesh::ChsMesh( std::string name ) : ChsRenderNode( name ),
+											vertexBuffer(new ChsVertexBuffer()),
+											indexBuffer(new ChsIndexBuffer())
+	{
 		this->material = NULL;
 	}
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 	ChsMesh::~ChsMesh( void ) {
-		safeDelete( &this->vertexBuffer );
-		safeDelete( &this->indexBuffer );
 		safeDelete( &this->material );
 	}
 
@@ -29,8 +28,8 @@ namespace Chaos {
 	void ChsMesh::doRender( ChsRenderSystem * render ) {
 		ChsRenderUnit unit;
 		unit.material = this->material;
-		unit.vertexBuffer = this->vertexBuffer;
-		unit.indexBuffer = this->indexBuffer;
+		unit.vertexBuffer = this->vertexBuffer.get();
+		unit.indexBuffer = this->indexBuffer.get();
 		render->sendToRender(unit);
 	}
 

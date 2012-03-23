@@ -42,7 +42,7 @@ void GameDemo::onInit( void ) {
 	ChsMesh * mesh = loader.load( "sofa.dae" );
 	mesh->setMaterial();
 	material = mesh->getMaterial();
-	material->hasVertexColor(true);
+	//material->hasVertexColor(true);
 	ChsTexture2D * texture = ChsResourceManager::sharedInstance()->getTexture2D( "sofaLeather.png" );
 	texture->sampleName( "diffuseTexture" );
 	texture->activeUnit( 0 );

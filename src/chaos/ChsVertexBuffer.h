@@ -5,10 +5,12 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------
 #include <string>
 #include <vector>
+#include <boost/shared_ptr.hpp>
 
 #include "ChsMacro.h"
 #include "ChsUtility.h"
 #include "platform/ChsOpenGL.h"
+
 
 namespace Chaos {
 	//--------------------------------------------------------------------------------------------------------------------------------------------
@@ -40,6 +42,7 @@ namespace Chaos {
 		}
 	};
 
+	typedef boost::shared_ptr<ChsAttribUnit> ChsAttribUnitPtr;
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 	class ChsVertexBuffer {
@@ -60,7 +63,7 @@ namespace Chaos {
 		void unbindAttribArrays( void );
 		void update( void );
 		
-		std::vector<ChsAttribUnit *> attribs;
+		std::vector<ChsAttribUnitPtr> attribs;
 		unsigned int vboHandle;
 		unsigned int vaoHandle;
 		char * vertices;

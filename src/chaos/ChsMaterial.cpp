@@ -33,6 +33,8 @@ namespace Chaos {
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 	void ChsMaterial::addTexture( ChsTexture2D * texture ){
+		if( !texture )
+			return;
 		this->hasTexture( true );
 		this->shaderUniforms.add( texture->sampleName(), CHS_SHADER_UNIFORM_1_INT, (int[]){texture->activeUnit()} );
 		this->textures += texture;

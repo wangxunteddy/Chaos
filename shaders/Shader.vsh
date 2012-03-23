@@ -17,11 +17,11 @@ varying vec2 texCoordVarying[TEXTURE_MAX];
 void main(){
     gl_Position = wvp * position;
 	
-	vec4 c = vec4(normal,1.0);
-	c = ( c + vec4(1.0) )/vec4(2.0);
+	//vec4 c = vec4(normal,1.0);
+	//c = ( c + vec4(1.0) )/vec4(2.0);
 
 	if( hasVertexColor )
-		colorVarying = c;//vertexColor;
+		colorVarying = vertexColor;
 	
 	texCoordVarying[0] = texcoord0;
 }

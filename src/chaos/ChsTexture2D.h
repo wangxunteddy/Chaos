@@ -23,7 +23,7 @@ namespace Chaos {
 		PROPERTY_READONLY_CONST( GLenum, type );
 		PROPERTY_READONLY_CONST( std::string, name );
 		PROPERTY_READONLY_CONST( boolean, hasAlpha );
-		PROPERTY_READONLY_CONST( GLubyte *, data );
+		//PROPERTY_READONLY_CONST( GLubyte *, data );
 		PROPERTY( GLint, activeUnit );
 		PROPERTY( std::string, sampleName );
 	};
@@ -36,7 +36,7 @@ namespace Chaos {
 	SYNTHESIZE_READONLY_CONST( ChsTexture2D, GLenum, type );
 	SYNTHESIZE_READONLY_CONST( ChsTexture2D, std::string, name );
 	SYNTHESIZE_READONLY_CONST( ChsTexture2D, boolean, hasAlpha );
-	SYNTHESIZE_READONLY_CONST( ChsTexture2D, GLubyte*, data );
+	//SYNTHESIZE_READONLY_CONST( ChsTexture2D, GLubyte*, data );
 	SYNTHESIZE( ChsTexture2D, GLint, activeUnit );
 	SYNTHESIZE( ChsTexture2D, std::string, sampleName );
 }

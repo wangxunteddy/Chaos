@@ -23,16 +23,14 @@ namespace Chaos {
         	glDeleteBuffers( 1, &this->vboHandle );
 	    if( this->vaoHandle )
     	    glDeleteVertexArraysOES( 1, &this->vaoHandle);
-		BOOST_FOREACH( ChsAttribUnit * attrib, this->attribs )
-			safeDelete( &attrib );
 		attribs.clear();
 		safeDeleteArray( &this->vertices );
 	}
 
 	//----------------------------------------------------------------------------------------------
 	void ChsVertexBuffer::bindAttribLocations( const ChsShaderProgram * program ) {
-		BOOST_FOREACH( const ChsAttribUnit * attrib, this->attribs )
-			glBindAttribLocation( program->handle(), attrib->index, attrib->name.c_str() );
+		BOOST_FOREACH( const ChsAttribUnitPtr & attribPtr, this->attribs )
+			glBindAttribLocation( program->handle(), attribPtr->index, attribPtr->name.c_str() );
 	}
 
 	//----------------------------------------------------------------------------------------------
@@ -46,12 +44,12 @@ namespace Chaos {
 
 	//----------------------------------------------------------------------------------------------
 	void ChsVertexBuffer::addAttrib( int count, int type, bool isNormalized, std::string name ) {
-		ChsAttribUnit * attrib = new ChsAttribUnit( count, type, isNormalized, name );
+		ChsAttribUnitPtr attrib( new ChsAttribUnit( count, type, isNormalized, name ) );
     	int lastOne = this->attribs.size();
 	    attrib->index = lastOne;
 	    int stride = 0;
     	if( lastOne ) {
-        	ChsAttribUnit * lastAttrib = this->attribs[lastOne-1];
+        	const ChsAttribUnitPtr & lastAttrib = this->attribs[lastOne-1];
 	        attrib->offset = lastAttrib->offset + lastAttrib->size;
     	    stride = lastAttrib->stride;
 	    }
@@ -60,20 +58,20 @@ namespace Chaos {
     	}
 	    this->attribs += attrib;
     	stride += attrib->size;
-		BOOST_FOREACH( ChsAttribUnit * attrib, this->attribs )
-			attrib->stride =stride;
+		BOOST_FOREACH( const ChsAttribUnitPtr & attrib, this->attribs )
+			attrib->stride = stride;
 	}
 
 	//----------------------------------------------------------------------------------------------
 	void ChsVertexBuffer::bindAttribArrays( void ){
     	glBindBuffer( GL_ARRAY_BUFFER, this->vboHandle );
-		BOOST_FOREACH( ChsAttribUnit * attrib, this->attribs )
+		BOOST_FOREACH( const ChsAttribUnitPtr & attrib, this->attribs )
 			attrib->bind();
 	}
 
 	//----------------------------------------------------------------------------------------------
 	void ChsVertexBuffer::unbindAttribArrays( void ){
-	    BOOST_FOREACH( ChsAttribUnit * attrib, this->attribs )
+	    BOOST_FOREACH( const ChsAttribUnitPtr & attrib, this->attribs )
 			attrib->unbind();
 	}
 

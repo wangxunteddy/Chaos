@@ -4,6 +4,7 @@
 
 //--------------------------------------------------------------------------------------------------------------------------------------------
 #include "ChsRenderNode.h"
+#include <boost/scoped_ptr.hpp>
 
 namespace Chaos {
 	//--------------------------------------------------------------------------------------------------------------------------------------------
@@ -23,8 +24,8 @@ namespace Chaos {
 		
 	protected:
 		ChsMaterial * material;
-		ChsVertexBuffer * vertexBuffer;
-		ChsIndexBuffer * indexBuffer;
+		boost::scoped_ptr<ChsVertexBuffer> vertexBuffer;
+		boost::scoped_ptr<ChsIndexBuffer> indexBuffer;
 		void doRender( ChsRenderSystem * render );
 		
 	};

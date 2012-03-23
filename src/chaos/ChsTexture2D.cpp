@@ -3,6 +3,8 @@
 #include "ChsUtility.h"
 #include "shader/ChsShaderProgram.h"
 
+#include <boost/scoped_array.hpp>
+
 namespace Chaos {
 	
 	//----------------------------------------------------------------------------------------------
@@ -14,7 +16,6 @@ namespace Chaos {
 	ChsTexture2D::~ChsTexture2D( void ){
 		if( this->handle() )
 			glDeleteTextures( 1, &(this->_handle) );
-		safeDeleteArray( &(this->_data));
 	}
 	
 	//----------------------------------------------------------------------------------------------
@@ -33,8 +34,8 @@ namespace Chaos {
 		this->_width = width;
 		this->_height = height;
 		this->_format = format;
-		this->_data = data;
-
+		//this->_data = data;
+		boost::scoped_array<GLubyte> dataPtr( data );
 		glGenTextures( 1, &(this->_handle) );
 		glBindTexture( GL_TEXTURE_2D, this->handle() );
 
@@ -47,7 +48,7 @@ namespace Chaos {
 
 		// Allocate and load image data into texture
 		glTexImage2D( GL_TEXTURE_2D, 0, this->format(), this->width(), this->height(), 0,
-					 this->format(), this->type(), this->data() );
+					 this->format(), this->type(), data );
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	

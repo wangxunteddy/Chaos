@@ -3,29 +3,19 @@
 using namespace boost::assign;
 //--------------------------------------------------------------------------------------------------
 namespace Chaos {
-
-	//----------------------------------------------------------------------------------------------
-	ChsEntity * ChsEntityManager::getEntityFromCache( std::string entityName ){
-		ChsEntity * entity = NULL;
-		if( this->cache.find( entityName ) != this->cache.end() ){
-			entity = this->cache[entityName];
-		}
-		return entity;
-	}
-	
 	//----------------------------------------------------------------------------------------------
 	ChsEntity * ChsEntityManager::getEntity( std::string entityName ){
 		if( entityName.empty() )
 			return NULL;
-		ChsEntity * entity = this->getEntityFromCache( entityName );
-		if( entity == NULL ){
-			entity = new ChsEntity( entityName );
+		boost::shared_ptr<ChsEntity> entityPtr = this->getFromCache( entityName );
+		if( !entityPtr ){
+			entityPtr = boost::shared_ptr<ChsEntity>( new ChsEntity( entityName ) );
 			printf( "生成Entity:%s\n", entityName.c_str() );
-			insert( this->cache )( entityName, entity );
+			insert( this->cache )( entityName, entityPtr );
 		}
-		return entity;
+		return entityPtr.get();
 	}
-
+#if 0
 	//----------------------------------------------------------------------------------------------
 	ChsEntity * ChsEntityManager::getEntityWithModel( std::string entityName,
 													 std::string modelName ){
@@ -47,16 +37,14 @@ namespace Chaos {
 		//TODO: set animation
 		return entity;
 	}
-
+#endif
 	//----------------------------------------------------------------------------------------------
-	void ChsEntityManager::releaseEntity( std::string entityName ){
-		if(entityName.empty())
+	void ChsEntityManager::releaseEntity( std::string name ){
+		if( name.empty() )
 			return;
-		if(this->cache.find(entityName) != this->cache.end() ) {
-			ChsEntity * entity = this->cache[entityName];
-			this->cache.erase(entityName);
-			safeDelete( &entity );
-		}
+		boost::shared_ptr<ChsEntity> entityPtr = this->getFromCache( name );
+		if( entityPtr )
+			this->cache.erase( name );
 	}
 	
 	//----------------------------------------------------------------------------------------------

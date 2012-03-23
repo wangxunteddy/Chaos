@@ -15,6 +15,7 @@
 #include <boost/assign.hpp>
 using namespace boost::assign;
 #include <boost/algorithm/string/split.hpp>
+#include <boost/scoped_array.hpp>
 
 namespace Chaos {
 	//----------------------------------------------------------------------------------------------
@@ -237,13 +238,13 @@ namespace Chaos {
 		const float * array;
 		int stride;
 	};
-	
+	typedef boost::scoped_array<VertexAttribute> VertexAttributePtr;
 	//----------------------------------------------------------------------------------------------
 	void makeVertexList( const std::vector<int> & vertexIndexList, std::vector<float> & vertexList, 
-						int vertexAttributeCount, const VertexAttribute * VertexAttributes );
+						int vertexAttributeCount, const VertexAttributePtr & VertexAttributes );
 	
 	void makeVertexList( const std::vector<int> & vertexIndexList, std::vector<float> & vertexList, 
-						int vertexAttributeCount, const VertexAttribute * VertexAttributes ){
+						int vertexAttributeCount, const VertexAttributePtr & VertexAttributes ){
 		int vertexIndexCount = vertexIndexList.size();
 		for( int vertexIndex = 0; vertexIndex < vertexIndexCount; vertexIndex += vertexAttributeCount ){
 			for( int attribute = 0; attribute < vertexAttributeCount; attribute++ ){
@@ -257,12 +258,10 @@ namespace Chaos {
 	}
 	
 	//----------------------------------------------------------------------------------------------
-	int makeVertexAttributes( DaeMesh & daeMesh, VertexAttribute ** vertexAttributes );
+	void makeVertexAttributes( DaeMesh & daeMesh, const VertexAttributePtr & vertexAttributes );
 	
-	int makeVertexAttributes( DaeMesh & daeMesh, VertexAttribute ** vertexAttributes ){
+	void makeVertexAttributes( DaeMesh & daeMesh, const VertexAttributePtr & vertexAttributes ){
 		std::vector<DaeSharedInput> & inputs = daeMesh.triangles.input;
-		int vertexAttributeCount = inputs.size();
-		*vertexAttributes = new VertexAttribute [vertexAttributeCount];
 		BOOST_FOREACH( DaeSharedInput & input , inputs ){
 			vertexInputRedirection( daeMesh, input );
 			std::string sourceId = input.source;
@@ -273,12 +272,11 @@ namespace Chaos {
 				const DaeSource & source = iter->second;
 				if( input.set >= 0 )
 					semantic += boost::lexical_cast<std::string>( input.set );
-				(*vertexAttributes)[input.offset].name = semantic;
-				(*vertexAttributes)[input.offset].array = source.floatArray.data.data();
-				(*vertexAttributes)[input.offset].stride = source.techniqueCommon.accessor.stride;
+				vertexAttributes[input.offset].name = semantic;
+				vertexAttributes[input.offset].array = source.floatArray.data.data();
+				vertexAttributes[input.offset].stride = source.techniqueCommon.accessor.stride;
 			}
 		}
-		return vertexAttributeCount;
 	}
 	
 	//----------------------------------------------------------------------------------------------
@@ -290,9 +288,9 @@ namespace Chaos {
 			return NULL;
 		}
 		
+		boost::scoped_array<char> fileDataPtr( fileData );
 		tinyxml2::XMLDocument doc;
-		int ret = doc.Parse( fileData );
-		safeDelete( &fileData );
+		int ret = doc.Parse( fileDataPtr.get() );
 		if( tinyxml2::XML_NO_ERROR != ret ){
 			doc.PrintError();//get some error
 			return NULL;
@@ -312,8 +310,9 @@ namespace Chaos {
 			DaeMesh daeMesh;
 			daeMesh.setValue( meshElement );
 			reduceTriangleListAndVertexIndexList( daeMesh, vertexIndexList, triangleList );
-			VertexAttribute * vertexAttributes = NULL ;
-			int vertexAttributeCount = makeVertexAttributes( daeMesh, &vertexAttributes );
+			int vertexAttributeCount = daeMesh.triangles.input.size();
+			VertexAttributePtr vertexAttributes( new VertexAttribute [vertexAttributeCount] );
+			makeVertexAttributes( daeMesh, vertexAttributes );
 			makeVertexList( vertexIndexList, vertexList, vertexAttributeCount, vertexAttributes );
 			vertexIndexList.clear();
 			mesh = new ChsMesh();
@@ -322,7 +321,6 @@ namespace Chaos {
 				bool isNormalized = attribute.name.compare( "normal" ) ? false : true;
 				mesh->vertexBuffer->addAttrib( attribute.stride, GL_FLOAT, isNormalized, attribute.name );
 			}
-			safeDeleteArray( &vertexAttributes );
 			mesh->vertexBuffer->setData( vertexList );
 			vertexList.clear();
 			mesh->indexBuffer->setData( triangleList );
