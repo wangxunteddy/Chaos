@@ -66,12 +66,10 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	struct DaeSource{
 		std::string id;
-		std::string name;
 		DaeFloatArray floatArray;
 		DaeTechniqueCommon techniqueCommon;
 		void setValue( tinyxml2::XMLElement * sourceElement ){
 			this->id = sourceElement->Attribute( "id" );
-			this->name = sourceElement->Attribute( "name" );
 			this->floatArray.setValue( sourceElement->FirstChildElement( "float_array" ) );
 			tinyxml2::XMLElement * accessorElement = sourceElement->FirstChildElement( "technique_common" )->FirstChildElement( "accessor" );
 			this->techniqueCommon.accessor.setValue( accessorElement );
@@ -175,9 +173,10 @@ namespace Chaos {
 	template<typename T>
 	void lexicalCastToArray( std::vector<T> & array, std::string stream ){
 		std::vector<std::string> rs;
-		boost::split( rs, stream, boost::is_any_of(" ") );
+		boost::split( rs, stream, boost::is_any_of("\n ") );
 		BOOST_FOREACH( const std::string & str, rs)
-			array += boost::lexical_cast<T>( str );
+			if(!str.empty())
+				array += boost::lexical_cast<T>( str );
 	}
 
 	//----------------------------------------------------------------------------------------------
@@ -292,6 +291,8 @@ namespace Chaos {
 		tinyxml2::XMLDocument doc;
 		int ret = doc.Parse( fileDataPtr.get() );
 		if( tinyxml2::XML_NO_ERROR != ret ){
+			printf( "errorStr1:%s\n", doc.GetErrorStr1());
+			printf( "errorStr2:%s\n", doc.GetErrorStr2());
 			doc.PrintError();//get some error
 			return NULL;
 		}
