@@ -5,6 +5,8 @@
 #include "ChsMaterial.h"
 #include "ChsResourceManager.h"
 
+#include <boost/scoped_array.hpp>
+
 namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	ChsCoordinatePlane::ChsCoordinatePlane( float size, int divide ) : ChsMesh( "Coordinate Plane" ){
@@ -28,7 +30,7 @@ namespace Chaos {
 			}
 		};
 		int vertexCount = 2 * ( divide + 1 ) * 2;
-		Vertex * vertices = new Vertex[vertexCount];
+		boost::scoped_array<Vertex> vertices( new Vertex[vertexCount] );
 		float stepSize = size / divide;
 		float width = size / 2;
 		for( int i = -divide / 2, k = 0; i <= divide / 2; ++i, k += 4 ){
@@ -54,19 +56,18 @@ namespace Chaos {
 		}
 		this->vertexBuffer->addAttrib( 3, GL_FLOAT, false, "position" );
 		this->vertexBuffer->addAttrib( 4, GL_FLOAT, true, "vertexColor" );
-		this->vertexBuffer->setData( vertices, sizeof( Vertex ) * vertexCount );
-		delete [] vertices;
+		this->vertexBuffer->setData( vertices.get(), sizeof( Vertex ) * vertexCount );
 		
 		int indexCount = vertexCount;
-		GLushort * indices = new GLushort [indexCount];
+		boost::scoped_array<GLushort> indices( new GLushort [indexCount] );
 		for( int i = 0; i < indexCount; i++ )
 			indices[i] = ( GLushort )i;
 		
-		this->indexBuffer->setData( indices, indexCount, GL_UNSIGNED_SHORT );
+		this->indexBuffer->setData( indices.get(), indexCount, GL_UNSIGNED_SHORT );
 		this->indexBuffer->mode( GL_LINES );
-		delete [] indices;
 	}
 
+	//----------------------------------------------------------------------------------------------
 	void ChsCoordinatePlane::setMaterial( void ){
 		this->material = new ChsMaterial();
 		ChsShaderProgram * shaderProgram = ChsResourceManager::sharedInstance()->getShaderProgram( "Wireframe.vsh", "Wireframe.fsh" );
@@ -83,4 +84,6 @@ namespace Chaos {
 		}
 		this->material->setShader( shaderProgram );
 	}
+	
+	//----------------------------------------------------------------------------------------------
 }
