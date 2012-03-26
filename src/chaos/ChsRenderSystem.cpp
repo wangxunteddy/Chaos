@@ -25,14 +25,9 @@ namespace Chaos {
 	ChsMatrix wvp;
 	ChsMatrix mtxWorld;
 	ChsCoordinatePlane * debugCoordinatePlane;
-	//----------------------------------------------------------------------------------------------
-	class ChsRenderRoot : public ChsRenderNode {
-	private:
-		void doRender( ChsRenderSystem * render ){}
-	};
 	
 	//----------------------------------------------------------------------------------------------
-	ChsRenderSystem::ChsRenderSystem( void ) :	_root( new ChsRenderRoot() ),
+	ChsRenderSystem::ChsRenderSystem( void ) :	_root( new ChsRenderNode() ),
 												framebuffer( 0 ),
 												renderbuffer( 0 ),
 												renderbufferWidth( 0 ),
@@ -95,7 +90,7 @@ namespace Chaos {
 			this->currentCamera()->update();
 			wvp = mtxWorld * this->currentCamera()->getViewProjectionMatrix();
 		}
-		this->root()->render( this );
+		this->root()->renderNodes( this );
 		glBindFramebuffer( GL_FRAMEBUFFER, this->framebuffer );
     	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	}

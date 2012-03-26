@@ -25,7 +25,7 @@ namespace Chaos {
 	}
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
-	void ChsMesh::doRender( ChsRenderSystem * render ) {
+	void ChsMesh::render( ChsRenderSystem * render ) {
 		ChsRenderUnit unit;
 		unit.material = this->material;
 		unit.vertexBuffer = this->vertexBuffer.get();

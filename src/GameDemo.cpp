@@ -10,12 +10,14 @@
 #include "ChsDaeLoader.h"
 #include <boost/shared_ptr.hpp>
 #include "ChsTexture2D.h"
+#include "ChsModel.h"
+
 //--------------------------------------------------------------------------------------------------
 using namespace Chaos;
 #include <math.h>
 
 GameDemo game;
-ChsCameraBase camera;
+boost::scoped_ptr<ChsCameraBase> camera(new ChsCameraBase());
 static float transY = 0.0f;
 ChsMaterial * material;
 ChsPlane * planeMesh1;
@@ -35,32 +37,31 @@ void GameDemo::onInit( void ) {
 	//this->renderer()->root()->add( plane1->name(), plane1 );
 	
 	ChsRect viewport = this->renderer()->getViewPort();
-	camera.perspective( degree2Radian(60), viewport.w/(float)viewport.h, 0.1f, 1000.0f  );
-	camera.lookAt( 0,20,0,0,0,0 );
-	this->renderer()->currentCamera( &camera );
+	camera->perspective( degree2Radian(60), viewport.w/(float)viewport.h, 0.1f, 1000.0f  );
+	camera->lookAt( 0,20,0,0,0,0 );
+	this->renderer()->currentCamera( camera.get() );
 	this->renderer()->showDebugCoordinate( true );
 	
-	Chaos::ChsDaeLoader loader;
-	ChsMesh * mesh = loader.load( "sofa.dae" );
-	mesh->setMaterial();
-	material = mesh->getMaterial();
+	
+	ChsModel * model = ChsResourceManager::sharedInstance()->getModel( "sofa.dae" ).get();
+//	material = mesh->getMaterial();
 	//material->hasVertexColor(true);
-	boost::shared_ptr<ChsTexture2D> texture = ChsResourceManager::sharedInstance()->getTexture2D( "sofaLeather.png" );
-	texture->sampleName( "diffuseTexture" );
-	texture->activeUnit( 0 );
-	material->addTexture( texture );
+//	boost::shared_ptr<ChsTexture2D> texture = ChsResourceManager::sharedInstance()->getTexture2D( "sofaLeather.png" );
+//	texture->sampleName( "diffuseTexture" );
+//	texture->activeUnit( 0 );
+//	material->addTexture( texture );
 
-	this->renderer()->root()->add( mesh->name(), mesh );
+	this->renderer()->root()->add( model->name(), model );
 }
 
 //--------------------------------------------------------------------------------------------------
 void GameDemo::onUpdate( void ) {
 	transY += 0.0075f;
 	float alpha = sin(transY);
-	camera.moveTo( cos(transY)*3, 2, sin(transY)*3);
+	camera->moveTo( cos(transY)*3, 2, sin(transY)*3);
 	alpha = alpha >=0 ? alpha : -alpha;
 	//material = planeMesh1->getMaterial();
-	material->alpha(1.0f-alpha);
+	//material->alpha(1.0f-alpha);
 	
 }
 

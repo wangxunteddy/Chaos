@@ -1,12 +1,3 @@
-#include "ChsDaeLoader.h"
-#include "ChsMesh.h"
-#include "io/ChsFileSystem.h"
-#include "ChsUtility.h"
-#include "tinyxml2/tinyxml2.h"
-#include "platform/ChsOpenGL.h"
-#include "ChsIndexBuffer.h"
-#include "ChsVertexBuffer.h"
-
 #define BOOST_NO_CHAR16_T
 #define BOOST_NO_CHAR32_T
 #include <boost/lexical_cast.hpp>
@@ -16,6 +7,18 @@
 using namespace boost::assign;
 #include <boost/algorithm/string/split.hpp>
 #include <boost/scoped_array.hpp>
+
+
+#include "ChsDaeLoader.h"
+#include "ChsModel.h"
+#include "ChsMesh.h"
+#include "io/ChsFileSystem.h"
+#include "ChsUtility.h"
+#include "tinyxml2/tinyxml2.h"
+#include "platform/ChsOpenGL.h"
+#include "ChsIndexBuffer.h"
+#include "ChsVertexBuffer.h"
+
 
 namespace Chaos {
 	//----------------------------------------------------------------------------------------------
@@ -279,7 +282,7 @@ namespace Chaos {
 	}
 	
 	//----------------------------------------------------------------------------------------------
-	ChsMesh * ChsDaeLoader::load( const char * filename ){
+	ChsModel * ChsDaeLoader::load( const char * filename ){
 		char * fileData;
 		ChsFileSystem::sharedInstance()->readFileAsUTF8( filename, &fileData );
 		if( fileData == NULL ){
@@ -291,13 +294,13 @@ namespace Chaos {
 		tinyxml2::XMLDocument doc;
 		int ret = doc.Parse( fileDataPtr.get() );
 		if( tinyxml2::XML_NO_ERROR != ret ){
-			printf( "errorStr1:%s\n", doc.GetErrorStr1());
-			printf( "errorStr2:%s\n", doc.GetErrorStr2());
+			printf( "errorStr1:%s\n", doc.GetErrorStr1() );
+			printf( "errorStr2:%s\n", doc.GetErrorStr2() );
 			doc.PrintError();//get some error
 			return NULL;
 		}
 		
-		ChsMesh * mesh = NULL;
+		ChsModel * model = new ChsModel( filename );
 		tinyxml2::XMLElement * geometryElement = doc.FirstChildElement( "COLLADA" )
 													->FirstChildElement( "library_geometries" )
 													->FirstChildElement( "geometry" );
@@ -316,7 +319,7 @@ namespace Chaos {
 			makeVertexAttributes( daeMesh, vertexAttributes );
 			makeVertexList( vertexIndexList, vertexList, vertexAttributeCount, vertexAttributes );
 			vertexIndexList.clear();
-			mesh = new ChsMesh();
+			boost::shared_ptr<ChsMesh> mesh( new ChsMesh() );
 			for( int i = 0; i < vertexAttributeCount ; i++ ){
 				const VertexAttribute & attribute = vertexAttributes[i];
 				bool isNormalized = attribute.name.compare( "normal" ) ? false : true;
@@ -327,9 +330,12 @@ namespace Chaos {
 			mesh->indexBuffer->setData( triangleList );
 			triangleList.clear();
 			mesh->indexBuffer->mode( GL_TRIANGLES );
+			mesh->setMaterial();
+			
+			model->addMesh( mesh );
 			geometryElement = geometryElement->NextSiblingElement();
 		}while( geometryElement != NULL );
-		return mesh;
+		return model;
 	}
 
 	//----------------------------------------------------------------------------------------------

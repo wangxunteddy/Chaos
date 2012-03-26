@@ -1,5 +1,5 @@
 #include "ChsEntity.h"
-
+#include "ChsModel.h"
 
 namespace Chaos {
 
@@ -9,7 +9,11 @@ namespace Chaos {
 	ChsEntity::~ChsEntity( void ){
 	}
 	
-	void ChsEntity::doRender( ChsRenderSystem * render ){
+	void ChsEntity::render( ChsRenderSystem * render ){
+		if( this->model.expired() )
+			return;
+		boost::shared_ptr<ChsModel> model = this->model.lock();
+		model->renderNodes( render );
 	}
 	
 }

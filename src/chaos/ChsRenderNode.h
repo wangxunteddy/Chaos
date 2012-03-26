@@ -4,20 +4,19 @@
 
 //--------------------------------------------------------------------------------------------------
 #include "ChsNode.h"
+#include "ChsRenderable.h"
 
 //--------------------------------------------------------------------------------------------------
 namespace Chaos{
 	//----------------------------------------------------------------------------------------------
 	class ChsRenderSystem;
 	//----------------------------------------------------------------------------------------------
-	class ChsRenderNode : public ChsNode{
-	protected:
-		virtual void doRender( ChsRenderSystem * render ) = 0;
+	class ChsRenderNode : public ChsNode, ChsRenderable{
 	public:
 		ChsRenderNode( std::string name = "unnamed" );
 		virtual ~ChsRenderNode( void );
 
-		void render( ChsRenderSystem * render );
+		void renderNodes( ChsRenderSystem * render );
 		
 	private:
 		

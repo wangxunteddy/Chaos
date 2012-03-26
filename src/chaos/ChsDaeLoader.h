@@ -3,11 +3,11 @@
 
 namespace Chaos {
 
-	class ChsMesh;
+	class ChsModel;
 	
 	class ChsDaeLoader {
 	public:
-		ChsMesh* load( const char * filename );
+		ChsModel* load( const char * filename );
 	private:
 	};
 	

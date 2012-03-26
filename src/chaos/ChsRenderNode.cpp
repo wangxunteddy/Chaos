@@ -15,13 +15,13 @@ namespace Chaos {
 	}
 
 	//----------------------------------------------------------------------------------------------
-	void ChsRenderNode::render( ChsRenderSystem * render ){
+	void ChsRenderNode::renderNodes( ChsRenderSystem * render ){
 		if( !this->visible() )
 			return;//if this node is invisible,then all chilren are invisible too
-		this->doRender( render );
+		this->render( render );
 		std::pair<std::string, ChsNode *> p;
 		BOOST_FOREACH( p, this->children )
-			( ( ChsRenderNode * )p.second )->render( render );
+			( ( ChsRenderNode * )p.second )->renderNodes( render );
 	}
 
 	//----------------------------------------------------------------------------------------------

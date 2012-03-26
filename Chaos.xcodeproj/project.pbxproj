@@ -13,6 +13,7 @@
 		7405DEB415102E3B00824770 /* sofa.dae in Resources */ = {isa = PBXBuildFile; fileRef = 7405DEB215102E3B00824770 /* sofa.dae */; };
 		7405DEB515102E3B00824770 /* sofaLeather.png in Resources */ = {isa = PBXBuildFile; fileRef = 7405DEB315102E3B00824770 /* sofaLeather.png */; };
 		740C3A5C150EDFE40093E952 /* ChsCoordinatePlane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 740C3A5B150EDFE40093E952 /* ChsCoordinatePlane.cpp */; };
+		7412E922151C6926008605BE /* test.dae in Resources */ = {isa = PBXBuildFile; fileRef = 7412E921151C6926008605BE /* test.dae */; };
 		7414711B14FC5F1C00964FA3 /* ChsMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7414711A14FC5F1C00964FA3 /* ChsMaterial.cpp */; };
 		7414711D14FC5FAD00964FA3 /* ChsOpenGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7414711C14FC5FAD00964FA3 /* ChsOpenGL.cpp */; };
 		741ABD4A14EE37BD00995232 /* ChsEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 741ABD4814EE37BD00995232 /* ChsEngine.cpp */; };
@@ -26,6 +27,8 @@
 		744EA4AA14F22F2700669446 /* ChsRenderSystemIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 741ABD3D14EE33CD00995232 /* ChsRenderSystemIOS.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		744EA4AB14F22F2700669446 /* ChsFileSystemIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 741ABD4014EE33DA00995232 /* ChsFileSystemIOS.mm */; };
 		745C30F31516FD8F0061F510 /* ChsTexture2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 745C30F21516FD8E0061F510 /* ChsTexture2D.cpp */; };
+		7486D9AA1520531500099441 /* ChsModelManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7486D9A91520531400099441 /* ChsModelManager.cpp */; };
+		7486D9AE1520618E00099441 /* ChsModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7486D9AB1520580800099441 /* ChsModel.cpp */; };
 		748936FA14F64490006CDF7B /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 748936F414F64490006CDF7B /* EAGLView.mm */; };
 		748936FB14F64490006CDF7B /* GLViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 748936F514F64490006CDF7B /* GLViewController.mm */; };
 		748936FC14F64490006CDF7B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 748936F614F64490006CDF7B /* AppDelegate.m */; };
@@ -80,6 +83,7 @@
 		7405DEB315102E3B00824770 /* sofaLeather.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sofaLeather.png; sourceTree = "<group>"; };
 		740C3A59150EDF420093E952 /* ChsCoordinatePlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChsCoordinatePlane.h; path = src/chaos/geometry/ChsCoordinatePlane.h; sourceTree = "<group>"; };
 		740C3A5B150EDFE40093E952 /* ChsCoordinatePlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsCoordinatePlane.cpp; path = src/chaos/geometry/ChsCoordinatePlane.cpp; sourceTree = "<group>"; };
+		7412E921151C6926008605BE /* test.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = test.dae; sourceTree = "<group>"; };
 		7414711A14FC5F1C00964FA3 /* ChsMaterial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsMaterial.cpp; path = src/chaos/ChsMaterial.cpp; sourceTree = "<group>"; };
 		7414711C14FC5FAD00964FA3 /* ChsOpenGL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsOpenGL.cpp; path = src/chaos/platform/ChsOpenGL.cpp; sourceTree = "<group>"; };
 		741ABD3D14EE33CD00995232 /* ChsRenderSystemIOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ChsRenderSystemIOS.mm; path = src/chaos/platform/ios/ChsRenderSystemIOS.mm; sourceTree = "<group>"; };
@@ -107,6 +111,11 @@
 		745C30F21516FD8E0061F510 /* ChsTexture2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsTexture2D.cpp; path = src/chaos/ChsTexture2D.cpp; sourceTree = "<group>"; };
 		74614B8C14F4BB85003396BA /* ChsDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChsDefine.h; path = src/chaos/ChsDefine.h; sourceTree = "<group>"; };
 		74614B8E14F4CCD0003396BA /* ChsOpenGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChsOpenGL.h; path = src/chaos/platform/ChsOpenGL.h; sourceTree = "<group>"; };
+		7486D9A815203A8900099441 /* ChsModelManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ChsModelManager.h; path = src/chaos/ChsModelManager.h; sourceTree = "<group>"; };
+		7486D9A91520531400099441 /* ChsModelManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsModelManager.cpp; path = src/chaos/ChsModelManager.cpp; sourceTree = "<group>"; };
+		7486D9AB1520580800099441 /* ChsModel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ChsModel.cpp; path = src/chaos/ChsModel.cpp; sourceTree = "<group>"; };
+		7486D9AC1520580A00099441 /* ChsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ChsModel.h; path = src/chaos/ChsModel.h; sourceTree = "<group>"; };
+		7486D9AD152059C000099441 /* ChsRenderable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ChsRenderable.h; path = src/chaos/ChsRenderable.h; sourceTree = "<group>"; };
 		748936F214F620EF006CDF7B /* ChsManagerWithCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChsManagerWithCache.h; path = src/chaos/ChsManagerWithCache.h; sourceTree = "<group>"; };
 		748936F414F64490006CDF7B /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = EAGLView.mm; path = src/chaos/platform/ios/EAGLView.mm; sourceTree = "<group>"; };
 		748936F514F64490006CDF7B /* GLViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GLViewController.mm; path = src/chaos/platform/ios/GLViewController.mm; sourceTree = "<group>"; };
@@ -280,6 +289,8 @@
 				741ABD4D14EE46F300995232 /* ChsRenderFactory.cpp */,
 				741ABD4E14EE46F300995232 /* ChsRenderFactory.h */,
 				743A296514F337B400486634 /* Chaos.h */,
+				7486D9AB1520580800099441 /* ChsModel.cpp */,
+				7486D9AC1520580A00099441 /* ChsModel.h */,
 				742F869014F5F7FE00693E51 /* ChsMacro.h */,
 				742F869414F60A5900693E51 /* ChsEntityManager.cpp */,
 				742F868D14F5EF3B00693E51 /* ChsEntityManager.h */,
@@ -298,6 +309,9 @@
 				74EE3A6F15172E0B00FC9420 /* ChsTextureFactory.cpp */,
 				74EE3A6C1517209200FC9420 /* ChsTextureManager.h */,
 				74EE3A6D1517229300FC9420 /* ChsTextureManager.cpp */,
+				7486D9A815203A8900099441 /* ChsModelManager.h */,
+				7486D9A91520531400099441 /* ChsModelManager.cpp */,
+				7486D9AD152059C000099441 /* ChsRenderable.h */,
 			);
 			name = chaos;
 			sourceTree = "<group>";
@@ -372,6 +386,7 @@
 			children = (
 				7405DEB215102E3B00824770 /* sofa.dae */,
 				7405DEB315102E3B00824770 /* sofaLeather.png */,
+				7412E921151C6926008605BE /* test.dae */,
 				74C7BE041500705500194E72 /* default.material */,
 			);
 			path = assets;
@@ -517,6 +532,7 @@
 				74E047FE14ECCD880024586A /* InfoPlist.strings in Resources */,
 				7405DEB415102E3B00824770 /* sofa.dae in Resources */,
 				7405DEB515102E3B00824770 /* sofaLeather.png in Resources */,
+				7412E922151C6926008605BE /* test.dae in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,6 +543,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7486D9AE1520618E00099441 /* ChsModel.cpp in Sources */,
 				744EA4AA14F22F2700669446 /* ChsRenderSystemIOS.mm in Sources */,
 				744EA4AB14F22F2700669446 /* ChsFileSystemIOS.mm in Sources */,
 				749D79B414ECD5F50046F2D9 /* ChsIndexBuffer.cpp in Sources */,
@@ -570,6 +587,7 @@
 				74EE3A6B15171D7F00FC9420 /* ChsTextureFactoryIOS.mm in Sources */,
 				74EE3A6E1517229400FC9420 /* ChsTextureManager.cpp in Sources */,
 				74EE3A7015172E0B00FC9420 /* ChsTextureFactory.cpp in Sources */,
+				7486D9AA1520531500099441 /* ChsModelManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

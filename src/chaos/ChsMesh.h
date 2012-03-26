@@ -20,13 +20,11 @@ namespace Chaos {
 		virtual ~ChsMesh( void );
 		void setMaterial( void );
 		inline ChsMaterial * getMaterial( void );
-		
+		void render( ChsRenderSystem * render );
 	protected:
 		ChsMaterial * material;
 		boost::scoped_ptr<ChsVertexBuffer> vertexBuffer;
 		boost::scoped_ptr<ChsIndexBuffer> indexBuffer;
-		void doRender( ChsRenderSystem * render );
-		
 	};
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
