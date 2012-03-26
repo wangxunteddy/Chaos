@@ -56,7 +56,7 @@ distribution.
 
 #if defined(DEBUG)
         #if defined(_MSC_VER)
-                #define TIXMLASSERT( x )           if ( !(x)) { _asm { int 3 } } //if ( !(x)) WinDebugBreak()
+                #define TIXMLASSERT( x )           if ( !(x)) { __debugbreak(); } //if ( !(x)) WinDebugBreak()
         #elif defined (ANDROID_NDK)
                 #include <android/log.h>
                 #define TIXMLASSERT( x )           if ( !(x)) { __android_log_assert( "assert", "grinliz", "ASSERT in '%s' at %d.", __FILE__, __LINE__ ); }
@@ -95,7 +95,7 @@ distribution.
 
 static const int TIXML2_MAJOR_VERSION = 0;
 static const int TIXML2_MINOR_VERSION = 9;
-static const int TIXML2_PATCH_VERSION = 1;
+static const int TIXML2_PATCH_VERSION = 2;
 
 namespace tinyxml2
 {
@@ -736,6 +736,7 @@ enum {
 	XML_WRONG_ATTRIBUTE_TYPE,
 
 	XML_ERROR_FILE_NOT_FOUND,
+	XML_ERROR_FILE_COULD_NOT_BE_OPENED,
 	XML_ERROR_ELEMENT_MISMATCH,
 	XML_ERROR_PARSING_ELEMENT,
 	XML_ERROR_PARSING_ATTRIBUTE,
@@ -843,9 +844,29 @@ public:
 	virtual bool Accept( XMLVisitor* visitor ) const;
 
 	/** Given an attribute name, Attribute() returns the value
-		for the attribute of that name, or null if none exists.
+		for the attribute of that name, or null if none 
+		exists. For example:
+
+		@verbatim
+		const char* value = ele->Attribute( "foo" );
+		@endverbatim
+
+		The 'value' parameter is normally null. However, if specified, 
+		the attribute will only be returned if the 'name' and 'value' 
+		match. This allow you to write code:
+
+		@verbatim
+		if ( ele->Attribute( "foo", "bar" ) ) callFooIsBar();
+		@endverbatim
+
+		rather than:
+		@verbatim
+		if ( ele->Attribute( "foo" ) ) {
+			if ( strcmp( ele->Attribute( "foo" ), "bar" ) == 0 ) callFooIsBar();
+		}
+		@endverbatim
 	*/
-	const char* Attribute( const char* name ) const	{ const XMLAttribute* a = FindAttribute( name ); if ( !a ) return 0; return a->Value(); }
+	const char* Attribute( const char* name, const char* value=0 ) const;
 
 	/** Given an attribute name, IntAttribute() returns the value
 		of the attribute interpreted as an integer. 0 will be

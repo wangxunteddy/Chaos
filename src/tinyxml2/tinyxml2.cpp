@@ -1074,6 +1074,17 @@ const XMLAttribute* XMLElement::FindAttribute( const char* name ) const
 }
 
 
+const char* XMLElement::Attribute( const char* name, const char* value ) const
+{ 
+	const XMLAttribute* a = FindAttribute( name ); 
+	if ( !a ) 
+		return 0; 
+	if ( !value || XMLUtil::StringEqual( a->Value(), value ))
+		return a->Value();
+	return 0;
+}
+
+
 const char* XMLElement::GetText() const
 {
 	if ( FirstChild() && FirstChild()->ToText() ) {
@@ -1408,9 +1419,14 @@ void XMLDocument::SaveFile( const char* filename )
 #if defined(_MSC_VER)
 #pragma warning ( pop )
 #endif
-	XMLPrinter stream( fp );
-	Print( &stream );
-	fclose( fp );
+	if ( fp ) {
+		XMLPrinter stream( fp );
+		Print( &stream );
+		fclose( fp );
+	}
+	else {
+		SetError( XML_ERROR_FILE_COULD_NOT_BE_OPENED, filename, 0 );
+	}
 }
 
 
