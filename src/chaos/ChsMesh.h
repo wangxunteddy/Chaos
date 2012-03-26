@@ -18,7 +18,6 @@ namespace Chaos {
 	public:
 		ChsMesh( std::string name = "unnamed" );
 		virtual ~ChsMesh( void );
-		void load( const float * vertices, int verCount, const void * indeices );
 		void setMaterial( void );
 		inline ChsMaterial * getMaterial( void );
 		

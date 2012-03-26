@@ -2,14 +2,13 @@
 #define _CHS_TEXTUREMANAGER_H
 
 #include "ChsManagerWithCache.h"
-#include "ChsTexture2D.h"
 
 namespace Chaos{
-	
+	class ChsTexture2D;	
 	//----------------------------------------------------------------------------------------------
-	class ChsTextureManager : public ChsManagerWithCache<std::string,ChsTexture2D>{
+	class ChsTextureManager : public ChsManagerWithCache< ChsTexture2D > {
 	public:
-		ChsTexture2D * getTexture2D( std::string name );
+		boost::shared_ptr<ChsTexture2D> getTexture2D( std::string name );
 	};
 	
 	//----------------------------------------------------------------------------------------------

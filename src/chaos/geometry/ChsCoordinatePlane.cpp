@@ -1,11 +1,12 @@
+#include <boost/scoped_array.hpp>
+
 #include "ChsCoordinatePlane.h"
 #include "platform/ChsOpenGL.h"
 #include "ChsVertexBuffer.h"
 #include "ChsIndexBuffer.h"
 #include "ChsMaterial.h"
 #include "ChsResourceManager.h"
-
-#include <boost/scoped_array.hpp>
+#include "shader/ChsShaderProgram.h"
 
 namespace Chaos {
 	//----------------------------------------------------------------------------------------------
@@ -70,11 +71,11 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	void ChsCoordinatePlane::setMaterial( void ){
 		this->material = new ChsMaterial();
-		ChsShaderProgram * shaderProgram = ChsResourceManager::sharedInstance()->getShaderProgram( "Wireframe.vsh", "Wireframe.fsh" );
+		boost::shared_ptr<ChsShaderProgram> shaderProgram( ChsResourceManager::sharedInstance()->getShaderProgram( "Wireframe.vsh", "Wireframe.fsh" ) );
 		
 		// Bind attribute locations.
 		// This needs to be done prior to linking.
-		this->vertexBuffer->bindAttribLocations( shaderProgram );
+		this->vertexBuffer->bindAttribLocations( shaderProgram.get() );
 		
 		// Link program.
 		if ( !shaderProgram->link() ) {

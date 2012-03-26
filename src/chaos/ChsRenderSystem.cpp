@@ -101,7 +101,7 @@ namespace Chaos {
 	}
 
 	//----------------------------------------------------------------------------------------------
-	static ChsShaderProgram * currentShaderProgram = NULL;
+	static ChsShaderProgram * currentShaderProgram;
 
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::render( void ){

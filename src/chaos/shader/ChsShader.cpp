@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <boost/scoped_ptr.hpp>
+
 #include "ChsShader.h"
 
 namespace Chaos {
@@ -41,10 +43,9 @@ namespace Chaos {
     	GLint logLength;
 	    glGetShaderiv( this->handle(), GL_INFO_LOG_LENGTH, &logLength );
     	if ( logLength > 0 ) {
-        	GLchar *log = new GLchar[logLength];
-	        glGetShaderInfoLog( this->handle(), logLength, &logLength, log );
-    	    printf( "Shader compile log:\n%s", log );
-        	delete [] log;
+			boost::scoped_ptr<GLchar> log( new GLchar[logLength] );
+			glGetShaderInfoLog( this->handle(), logLength, &logLength, log.get() );
+    	    printf( "Shader compile log:\n%s", log.get() );
 	    }
 	#endif
     	GLint status;

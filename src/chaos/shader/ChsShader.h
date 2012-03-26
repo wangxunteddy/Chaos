@@ -24,9 +24,7 @@ namespace Chaos {
 		PROPERTY_CONST( GLuint, handle )
 
 	};
-
 	SYNTHESIZE_CONST( ChsShader, GLuint, handle )
-
 	
 	//----------------------------------------------------------------------------------------------
 	class ChsFragmentShader : public ChsShader{
@@ -39,6 +37,7 @@ namespace Chaos {
 	public:
 		ChsVertexShader( void ) : ChsShader( GL_VERTEX_SHADER ){}
 	};
+
 	//----------------------------------------------------------------------------------------------
 }//namespace
 #endif //_CHSSHADER_H

@@ -1,16 +1,16 @@
-#include "ChsMaterial.h"
-#include "shader/ChsShaderProgram.h"
-#include "ChsResourceManager.h"
 #include <boost/foreach.hpp>
 #include <boost/assign.hpp>
 using namespace boost::assign;
+
+#include "ChsMaterial.h"
+#include "shader/ChsShaderProgram.h"
+#include "ChsResourceManager.h"
+#include "ChsTexture2D.h"
 
 namespace Chaos {
 	
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 	ChsMaterial::ChsMaterial( void ) {
-		this->_shaderProgram = NULL;
-		
 		this->_hasVertexColor = false;
 		this->shaderUniforms.add( "hasVertexColor", &(this->_hasVertexColor), CHS_SHADER_UNIFORM_1_INT, 1);
 		
@@ -27,12 +27,11 @@ namespace Chaos {
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 	ChsMaterial::~ChsMaterial( void ) {
-		this->_shaderProgram = NULL;
 		this->textures.clear();
 	}
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
-	void ChsMaterial::addTexture( ChsTexture2D * texture ){
+	void ChsMaterial::addTexture( boost::shared_ptr<ChsTexture2D> texture ){
 		if( !texture )
 			return;
 		this->hasTexture( true );
@@ -42,14 +41,22 @@ namespace Chaos {
 	
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 	ChsShaderProgram * ChsMaterial::apply( ChsShaderProgram * sysProgram ) {
-		if( this->_shaderProgram == NULL && sysProgram == NULL )
-			return NULL;
-		ChsShaderProgram * currentProgram = this->_shaderProgram != NULL ? this->_shaderProgram : sysProgram;
-		if( currentProgram != sysProgram )
-			currentProgram->use();
-    	this->shaderUniforms.apply( currentProgram );
-		BOOST_FOREACH( ChsTexture2D * texture, this->textures )
-			texture->bind();
+		ChsShaderProgram * currentProgram = sysProgram;
+		if( !this->_shaderProgram.expired() || currentProgram ){
+			if( !this->_shaderProgram.expired() ){
+				currentProgram = this->_shaderProgram.lock().get();
+				if( currentProgram != sysProgram ){
+//					printf( "use new program\n" );
+					currentProgram->use();
+				}
+				else{
+//					printf( "use last program\n" );
+				}
+			}
+			this->shaderUniforms.apply( currentProgram );
+			BOOST_FOREACH( boost::shared_ptr<ChsTexture2D> & texture, this->textures )
+				texture->bind();
+		}
 		return currentProgram;
 	}
 
@@ -64,7 +71,7 @@ namespace Chaos {
 	#endif
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
-	void ChsMaterial::setShader( ChsShaderProgram * program ){
+	void ChsMaterial::setShader( boost::shared_ptr<ChsShaderProgram> program ){
 		this->_shaderProgram = program;
 	}
 	

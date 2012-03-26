@@ -29,8 +29,8 @@ namespace Chaos {
 
 	//----------------------------------------------------------------------------------------------
 	void ChsVertexBuffer::bindAttribLocations( const ChsShaderProgram * program ) {
-		BOOST_FOREACH( const ChsAttribUnitPtr & attribPtr, this->attribs )
-			glBindAttribLocation( program->handle(), attribPtr->index, attribPtr->name.c_str() );
+		BOOST_FOREACH( const ChsAttribUnitPtr & attrib, this->attribs )
+			glBindAttribLocation( program->handle(), attrib->index, attrib->name.c_str() );
 	}
 
 	//----------------------------------------------------------------------------------------------

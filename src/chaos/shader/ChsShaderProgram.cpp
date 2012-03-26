@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <boost/scoped_ptr.hpp>
+
 #include "ChsShaderProgram.h"
 
 namespace Chaos {
@@ -37,10 +39,9 @@ namespace Chaos {
     	GLint logLength;
 	    glGetProgramiv( this->handle(), GL_INFO_LOG_LENGTH, &logLength );
     	if ( logLength > 0 ){
-        	GLchar *log = new GLchar[logLength];
-	        glGetProgramInfoLog( this->handle(), logLength, &logLength, log );
-    	    printf( "Program link log:\n%s", log );
-        	delete [] log;
+			boost::scoped_ptr<GLchar> log( new GLchar[logLength] );
+	        glGetProgramInfoLog( this->handle(), logLength, &logLength, log.get() );
+    	    printf( "Program link log:\n%s", log.get() );
 	    }
 	#endif
     	GLint status;
@@ -49,7 +50,7 @@ namespace Chaos {
 	}
 
 	//----------------------------------------------------------------------------------------------
-	void ChsShaderProgram::attachShader( ChsShader * shader ) {
+	void ChsShaderProgram::attachShader( const boost::shared_ptr<ChsShader> & shader ) {
     	glAttachShader( this->handle(), shader->handle() );
 	}
 

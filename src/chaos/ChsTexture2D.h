@@ -2,6 +2,7 @@
 #define _CHS_TEXTURE2D_H
 
 #include <string>
+
 #include "ChsMacro.h"
 #include "platform/ChsOpenGL.h"
 
@@ -39,6 +40,8 @@ namespace Chaos {
 	//SYNTHESIZE_READONLY_CONST( ChsTexture2D, GLubyte*, data );
 	SYNTHESIZE( ChsTexture2D, GLint, activeUnit );
 	SYNTHESIZE( ChsTexture2D, std::string, sampleName );
+	
+	//----------------------------------------------------------------------------------------------
 }
 
 

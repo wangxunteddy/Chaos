@@ -6,8 +6,8 @@
 #include "ChsResourceManager.h"
 #include "ChsUtility.h"
 #include "ChsRenderSystem.h"
-
 #include "ChsTexture2D.h"
+#include "shader/ChsShaderProgram.h"
 
 namespace Chaos {
 	
@@ -32,10 +32,9 @@ namespace Chaos {
 		unit.indexBuffer = this->indexBuffer.get();
 		render->sendToRender(unit);
 	}
-
+#if 0
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 	void ChsMesh::load( const float * vertices, int verCount, const void * indices ) {
-#if 0
 		this->vertexBuffer = new ChsVertexBuffer( );
 		this->vertexBuffer->addAttrib( 2, GL_FLOAT, false, "position" );
 		this->vertexBuffer->addAttrib( 4, GL_FLOAT, true, "color" );
@@ -43,17 +42,17 @@ namespace Chaos {
 		
 		this->indexBuffer = new ChsIndexBuffer( );
 		this->indexBuffer->setData( indices, 4, GL_UNSIGNED_SHORT, GL_TRIANGLE_STRIP);
-#endif
 	}
+#endif
 	
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 	void ChsMesh::setMaterial( void ) {
 		this->material = new ChsMaterial();
-		ChsShaderProgram *shaderProgram = ChsResourceManager::sharedInstance()->getShaderProgram("Shader.vsh", "Shader.fsh");
-
+		boost::shared_ptr<ChsShaderProgram> shaderProgram( ChsResourceManager::sharedInstance()->getShaderProgram("Shader.vsh", "Shader.fsh") );
+		
 		// Bind attribute locations.
 		// This needs to be done prior to linking.
-		this->vertexBuffer->bindAttribLocations( shaderProgram );
+		this->vertexBuffer->bindAttribLocations( shaderProgram.get() );
 		
 		// Link program.
 		if ( !shaderProgram->link() ) {
@@ -61,8 +60,7 @@ namespace Chaos {
 			delete this->material;
 			this->material = NULL;
 		}
-		this->material->setShader(shaderProgram);
-		
+		this->material->setShader( shaderProgram );
 	}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------

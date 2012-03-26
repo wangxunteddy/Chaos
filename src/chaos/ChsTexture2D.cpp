@@ -1,9 +1,9 @@
+#include <boost/scoped_array.hpp>
+
 #include "ChsTexture2D.h"
 #include "ChsFileSystem.h"
 #include "ChsUtility.h"
 #include "shader/ChsShaderProgram.h"
-
-#include <boost/scoped_array.hpp>
 
 namespace Chaos {
 	

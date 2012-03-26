@@ -8,6 +8,8 @@
 #include "camera/ChsCameraBase.h"
 #include "math/ChsMath.h"
 #include "ChsDaeLoader.h"
+#include <boost/shared_ptr.hpp>
+#include "ChsTexture2D.h"
 //--------------------------------------------------------------------------------------------------
 using namespace Chaos;
 #include <math.h>
@@ -20,7 +22,7 @@ ChsPlane * planeMesh1;
 //--------------------------------------------------------------------------------------------------
 void GameDemo::onInit( void ) {
 	ChsEntityManager * resMgr = ChsResourceManager::sharedInstance();
-	ChsEntity * plane1 = resMgr->getEntity( "planeEntity1" );
+	boost::shared_ptr<ChsEntity> plane1 = resMgr->getEntity( "planeEntity1" );
 
 	planeMesh1 = new ChsPlane(4.0f,4.0f);
 	
@@ -43,11 +45,10 @@ void GameDemo::onInit( void ) {
 	mesh->setMaterial();
 	material = mesh->getMaterial();
 	//material->hasVertexColor(true);
-	ChsTexture2D * texture = ChsResourceManager::sharedInstance()->getTexture2D( "sofaLeather.png" );
+	boost::shared_ptr<ChsTexture2D> texture = ChsResourceManager::sharedInstance()->getTexture2D( "sofaLeather.png" );
 	texture->sampleName( "diffuseTexture" );
 	texture->activeUnit( 0 );
 	material->addTexture( texture );
-	
 
 	this->renderer()->root()->add( mesh->name(), mesh );
 }

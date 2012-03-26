@@ -4,6 +4,7 @@
 
 //--------------------------------------------------------------------------------------------------
 #include "ChsShader.h"
+#include <boost/shared_ptr.hpp>
 
 namespace Chaos {
 	//----------------------------------------------------------------------------------------------
@@ -14,13 +15,13 @@ namespace Chaos {
 		bool link( void );
 		void use( void );
 		bool validate( void );
-		void attachShader( ChsShader * shader );
+		void attachShader( const boost::shared_ptr<ChsShader> & shader );
 		int getUniformLocation( const char * name );
 		
 	private:
 		int getStatus( void );
 		bool load( const char * source ){ return false; }
 	};
-	//----------------------------------------------------------------------------------------------
+
 }//namespace
 #endif //_CHS_SHADERPROGRAM_H

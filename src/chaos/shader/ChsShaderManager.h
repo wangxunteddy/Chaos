@@ -3,19 +3,23 @@
 #pragma once
 
 //--------------------------------------------------------------------------------------------------
+#include <boost/shared_ptr.hpp>
 #include "ChsManagerWithCache.h"
-#include "ChsShaderProgram.h"
 
 namespace Chaos {
-
+	class ChsShader;
+	class ChsVertexShader;
+	class ChsFragmentShader;
+	class ChsShaderProgram;
 	//----------------------------------------------------------------------------------------------
-	class ChsShaderManager : public ChsManagerWithCache< std::string, ChsShader >{
+	class ChsShaderManager : public ChsManagerWithCache< ChsShader >{
 	public:
-		ChsVertexShader * getVertexShader( const std::string name );
-		ChsFragmentShader * getFragmentShader( const std::string name );
-		ChsShaderProgram * getShaderProgram( const std::string vertexShaderName, const std::string fragmentShaderName );
+		boost::shared_ptr<ChsVertexShader> getVertexShader( const std::string & name );
+		boost::shared_ptr<ChsFragmentShader> getFragmentShader( const std::string & name );
+		boost::shared_ptr<ChsShaderProgram> getShaderProgram( const std::string & vertexShaderName, const std::string & fragmentShaderName );
 	private:
-		template < typename ShaderType > ShaderType * getShader( const std::string name );
+		template < typename ShaderType >
+		boost::shared_ptr<ShaderType> getShader( const std::string & name );
 	};
 
 	//----------------------------------------------------------------------------------------------
