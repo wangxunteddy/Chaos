@@ -43,7 +43,7 @@ void GameDemo::onInit( void ) {
 	this->renderer()->showDebugCoordinate( true );
 	
 	
-	ChsModel * model = ChsResourceManager::sharedInstance()->getModel( "sofa.dae" ).get();
+	ChsModel * model = ChsResourceManager::sharedInstance()->getModel( "test.chsmodel" ).get();
 //	material = mesh->getMaterial();
 	//material->hasVertexColor(true);
 //	boost::shared_ptr<ChsTexture2D> texture = ChsResourceManager::sharedInstance()->getTexture2D( "sofaLeather.png" );

@@ -2,7 +2,7 @@
 using namespace boost::assign;
 
 #include "ChsModelManager.h"
-#include "ChsDaeLoader.h"
+#include "ChsModelLoader.h"
 #include "ChsModel.h"
 
 namespace Chaos {
@@ -11,7 +11,7 @@ namespace Chaos {
 		boost::shared_ptr<ChsModel> model = this->getFromCache( name );
 		if( !model ){
 			//load from file
-			Chaos::ChsDaeLoader loader;
+			ChsModelLoader loader;
 			model.reset( loader.load( name.c_str() ) );
 			if( model )
 				insert( this->cache )( name, model );
