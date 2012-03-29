@@ -37,10 +37,10 @@ namespace Chaos {
     	NSString * fullPathName = getFullPath( path );
 		NSData * rawData = [NSData dataWithContentsOfFile: fullPathName ];
 		int length = [rawData length];
-		if(length<=0)
-			return NULL;
-		*data = new char [length];
-	    strcpy( (char *)*data, (const char *)[rawData bytes]);
+		if(length > 0){
+			*data = new char [length];
+		    memcpy( (char *)*data, (const char *)[rawData bytes], length );
+		}
     	return length;
 	}
 	
