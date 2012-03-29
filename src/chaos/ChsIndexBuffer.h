@@ -13,7 +13,7 @@ namespace Chaos {
 	public:
 		ChsIndexBuffer( void );
 		~ChsIndexBuffer( void );
-		void setData( const void * triangles, int count, int type );
+		void setData( const void * triangles, int count, int type = GL_UNSIGNED_SHORT );
 		inline void setData( std::vector<unsigned short> & triangles );
 		void draw( void );
 	private:
@@ -30,7 +30,7 @@ namespace Chaos {
 	SYNTHESIZE_WRITEONLY( ChsIndexBuffer, int, mode );
 	
 	inline void ChsIndexBuffer::setData( std::vector<unsigned short> & triangles ){
-		this->setData( triangles.data(), triangles.size(), GL_UNSIGNED_SHORT );
+		this->setData( triangles.data(), triangles.size() );
 	}
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------
