@@ -1,5 +1,10 @@
 <ChsModel meshCount="2" name="test">
     <ChsMesh name="pCube1-lib">
+		<ChsMaterial>
+			<ChsVertexShader src="Shader.vsh" />
+			<ChsFragmentShader src="Shader.fsh" />
+			<ChsTexture src="sofaLeather.png" sampleName="diffuseTexture" activeUnit="0" />
+		</ChsMaterial>
         <ChsAttribute name="position" stride="3" type="GL_FLOAT"/>
         <ChsAttribute name="normal" stride="3" type="GL_FLOAT"/>
         <ChsAttribute name="texcoord0" stride="2" type="GL_FLOAT"/>
@@ -7,6 +12,11 @@
         <ChsIndexBuffer mode="triangles" count="36">0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 </ChsIndexBuffer>
     </ChsMesh>
     <ChsMesh name="pCylinder1-lib">
+		<ChsMaterial>
+			<ChsVertexShader src="Shader.vsh" />
+			<ChsFragmentShader src="Shader.fsh" />
+			<ChsTexture src="sofaLeather.png" sampleName="diffuseTexture" activeUnit="0" />
+		</ChsMaterial>
         <ChsAttribute name="position" stride="3" type="GL_FLOAT"/>
         <ChsAttribute name="normal" stride="3" type="GL_FLOAT"/>
         <ChsAttribute name="texcoord0" stride="2" type="GL_FLOAT"/>
