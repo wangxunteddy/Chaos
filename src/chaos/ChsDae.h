@@ -1,17 +1,9 @@
 #ifndef _CHS_DAE_H
 #define _CHS_DAE_H
 
-#define BOOST_NO_CHAR16_T
-#define BOOST_NO_CHAR32_T
-#include <boost/lexical_cast.hpp>
-#include <boost/foreach.hpp>
-#include <boost/algorithm/string.hpp>
-
 #include <tinyxml2.h>
-#include <vector>
-#include <string>
 #include <map>
-
+#include "ChsUtility.h"
 //----------------------------------------------------------------------------------------------
 template<typename DaeInputType>
 void prepareInput( std::vector<DaeInputType> & inputs, tinyxml2::XMLElement * inputElement ){
@@ -21,17 +13,6 @@ void prepareInput( std::vector<DaeInputType> & inputs, tinyxml2::XMLElement * in
 		inputs.push_back( input );
 		inputElement = inputElement->NextSiblingElement( "input" );
 	}while( inputElement != NULL );
-}
-
-//----------------------------------------------------------------------------------------------
-template<typename T>
-void lexicalCastToArray( std::vector<T> & array, std::string stream ){
-	std::vector<std::string> rs;
-	boost::split( rs, stream, boost::is_any_of("\n ") );
-	BOOST_FOREACH( const std::string & str, rs){
-		if(!str.empty())
-			array.push_back( boost::lexical_cast<T>( str ) );
-	}
 }
 
 //----------------------------------------------------------------------------------------------
@@ -72,7 +53,7 @@ struct DaeFloatArray{
 	void setValue( tinyxml2::XMLElement * arrayElement ){
 		this->id = arrayElement->Attribute( "id" );
 		this->count = arrayElement->IntAttribute( "count" );
-		lexicalCastToArray( this->data, arrayElement->GetText() );
+		Chaos::lexicalCastToArray( this->data, arrayElement->GetText() );
 	}
 };
 
@@ -141,7 +122,7 @@ struct DaeTriangles{
 		this->material = triangleElement->Attribute( "material" );
 		this->count = triangleElement->IntAttribute( "count" );
 		prepareInput<DaeSharedInput>( this->input, triangleElement->FirstChildElement( "input" ) );
-		lexicalCastToArray( this->p, triangleElement->FirstChildElement( "p" )->GetText() );
+		Chaos::lexicalCastToArray( this->p, triangleElement->FirstChildElement( "p" )->GetText() );
 	}
 };
 

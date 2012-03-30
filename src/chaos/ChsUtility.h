@@ -4,7 +4,13 @@
 
 //--------------------------------------------------------------------------------------------------
 #include <string>
+#include <vector>
 #include <boost/checked_delete.hpp>
+#define BOOST_NO_CHAR16_T
+#define BOOST_NO_CHAR32_T
+#include <boost/lexical_cast.hpp>
+#include <boost/foreach.hpp>
+#include <boost/algorithm/string.hpp>
 
 namespace Chaos {
 
@@ -63,6 +69,16 @@ namespace Chaos {
 		}
 	}
 
+	//----------------------------------------------------------------------------------------------
+	template<typename T>
+	void lexicalCastToArray( std::vector<T> & array, std::string stream ){
+		std::vector<std::string> rs;
+		boost::split( rs, stream, boost::is_any_of("\n ") );
+		BOOST_FOREACH( const std::string & str, rs){
+			if(!str.empty())
+				array.push_back( boost::lexical_cast<T>( str ) );
+		}
+	}
 	//----------------------------------------------------------------------------------------------
 }//namespace
 #endif //_CHS_UTILITY_H
