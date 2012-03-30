@@ -54,6 +54,10 @@ namespace Chaos {
 				}
 			}
 			this->shaderUniforms.apply( currentProgram );
+			if( this->hasTexture() )
+				glEnable( GL_TEXTURE_2D );
+			else
+				glDisable( GL_TEXTURE_2D );
 			BOOST_FOREACH( boost::shared_ptr<ChsTexture2D> & texture, this->textures )
 				texture->bind();
 		}

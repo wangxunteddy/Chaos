@@ -5,8 +5,10 @@
 #include "ChsIndexBuffer.h"
 #include "ChsVertexBuffer.h"
 #include "io/ChsFileSystem.h"
+#include "ChsResourceManager.h"
 #include "ChsUtility.h"
 #include "ChsMaterial.h"
+#include "ChsTexture2D.h"
 //--------------------------------------------------------------------------------------------------
 namespace Chaos {
 	//----------------------------------------------------------------------------------------------
@@ -78,10 +80,26 @@ namespace Chaos {
 			indeices.clear();
 			mesh->indexBuffer->mode( GL_TRIANGLES );
 			
-			ChsMaterial * material = new ChsMaterial();
-			mesh->setMaterial( material );
+			tinyxml2::XMLElement * materialElement = meshElement->FirstChildElement( "ChsMaterial" );
+			if( materialElement ){
+				ChsMaterial * material = new ChsMaterial();
+				std::string vsName = materialElement->FirstChildElement( "ChsVertexShader" )->Attribute( "src" );
+				std::string fsName = materialElement->FirstChildElement( "ChsFragmentShader" )->Attribute( "src" );
+				material->setShader( vsName, fsName );
+				tinyxml2::XMLElement * textureElement = materialElement->FirstChildElement( "ChsTexture" );
+				while( textureElement ){
+					std::string textureFileName = textureElement->Attribute( "src" );
+					boost::shared_ptr<ChsTexture2D> texture = ChsResourceManager::sharedInstance()->getTexture2D( textureFileName );
+					texture->sampleName( textureElement->Attribute( "sampleName" ) );
+					texture->activeUnit( textureElement->IntAttribute( "activeUnit" ) );
+					material->addTexture( texture );
+					textureElement = textureElement->NextSiblingElement( "ChsTexture");
+				}
+				mesh->setMaterial( material );
+			}
+
 			model->addMesh( mesh );
-			meshElement = meshElement->NextSiblingElement();
+			meshElement = meshElement->NextSiblingElement( "ChsMesh" );
 		}
 		
 		return model;
