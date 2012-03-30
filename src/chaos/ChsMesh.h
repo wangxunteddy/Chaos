@@ -5,6 +5,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------
 #include "ChsRenderNode.h"
 #include <boost/scoped_ptr.hpp>
+#include <boost/shared_ptr.hpp>
 
 namespace Chaos {
 	//--------------------------------------------------------------------------------------------------------------------------------------------
@@ -19,18 +20,18 @@ namespace Chaos {
 	public:
 		ChsMesh( std::string name = "unnamed" );
 		virtual ~ChsMesh( void );
-		void setMaterial( void );
+		void setMaterial( ChsMaterial * material );
 		inline ChsMaterial * getMaterial( void );
 		void render( ChsRenderSystem * render );
 	protected:
-		ChsMaterial * material;
+		boost::shared_ptr<ChsMaterial> material;
 		boost::scoped_ptr<ChsVertexBuffer> vertexBuffer;
 		boost::scoped_ptr<ChsIndexBuffer> indexBuffer;
 	};
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 	inline ChsMaterial * ChsMesh::getMaterial( ){
-		return this->material;
+		return this->material.get();
 	}
 	
 	//--------------------------------------------------------------------------------------------------------------------------------------------

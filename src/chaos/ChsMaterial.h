@@ -3,6 +3,7 @@
 #pragma once
 
 #include <vector>
+#include <string>
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 
@@ -19,8 +20,9 @@ namespace Chaos {
     	ChsMaterial( void );
 	    virtual ~ChsMaterial( void );
     	ChsShaderProgram * apply( ChsShaderProgram * program );
-	    void setShader( boost::shared_ptr<ChsShaderProgram> program );
+	    void setShader( std::string vshName, std::string fshName );
 		void addTexture( boost::shared_ptr<ChsTexture2D> texture );
+		void linkShader( void );
 	private:
 		
 		std::vector<boost::shared_ptr<ChsTexture2D>> textures;

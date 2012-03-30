@@ -71,8 +71,16 @@ namespace Chaos {
 	#endif
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
-	void ChsMaterial::setShader( boost::shared_ptr<ChsShaderProgram> program ){
-		this->_shaderProgram = program;
+	void ChsMaterial::setShader( std::string vshName, std::string fshName ){
+		this->_shaderProgram = ChsResourceManager::sharedInstance()->getShaderProgram( vshName, fshName );
+	}
+
+	//--------------------------------------------------------------------------------------------------------------------------------------------
+	void ChsMaterial::linkShader( void ){
+		if( !this->_shaderProgram.expired() ){
+			boost::shared_ptr<ChsShaderProgram> shaderProgram = this->_shaderProgram.lock();
+			shaderProgram->link();
+		}
 	}
 	
 }//namespace

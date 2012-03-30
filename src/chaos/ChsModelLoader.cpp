@@ -6,6 +6,7 @@
 #include "ChsVertexBuffer.h"
 #include "io/ChsFileSystem.h"
 #include "ChsUtility.h"
+#include "ChsMaterial.h"
 //--------------------------------------------------------------------------------------------------
 namespace Chaos {
 	//----------------------------------------------------------------------------------------------
@@ -76,7 +77,9 @@ namespace Chaos {
 			mesh->indexBuffer->setData( indeices );
 			indeices.clear();
 			mesh->indexBuffer->mode( GL_TRIANGLES );
-			mesh->setMaterial();
+			
+			ChsMaterial * material = new ChsMaterial();
+			mesh->setMaterial( material );
 			model->addMesh( mesh );
 			meshElement = meshElement->NextSiblingElement();
 		}
@@ -116,7 +119,9 @@ namespace Chaos {
 			mesh->indexBuffer->setData( data, count );	
 			skipData( &data, count*sizeof(unsigned short) );
 			mesh->indexBuffer->mode( GL_TRIANGLES );
-			mesh->setMaterial();
+			ChsMaterial * material = new ChsMaterial();
+			material->setShader( "Shader.vsh", "Shader.fsh" );
+			mesh->setMaterial( material );
 			model->addMesh( mesh );
 		}
 		return model;

@@ -12,6 +12,7 @@ using namespace boost::assign;
 #include "platform/ChsOpenGL.h"
 #include "ChsIndexBuffer.h"
 #include "ChsVertexBuffer.h"
+#include "ChsMaterial.h"
 
 namespace Chaos {
 	//----------------------------------------------------------------------------------------------
@@ -163,7 +164,8 @@ namespace Chaos {
 			mesh->indexBuffer->setData( triangleList );
 			triangleList.clear();
 			mesh->indexBuffer->mode( GL_TRIANGLES );
-			mesh->setMaterial();
+			ChsMaterial * material = new ChsMaterial();
+			mesh->setMaterial( material );
 			
 			model->addMesh( mesh );
 			geometryElement = geometryElement->NextSiblingElement();
