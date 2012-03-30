@@ -97,7 +97,7 @@ namespace Chaos {
 	
 	void makeVertexAttributes( DaeMesh & daeMesh, const VertexAttributePtr & vertexAttributes ){
 		std::vector<DaeSharedInput> & inputs = daeMesh.triangles.input;
-		BOOST_FOREACH( DaeSharedInput & input , inputs ){
+		BOOST_FOREACH( DaeSharedInput & input, inputs ){
 			vertexInputRedirection( daeMesh, input );
 			std::string sourceId = input.source;
 			std::string semantic = input.semantic;
@@ -141,9 +141,8 @@ namespace Chaos {
 		std::vector<int> vertexIndexList;//store vertex index, include position normal and etc..
 		std::vector<float> vertexList;//store all vertex infomation, 
 		std::vector<unsigned short> triangleList;
-		tinyxml2::XMLElement * meshElement;
-		do{
-			meshElement = geometryElement->FirstChildElement( "mesh" );
+		while( geometryElement != NULL ){
+			tinyxml2::XMLElement * meshElement = geometryElement->FirstChildElement( "mesh" );
 			std::string meshName = geometryElement->Attribute( "id" );
 			DaeMesh daeMesh;
 			daeMesh.setValue( meshElement );
@@ -153,23 +152,27 @@ namespace Chaos {
 			makeVertexAttributes( daeMesh, vertexAttributes );
 			makeVertexList( vertexIndexList, vertexList, vertexAttributeCount, vertexAttributes );
 			vertexIndexList.clear();
+			
 			boost::shared_ptr<ChsMesh> mesh( new ChsMesh( meshName ) );
 			for( int i = 0; i < vertexAttributeCount ; i++ ){
 				const VertexAttribute & attribute = vertexAttributes[i];
 				bool isNormalized = attribute.name.compare( "normal" ) ? false : true;
 				mesh->vertexBuffer->addAttrib( attribute.stride, GL_FLOAT, isNormalized, attribute.name );
 			}
+			
 			mesh->vertexBuffer->setData( vertexList );
 			vertexList.clear();
+			
 			mesh->indexBuffer->setData( triangleList );
 			triangleList.clear();
 			mesh->indexBuffer->mode( GL_TRIANGLES );
+
 			ChsMaterial * material = new ChsMaterial();
 			mesh->setMaterial( material );
 			
 			model->addMesh( mesh );
 			geometryElement = geometryElement->NextSiblingElement();
-		}while( geometryElement != NULL );
+		}
 		return model;
 	}
 

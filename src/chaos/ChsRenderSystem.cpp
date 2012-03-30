@@ -192,10 +192,10 @@ namespace Chaos {
 	
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::setClearColor( unsigned int rgba ){
-		this->setClearColor( (unsigned char)(rgba & 0xff0000)>>16,
-							(unsigned char)(rgba & 0xff00)>>8,
-							(unsigned char)(rgba & 0xff),
-							(unsigned char)(rgba & 0xff000000)>>24);
+		this->setClearColor( static_cast<unsigned char>( ( rgba & 0xff0000 ) >> 16 ),
+							static_cast<unsigned char>( ( rgba & 0xff00 ) >> 8 ),
+							static_cast<unsigned char>( ( rgba & 0xff ) ),
+							static_cast<unsigned char>( ( rgba & 0xff000000 ) >> 24 ) );
 	}
 	
 	//----------------------------------------------------------------------------------------------

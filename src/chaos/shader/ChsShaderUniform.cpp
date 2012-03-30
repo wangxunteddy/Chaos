@@ -24,21 +24,21 @@ namespace Chaos {
 	void setUniformWithPtr( const Uniform & uniform ){
 		switch ( uniform.type ){
 			case CHS_SHADER_UNIFORM_MAT2:
-				glUniformMatrix2fv( uniform.location, uniform.count, false, ( const GLfloat * )uniform.varAddr );
+				glUniformMatrix2fv( uniform.location, uniform.count, false, ( const GLfloat * )( uniform.varAddr ) );
 				break;
 			case CHS_SHADER_UNIFORM_MAT3:
-				glUniformMatrix3fv( uniform.location, uniform.count, false, ( const GLfloat * )uniform.varAddr );
+				glUniformMatrix3fv( uniform.location, uniform.count, false, ( const GLfloat * )( uniform.varAddr ) );
 				break;
 			case CHS_SHADER_UNIFORM_MAT4:
-				glUniformMatrix4fv( uniform.location, uniform.count, false, ( const GLfloat * )uniform.varAddr );
+				glUniformMatrix4fv( uniform.location, uniform.count, false, static_cast<const GLfloat *>( uniform.varAddr ) );
 				break;
 			default:
 				//vec2 equ float * 2, vec4 equ float * 4, int3 equ int * 3 ....etc..
 				GLsizei count = uniform.count * ( uniform.type / 2 + 1 );
 				if( uniform.type % 2 )
-					glUniform1iv( uniform.location, count, ( const GLint * )uniform.varAddr );
+					glUniform1iv( uniform.location, count, static_cast<const GLint *>( uniform.varAddr ) );
 				else
-					glUniform1fv( uniform.location, count, ( const GLfloat * )uniform.varAddr );
+					glUniform1fv( uniform.location, count, static_cast<const GLfloat *>( uniform.varAddr ) );
 				break;
 		}
 	}

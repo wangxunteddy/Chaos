@@ -12,7 +12,7 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	template<typename T>
 	T readData( char ** data ){
-		T value = *((T*)(*data));
+		T value = *(reinterpret_cast<T*>(*data));
 		skipData( data, sizeof(T) );
 		return value;
 	}

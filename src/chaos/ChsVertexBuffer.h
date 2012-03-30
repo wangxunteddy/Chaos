@@ -42,8 +42,6 @@ namespace Chaos {
 		}
 	};
 
-	typedef boost::shared_ptr<ChsAttribUnit> ChsAttribUnitPtr;
-
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 	class ChsVertexBuffer {
 	public:
@@ -63,7 +61,7 @@ namespace Chaos {
 		void unbindAttribArrays( void );
 		void update( void );
 		
-		std::vector<ChsAttribUnitPtr> attribs;
+		std::vector<boost::shared_ptr<ChsAttribUnit>> attribs;
 		unsigned int vboHandle;
 		unsigned int vaoHandle;
 		char * vertices;

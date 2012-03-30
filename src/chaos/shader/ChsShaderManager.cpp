@@ -13,7 +13,7 @@ namespace Chaos{
 	//----------------------------------------------------------------------------------------------
 	template < typename ShaderType >
 	shared_ptr<ShaderType> ChsShaderManager::getShader( const std::string & name ) {
-		shared_ptr<ShaderType> shader = static_pointer_cast<ShaderType>( this->getFromCache( name ) );
+		shared_ptr<ShaderType> shader = dynamic_pointer_cast<ShaderType>( this->getFromCache( name ) );
 		if( !shader ){
 			//not in cache, so load source from file
 			char * source ;
@@ -44,7 +44,7 @@ namespace Chaos{
 	shared_ptr<ChsShaderProgram> ChsShaderManager::getShaderProgram( const std::string & vsName,
 															 const std::string & fsName ){
 		std::string name  = vsName + "+" + fsName;
-		shared_ptr<ChsShaderProgram> program = boost::static_pointer_cast<ChsShaderProgram>( this->getFromCache( name ) );
+		shared_ptr<ChsShaderProgram> program = dynamic_pointer_cast<ChsShaderProgram>( this->getFromCache( name ) );
 		if( !program ){
 			program.reset( new ChsShaderProgram() );
 			shared_ptr<ChsVertexShader> vs = this->getShader<ChsVertexShader>( vsName );

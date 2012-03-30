@@ -25,10 +25,10 @@ namespace Chaos {
 													  encoding:NSUTF8StringEncoding
 														 error:nil];
 		int length = [source length];
-		if(length<=0)
-			return NULL;
-		*data = new char [length];
-	    strcpy( (char *)*data, (const char *)[source UTF8String]);
+		if(length>0){
+			*data = new char [length];
+		    strcpy( *data, static_cast<const char *>([source UTF8String]));
+		}
     	return length;
 	}
 	
@@ -39,7 +39,7 @@ namespace Chaos {
 		int length = [rawData length];
 		if(length > 0){
 			*data = new char [length];
-		    memcpy( (char *)*data, (const char *)[rawData bytes], length );
+		    memcpy( *data, static_cast<const char *>( [rawData bytes] ), length );
 		}
     	return length;
 	}
