@@ -19,7 +19,7 @@ namespace Chaos {
 	protected:
 		std::map< std::string, ChsNode * >  children;
 	
-		PROPERTY_READONLY_CONST( std::string, name );
+		PROPERTY( std::string, name );
 	};
 
 	//----------------------------------------------------------------------------------------------
@@ -28,7 +28,7 @@ namespace Chaos {
 	}
 
 	//----------------------------------------------------------------------------------------------
-	SYNTHESIZE_READONLY_CONST( ChsNode, std::string , name )	
+	SYNTHESIZE( ChsNode, std::string , name )	
 
 	//----------------------------------------------------------------------------------------------
 	typedef std::map< std::string, ChsNode * > ChsNodeList;
