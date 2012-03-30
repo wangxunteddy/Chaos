@@ -66,25 +66,11 @@ namespace Chaos {
 		
 		this->indexBuffer->setData( indices.get(), indexCount, GL_UNSIGNED_SHORT );
 		this->indexBuffer->mode( GL_LINES );
-	}
-
-	//----------------------------------------------------------------------------------------------
-	void ChsCoordinatePlane::setMaterial( void ){
-		this->material = new ChsMaterial();
-		boost::shared_ptr<ChsShaderProgram> shaderProgram( ChsResourceManager::sharedInstance()->getShaderProgram( "Wireframe.vsh", "Wireframe.fsh" ) );
 		
-		// Bind attribute locations.
-		// This needs to be done prior to linking.
-		this->vertexBuffer->bindAttribLocations( shaderProgram.get() );
-		
-		// Link program.
-		if ( !shaderProgram->link() ) {
-			printf( "Failed to link program: %d", shaderProgram->handle() );
-			delete this->material;
-			this->material = NULL;
-		}
-		this->material->setShader( shaderProgram );
+		ChsMaterial * material = new ChsMaterial();
+		material->setShader( "Wireframe.vsh", "Wireframe.fsh" );
+		material->hasVertexColor( true );
+		this->setMaterial( material );
 	}
-	
 	//----------------------------------------------------------------------------------------------
 }
