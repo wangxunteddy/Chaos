@@ -79,6 +79,12 @@ namespace Chaos {
 				array.push_back( boost::lexical_cast<T>( str ) );
 		}
 	}
+	
 	//----------------------------------------------------------------------------------------------
+	template<typename T>
+	void skipData( T **data, int count ){
+		(*data) += count;
+	}
+	
 }//namespace
 #endif //_CHS_UTILITY_H

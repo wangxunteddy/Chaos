@@ -9,13 +9,10 @@
 //--------------------------------------------------------------------------------------------------
 namespace Chaos {
 	//----------------------------------------------------------------------------------------------
-	#define SKIP( data, size ) (data) += size
-	
-	//----------------------------------------------------------------------------------------------
 	template<typename T>
 	T readData( char ** data ){
 		T value = *((T*)(*data));
-		SKIP( *data, sizeof(T) );
+		skipData( data, sizeof(T) );
 		return value;
 	}
 	
@@ -27,7 +24,7 @@ namespace Chaos {
 		memset( p.get(), 0, strCount+1 );
 		memcpy( p.get(), *data, strCount );
 		std::string str = p.get();
-		SKIP( *data, strCount );
+		skipData( data, strCount );
 		return str;
 	}
 	
@@ -114,10 +111,10 @@ namespace Chaos {
 			}
 			int count = readData<int>( &data );
 			mesh->vertexBuffer->setData( data, count*sizeof(float) );
-			SKIP( data, count*sizeof(float) );
+			skipData( &data, count*sizeof(float) );
 			count = readData<int>( &data );
 			mesh->indexBuffer->setData( data, count );	
-			SKIP( data, count*sizeof(unsigned short) );
+			skipData( &data, count*sizeof(unsigned short) );
 			mesh->indexBuffer->mode( GL_TRIANGLES );
 			mesh->setMaterial();
 			model->addMesh( mesh );
