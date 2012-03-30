@@ -1,6 +1,7 @@
-#include <boost/assign.hpp>
-using namespace boost::assign;
 #include <boost/scoped_array.hpp>
+#include <boost/assign.hpp>
+using namespace boost;
+using namespace boost::assign;
 
 #include "ChsShaderManager.h"
 #include "ChsShader.h"
@@ -11,15 +12,15 @@ using namespace boost::assign;
 namespace Chaos{
 	//----------------------------------------------------------------------------------------------
 	template < typename ShaderType >
-	boost::shared_ptr<ShaderType> ChsShaderManager::getShader( const std::string & name ) {
-		boost::shared_ptr<ShaderType> shader( (ShaderType*)this->getFromCacheWithValue( name ) );
+	shared_ptr<ShaderType> ChsShaderManager::getShader( const std::string & name ) {
+		shared_ptr<ShaderType> shader = static_pointer_cast<ShaderType>( this->getFromCache( name ) );
 		if( !shader ){
 			//not in cache, so load source from file
 			char * source ;
 			ChsFileSystem::sharedInstance()->readFileAsUTF8( name.c_str(), &source );
 			if( source ){
-				boost::scoped_array<char> sourcePtr( source );
-				shader = boost::shared_ptr<ShaderType>( new ShaderType() );
+				scoped_array<char> sourcePtr( source );
+				shader = shared_ptr<ShaderType>( new ShaderType() );
 				if( shader->load( source ) ){
 					printf( "生成Shader:%s\n", name.c_str() );
 					insert( this->cache )( name, shader );
@@ -30,25 +31,25 @@ namespace Chaos{
 	}
 
 	//----------------------------------------------------------------------------------------------
-	boost::shared_ptr<ChsVertexShader> ChsShaderManager::getVertexShader( const std::string & name ){
+	shared_ptr<ChsVertexShader> ChsShaderManager::getVertexShader( const std::string & name ){
     	return this->getShader< ChsVertexShader >( name );
 	}
 
 	//----------------------------------------------------------------------------------------------
-	boost::shared_ptr<ChsFragmentShader> ChsShaderManager::getFragmentShader( const std::string & name ){
+	shared_ptr<ChsFragmentShader> ChsShaderManager::getFragmentShader( const std::string & name ){
     	return this->getShader< ChsFragmentShader >( name );
 	}
 
 	//----------------------------------------------------------------------------------------------
-	boost::shared_ptr<ChsShaderProgram> ChsShaderManager::getShaderProgram( const std::string & vsName,
+	shared_ptr<ChsShaderProgram> ChsShaderManager::getShaderProgram( const std::string & vsName,
 															 const std::string & fsName ){
 		std::string name  = vsName + "+" + fsName;
-		boost::shared_ptr<ChsShaderProgram> program( (ChsShaderProgram*)this->getFromCacheWithValue( name ) );
+		shared_ptr<ChsShaderProgram> program = boost::static_pointer_cast<ChsShaderProgram>( this->getFromCache( name ) );
 		if( !program ){
 			program.reset( new ChsShaderProgram() );
-			boost::shared_ptr<ChsVertexShader> vs = this->getVertexShader( vsName );
+			shared_ptr<ChsVertexShader> vs = this->getShader<ChsVertexShader>( vsName );
 			assert( vs );
-			boost::shared_ptr<ChsFragmentShader> fs = this->getFragmentShader( fsName );
+			shared_ptr<ChsFragmentShader> fs = this->getShader<ChsFragmentShader>( fsName );
 			assert( fs );
 			program->attachShader( vs );
 			program->attachShader( fs );
