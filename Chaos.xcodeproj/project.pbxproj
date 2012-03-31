@@ -36,6 +36,7 @@
 		748936FB14F64490006CDF7B /* GLViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 748936F514F64490006CDF7B /* GLViewController.mm */; };
 		748936FC14F64490006CDF7B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 748936F614F64490006CDF7B /* AppDelegate.m */; };
 		748936FD14F64490006CDF7B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 748936F714F64490006CDF7B /* main.m */; };
+		749364A61526A1C3007608F4 /* ChsRenderStates.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 749364A51526A1C3007608F4 /* ChsRenderStates.cpp */; };
 		749D79B414ECD5F50046F2D9 /* ChsIndexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 749D79A114ECD5F50046F2D9 /* ChsIndexBuffer.cpp */; };
 		749D79B814ECD5F50046F2D9 /* ChsRenderSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 749D79A514ECD5F50046F2D9 /* ChsRenderSystem.cpp */; };
 		749D79B914ECD5F50046F2D9 /* ChsRenderNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 749D79A614ECD5F50046F2D9 /* ChsRenderNode.cpp */; };
@@ -131,6 +132,8 @@
 		748936F714F64490006CDF7B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = src/chaos/platform/ios/main.m; sourceTree = "<group>"; };
 		748936F814F64490006CDF7B /* Chaos-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Chaos-Prefix.pch"; path = "src/chaos/platform/ios/Chaos-Prefix.pch"; sourceTree = "<group>"; };
 		748936F914F64490006CDF7B /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = src/chaos/platform/ios/AppDelegate.h; sourceTree = "<group>"; };
+		749364A31526A143007608F4 /* ChsRenderStates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ChsRenderStates.h; path = src/chaos/ChsRenderStates.h; sourceTree = "<group>"; };
+		749364A51526A1C3007608F4 /* ChsRenderStates.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsRenderStates.cpp; path = src/chaos/ChsRenderStates.cpp; sourceTree = "<group>"; };
 		749D799C14ECD5D90046F2D9 /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = shaders/Shader.fsh; sourceTree = "<group>"; };
 		749D799D14ECD5D90046F2D9 /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = shaders/Shader.vsh; sourceTree = "<group>"; };
 		749D79A114ECD5F50046F2D9 /* ChsIndexBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsIndexBuffer.cpp; path = src/chaos/ChsIndexBuffer.cpp; sourceTree = "<group>"; };
@@ -171,7 +174,6 @@
 		74BC079E15103ADC003C4429 /* ChsDaeLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsDaeLoader.cpp; path = src/chaos/ChsDaeLoader.cpp; sourceTree = "<group>"; };
 		74C7BE00150061D800194E72 /* ChsShaderUniform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChsShaderUniform.h; sourceTree = "<group>"; };
 		74C7BE01150062E500194E72 /* ChsShaderUniform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChsShaderUniform.cpp; sourceTree = "<group>"; };
-		74C7BE041500705500194E72 /* default.material */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = default.material; sourceTree = "<group>"; };
 		74C7BE071500727600194E72 /* ChsCameraBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChsCameraBase.cpp; sourceTree = "<group>"; };
 		74C7BE081500727600194E72 /* ChsCameraBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChsCameraBase.h; sourceTree = "<group>"; };
 		74C7BE0A1500AD1200194E72 /* ChsNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChsNode.h; path = src/chaos/ChsNode.h; sourceTree = "<group>"; };
@@ -279,8 +281,10 @@
 				749D79AA14ECD5F50046F2D9 /* ChsIndexBuffer.h */,
 				749D79A814ECD5F50046F2D9 /* ChsVertexBuffer.cpp */,
 				749D79B214ECD5F50046F2D9 /* ChsVertexBuffer.h */,
-				749D79A514ECD5F50046F2D9 /* ChsRenderSystem.cpp */,
 				749D79AE14ECD5F50046F2D9 /* ChsRenderSystem.h */,
+				749D79A514ECD5F50046F2D9 /* ChsRenderSystem.cpp */,
+				749364A31526A143007608F4 /* ChsRenderStates.h */,
+				749364A51526A1C3007608F4 /* ChsRenderStates.cpp */,
 				743A296414F337B400486634 /* ChsSingleton.cpp */,
 				749D79B014ECD5F50046F2D9 /* ChsSingleton.h */,
 				749D79A614ECD5F50046F2D9 /* ChsRenderNode.cpp */,
@@ -400,7 +404,6 @@
 				747B9D0115244652007AF122 /* test.chsmodel */,
 				746A2F9B15244E8900D928B8 /* test.chsmodelx */,
 				7412E921151C6926008605BE /* test.dae */,
-				74C7BE041500705500194E72 /* default.material */,
 			);
 			path = assets;
 			sourceTree = "<group>";
@@ -604,6 +607,7 @@
 				74EE3A7015172E0B00FC9420 /* ChsTextureFactory.cpp in Sources */,
 				7486D9AA1520531500099441 /* ChsModelManager.cpp in Sources */,
 				747B9D00152433B6007AF122 /* ChsModelLoader.cpp in Sources */,
+				749364A61526A1C3007608F4 /* ChsRenderStates.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

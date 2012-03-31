@@ -9,7 +9,6 @@
 #include <boost/scoped_ptr.hpp>
 
 namespace Chaos {
-
 	class ChsRenderNode;
 	class ChsMaterial;
 	class ChsIndexBuffer;
@@ -88,7 +87,7 @@ namespace Chaos {
 	inline ChsRenderNode * ChsRenderSystem::root( void ){
 		return this->_root.get();
 	}
-	
+
 	//----------------------------------------------------------------------------------------------
 	SYNTHESIZE( ChsRenderSystem, ChsCameraBase *, currentCamera );
 	SYNTHESIZE_GETTER( ChsRenderSystem, bool, showDebugCoordinate );

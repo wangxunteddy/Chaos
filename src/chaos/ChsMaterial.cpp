@@ -6,6 +6,7 @@ using namespace boost::assign;
 #include "shader/ChsShaderProgram.h"
 #include "ChsResourceManager.h"
 #include "ChsTexture2D.h"
+#include "ChsRenderStates.h"
 
 namespace Chaos {
 	
@@ -54,12 +55,11 @@ namespace Chaos {
 				}
 			}
 			this->shaderUniforms.apply( currentProgram );
-			if( this->hasTexture() )
-				glEnable( GL_TEXTURE_2D );
-			else
-				glDisable( GL_TEXTURE_2D );
-			BOOST_FOREACH( boost::shared_ptr<ChsTexture2D> & texture, this->textures )
-				texture->bind();
+			ChsRSTexture2D( this->hasTexture() );
+			if( this->hasTexture() ){
+				BOOST_FOREACH( boost::shared_ptr<ChsTexture2D> & texture, this->textures )
+					texture->bind();
+			}
 		}
 		return currentProgram;
 	}

@@ -5,6 +5,7 @@
 using namespace boost::assign;
 
 #include "ChsRenderSystem.h"
+#include "ChsRenderStates.h"
 #include "ChsRenderNode.h"
 #include "ChsUtility.h"
 #include "ChsMaterial.h"
@@ -60,21 +61,21 @@ namespace Chaos {
 
 		glHint( GL_GENERATE_MIPMAP_HINT, GL_FASTEST );
 		
+		ChsRenderStates::sharedInstance()->queryCurrentStates();
 		//以下内容在渲染过程中可能会被更改，如何更改，
 		//depth
-		glEnable( GL_DEPTH_TEST );
-		glClearDepthf( 1.0f );
+		ChsRSDepthTest( CHS_RS_ENABLE);
 		glDepthFunc( GL_LESS );
+		glClearDepthf( 1.0f );
 		
 		//cull
-		glEnable( GL_CULL_FACE );
+		ChsRSCullFace( CHS_RS_ENABLE );
 		glCullFace( GL_BACK );
 		glFrontFace( GL_CW );
 		
 		//blend
-		glEnable( GL_BLEND );
+		ChsRSBlend( CHS_RS_ENABLE );
 		glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-		
 	}
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::shutdown( void ){
