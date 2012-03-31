@@ -41,6 +41,7 @@ namespace Chaos {
 			
 		void identity( void );
 		void inverse( void );
+		void transpose( void );
 		ChsVector3 * transformCoord( ChsVector3 * destinaion, const ChsVector3 * origin );
 		void translation( float x, float y, float z );
 			

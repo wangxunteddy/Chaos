@@ -328,5 +328,17 @@ namespace Chaos {
 		this->_m11 = c;		this->_m12 = s;		this->_m21 = -s;		this->_m22 = c;		this->_m33 = 1.0f;
 	}
 
-	//------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------
+	void ChsMatrix::transpose( void ){
+		float swap;
+		swap = this->_m12; this->_m12 = this->_m21; this->_m21 = swap;
+		swap = this->_m13; this->_m13 = this->_m31; this->_m31 = swap;
+		swap = this->_m14; this->_m14 = this->_m41; this->_m41 = swap;
+		
+		swap = this->_m23; this->_m23 = this->_m32; this->_m32 = swap;
+		swap = this->_m24; this->_m24 = this->_m42; this->_m42 = swap;
+		
+		swap = this->_m34; this->_m34 = this->_m43; this->_m43 = swap;
+	}
+
 }//namespace
