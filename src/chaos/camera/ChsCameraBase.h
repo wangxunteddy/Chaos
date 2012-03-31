@@ -27,6 +27,8 @@ namespace Chaos {
 		void targetTo( const ChsVector3 & target );
 
 		inline ChsMatrix & getViewProjectionMatrix( void );
+		inline ChsMatrix & getViewMatrix( void );
+		inline ChsMatrix & getProjectionMatrix( void );
 	protected:
 		bool isNeedUpdateViewMatrix;
 		
@@ -48,6 +50,12 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	inline ChsMatrix & ChsCameraBase::getViewProjectionMatrix( void ){
 		return this->mtxViewProj;
+	}
+	inline ChsMatrix & ChsCameraBase::getViewMatrix( void ){
+		return this->mtxView;
+	}
+	inline ChsMatrix & ChsCameraBase::getProjectionMatrix( void ){
+		return this->mtxProjection;
 	}
 }
 #endif	//_CHS_CAMERABASE_H
