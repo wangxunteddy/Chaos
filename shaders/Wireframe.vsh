@@ -1,13 +1,13 @@
-attribute vec4 position;
-attribute vec4 vertexColor;
+attribute highp vec4 position;
+attribute lowp vec4 vertexColor;
 
 //material
 uniform bool hasVertexColor;
 
 //transform
-uniform mat4 wvp;
+uniform highp mat4 wvp;
 
-varying vec4 colorVarying;
+varying lowp vec4 colorVarying;
 
 void main(){
     gl_Position = wvp * position;

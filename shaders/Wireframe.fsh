@@ -2,7 +2,7 @@
 uniform bool hasVertexColor;
 uniform lowp float alpha;
 
-varying mediump vec4 colorVarying;
+varying lowp vec4 colorVarying;
 
 void main(){
 	mediump vec4 color = vec4(1.0);
