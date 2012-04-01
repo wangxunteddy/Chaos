@@ -24,6 +24,7 @@ namespace Chaos {
 	ChsRenderChain renderChain;
 	ChsShaderUniform globalUniforms;
 	ChsMatrix wvp;
+	ChsMatrix wvit;
 	ChsMatrix mtxWorld;
 	ChsCoordinatePlane * debugCoordinatePlane;
 	
@@ -49,6 +50,7 @@ namespace Chaos {
 		this->initGL();
 		globalUniforms.reset();
 		globalUniforms.add( "wvp", &wvp, CHS_SHADER_UNIFORM_MAT4, 1 );
+		globalUniforms.add( "wvit", &wvit, CHS_SHADER_UNIFORM_MAT4, 1 );
 		
 		//add debug coordinate plane
 		debugCoordinatePlane = new ChsCoordinatePlane( 50, 50 );
@@ -64,14 +66,14 @@ namespace Chaos {
 		ChsRenderStates::sharedInstance()->queryCurrentStates();
 		//以下内容在渲染过程中可能会被更改，如何更改，
 		//depth
-		ChsRSDepthTest( CHS_RS_ENABLE);
+		//ChsRSDepthTest( CHS_RS_ENABLE);
 		glDepthFunc( GL_LESS );
 		glClearDepthf( 1.0f );
 		
 		//cull
 		ChsRSCullFace( CHS_RS_ENABLE );
 		glCullFace( GL_BACK );
-		glFrontFace( GL_CW );
+		glFrontFace( GL_CCW );
 		
 		//blend
 		ChsRSBlend( CHS_RS_ENABLE );
@@ -88,6 +90,9 @@ namespace Chaos {
 		if( this->currentCamera() ){
 			this->currentCamera()->update();
 			wvp = mtxWorld * this->currentCamera()->getViewProjectionMatrix();
+			wvit = mtxWorld * this->currentCamera()->getViewMatrix();
+			wvit.inverse();
+			wvit.transpose();
 		}
 		this->root()->renderNodes( this );
 		glBindFramebuffer( GL_FRAMEBUFFER, this->framebuffer );
@@ -165,6 +170,7 @@ namespace Chaos {
 		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, this->renderbufferWidth, this->renderbufferHeight );
 		glFramebufferRenderbuffer( GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, this->depthRenderbuffer );
 	}
+	
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::deleteAllBuffers( void ){
 		if( this->framebuffer ){
@@ -218,4 +224,5 @@ namespace Chaos {
 			this->_showDebugCoordinate = isShow;
 		}
 	}
+	
 }//namespace
