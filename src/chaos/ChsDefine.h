@@ -59,6 +59,26 @@ namespace Chaos {
 		float w;
 		float h;
 	};
+	
+	//----------------------------------------------------------------------------------------------
+	enum ChsRenderState{
+		CHS_RS_DISABLE,
+		CHS_RS_ENABLE,
+		
+		CHS_RS_TEXTURE_2D = 0,
+		CHS_RS_CULL_FACE,
+		CHS_RS_BLEND,
+		CHS_RS_DITHER,
+		CHS_RS_STENCIL_TEST,
+		CHS_RS_DEPTH_TEST,
+		CHS_RS_SCISSOR_TEST,
+		CHS_RS_POLYGON_OFFSET_FILL,
+		CHS_RS_SAMPLE_ALPHA_TO_COVERAGE,
+		CHS_RS_SAMPLE_COVERAGE,
+		CHS_RS_ENABLECAP = CHS_RS_SAMPLE_COVERAGE,
+		
+		CHS_RS_MAX,
+	};
 
 	
 }//namespace
