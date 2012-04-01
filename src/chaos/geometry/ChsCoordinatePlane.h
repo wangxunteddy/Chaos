@@ -1,10 +1,10 @@
 #ifndef _CHS_COORDINATEPLANE_H
 #define _CHS_COORDINATEPLANE_H
 
-#include "ChsMesh.h"
+#include "ChsModel.h"
 
 namespace Chaos {
-	class ChsCoordinatePlane : public ChsMesh {
+	class ChsCoordinatePlane : public ChsModel {
 	public:
 		ChsCoordinatePlane( float size, int divide );
 	};

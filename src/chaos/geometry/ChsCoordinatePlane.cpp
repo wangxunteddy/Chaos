@@ -7,10 +7,10 @@
 #include "ChsMaterial.h"
 #include "ChsResourceManager.h"
 #include "shader/ChsShaderProgram.h"
-
+#include "ChsMesh.h"
 namespace Chaos {
 	//----------------------------------------------------------------------------------------------
-	ChsCoordinatePlane::ChsCoordinatePlane( float size, int divide ) : ChsMesh( "Coordinate Plane" ){
+	ChsCoordinatePlane::ChsCoordinatePlane( float size, int divide ) : ChsModel( "Coordinate Plane" ){
 		struct Vertex{
 			float x;
 			float y;
@@ -30,7 +30,7 @@ namespace Chaos {
 	//			vertices[k+3].y = 0.0f;
 			}
 		};
-		int vertexCount = 2 * ( divide + 1 ) * 2;
+		int vertexCount = 2 * ( divide + 1 ) * 2 + 6;
 		boost::scoped_array<Vertex> vertices( new Vertex[vertexCount] );
 		float stepSize = size / divide;
 		float width = size / 2;
@@ -55,22 +55,74 @@ namespace Chaos {
 			vertices[k+2].z = i * stepSize;
 			vertices[k+3].z = i * stepSize;
 		}
-		this->vertexBuffer->addAttrib( 3, GL_FLOAT, false, "position" );
-		this->vertexBuffer->addAttrib( 4, GL_FLOAT, true, "vertexColor" );
-		this->vertexBuffer->setData( vertices.get(), sizeof( Vertex ) * vertexCount );
 		
-		int indexCount = vertexCount;
+		int arrowIndex = vertexCount - 6;
+		
+		for( int i=arrowIndex;i<vertexCount;i++){
+			vertices[i].r = 0.0f;
+			vertices[i].g = 0.0f;
+			vertices[i].b = 0.0f;
+			vertices[i].a = 1.0f;
+			vertices[i].x = 0.0f;
+			vertices[i].y = 0.0f;
+			vertices[i].z = 0.0f;
+			switch ( (i-arrowIndex)/2 ) {
+				case 0:
+					vertices[i].r = 1.0f;
+					break;
+				case 1:
+					vertices[i].g = 1.0f;
+					break;
+				case 2:
+					vertices[i].b = 1.0f;
+					break;
+			}
+			
+			if( i%2 == 0 ){
+				vertices[i].x = 0.0f;
+				vertices[i].y = 0.0f;
+				vertices[i].z = 0.0f;
+			}
+			
+		}
+		vertices[arrowIndex+1].x = .5f;
+		vertices[arrowIndex+3].y = .5f;
+		vertices[arrowIndex+5].z = .5f;		
+		
+		boost::shared_ptr<ChsMesh> mesh( new ChsMesh() );
+		
+		mesh->vertexBuffer->addAttrib( 3, GL_FLOAT, false, "position" );
+		mesh->vertexBuffer->addAttrib( 4, GL_FLOAT, true, "vertexColor" );
+		mesh->vertexBuffer->setData( vertices.get(), sizeof( Vertex ) * (vertexCount-6) );
+		
+		int indexCount = vertexCount-6;
 		boost::scoped_array<GLushort> indices( new GLushort [indexCount] );
 		for( int i = 0; i < indexCount; i++ )
 			indices[i] = ( GLushort )i;
 		
-		this->indexBuffer->setData( indices.get(), indexCount, GL_UNSIGNED_SHORT );
-		this->indexBuffer->mode( GL_LINES );
+		mesh->indexBuffer->setData( indices.get(), indexCount, GL_UNSIGNED_SHORT );
+		mesh->indexBuffer->mode( GL_LINES );
 		
 		ChsMaterial * material = new ChsMaterial();
 		material->setShader( "Wireframe.vsh", "Wireframe.fsh" );
 		material->hasVertexColor( true );
-		this->setMaterial( material );
+		mesh->setMaterial( material );
+		this->addMesh(mesh);
+		
+		mesh.reset( new ChsMesh() );
+		mesh->vertexBuffer->addAttrib( 3, GL_FLOAT, false, "position" );
+		mesh->vertexBuffer->addAttrib( 4, GL_FLOAT, true, "vertexColor" );
+		mesh->vertexBuffer->setData( vertices.get()+(vertexCount-6), sizeof( Vertex ) * 6 );
+		for( int i = 0; i < 6; i++ )
+			indices[i] = ( GLushort )i;
+		mesh->indexBuffer->setData( indices.get(), 6, GL_UNSIGNED_SHORT );
+		mesh->indexBuffer->mode( GL_LINES );
+		material = new ChsMaterial();
+		material->setShader( "Wireframe.vsh", "Wireframe.fsh" );
+		material->hasVertexColor( true );
+		mesh->setMaterial( material );
+		material->setRenderState( CHS_RS_DEPTH_TEST, CHS_RS_DISABLE );
+		this->addMesh(mesh);
 	}
 	//----------------------------------------------------------------------------------------------
 }
