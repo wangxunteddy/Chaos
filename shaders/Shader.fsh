@@ -1,25 +1,26 @@
-#define TEXTURE_MAX 2
 //material
 uniform bool hasVertexColor;
 uniform bool hasTexture;
 uniform lowp float alpha;
 
 uniform sampler2D diffuseTexture;
+uniform sampler2D normalTexture;
+uniform sampler2D specularTexture;
 
 varying mediump vec4 colorVarying;
-varying mediump vec2 texCoordVarying[TEXTURE_MAX];
+varying mediump vec2 texCoordVarying;
+varying mediump float varDot;
 
 void main(){
-	mediump vec4 color = vec4(1.0,1.0,1.0,1.0);
+	mediump vec4 baseColor = vec4(1.0,1.0,1.0,1.0);
 	
 	if( hasVertexColor ){
-		color *= colorVarying;
+		baseColor *= colorVarying;
 	}
 	
 	if( hasTexture ){
-		color *= texture2D( diffuseTexture, texCoordVarying[0].st, 0.0 );
+		baseColor *= texture2D( diffuseTexture, texCoordVarying.st, 0.0 );
 	}
-
-	color.a *= alpha;
-    gl_FragColor = color;
+	
+    gl_FragColor = vec4( baseColor.rgb * varDot, baseColor.a * alpha);
 }

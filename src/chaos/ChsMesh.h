@@ -23,10 +23,11 @@ namespace Chaos {
 		void setMaterial( ChsMaterial * material );
 		inline ChsMaterial * getMaterial( void );
 		void render( ChsRenderSystem * render );
-	protected:
-		boost::shared_ptr<ChsMaterial> material;
 		boost::scoped_ptr<ChsVertexBuffer> vertexBuffer;
 		boost::scoped_ptr<ChsIndexBuffer> indexBuffer;
+
+	protected:
+		boost::shared_ptr<ChsMaterial> material;
 	};
 
 	//--------------------------------------------------------------------------------------------------------------------------------------------
