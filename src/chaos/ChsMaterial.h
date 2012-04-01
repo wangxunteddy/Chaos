@@ -2,6 +2,7 @@
 #define _CHSMATERIAL_H
 #pragma once
 
+#include <map>
 #include <vector>
 #include <string>
 #include <boost/shared_ptr.hpp>
@@ -21,10 +22,11 @@ namespace Chaos {
 	    virtual ~ChsMaterial( void );
     	ChsShaderProgram * apply( ChsShaderProgram * program );
 	    void setShader( std::string vshName, std::string fshName );
+		void setRenderState( ChsRenderState state, unsigned int value );
 		void addTexture( boost::shared_ptr<ChsTexture2D> texture );
 		void linkShader( void );
 	private:
-		
+		std::map<ChsRenderState,unsigned int> renderStates;
 		std::vector<boost::shared_ptr<ChsTexture2D>> textures;
 		
 		ChsShaderUniform shaderUniforms;

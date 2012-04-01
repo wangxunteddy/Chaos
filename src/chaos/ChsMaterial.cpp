@@ -10,7 +10,7 @@ using namespace boost::assign;
 
 namespace Chaos {
 	
-	//--------------------------------------------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------
 	ChsMaterial::ChsMaterial( void ) {
 		this->_hasVertexColor = false;
 		this->shaderUniforms.add( "hasVertexColor", &(this->_hasVertexColor), CHS_SHADER_UNIFORM_1_INT, 1);
@@ -24,14 +24,16 @@ namespace Chaos {
 		this->_textureCount = 1;
 		
 		this->textures.clear();
+		
+		this->setRenderState( CHS_RS_DEPTH_TEST, CHS_RS_ENABLE );
 	}
 
-	//--------------------------------------------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------
 	ChsMaterial::~ChsMaterial( void ) {
 		this->textures.clear();
 	}
 
-	//--------------------------------------------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------
 	void ChsMaterial::addTexture( boost::shared_ptr<ChsTexture2D> texture ){
 		if( !texture )
 			return;
@@ -40,7 +42,7 @@ namespace Chaos {
 		this->textures += texture;
 	}
 	
-	//--------------------------------------------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------
 	ChsShaderProgram * ChsMaterial::apply( ChsShaderProgram * sysProgram ) {
 		ChsShaderProgram * currentProgram = sysProgram;
 		if( !this->_shaderProgram.expired() || currentProgram ){
@@ -54,6 +56,11 @@ namespace Chaos {
 //					printf( "use last program\n" );
 				}
 			}
+			std::pair<ChsRenderState,unsigned int> p;
+			BOOST_FOREACH( p, this->renderStates ){
+				ChsRenderStates::sharedInstance()->set( p.first,p.second );
+			}
+			
 			this->shaderUniforms.apply( currentProgram );
 			ChsRSTexture2D( this->hasTexture() );
 			if( this->hasTexture() ){
@@ -64,7 +71,7 @@ namespace Chaos {
 		return currentProgram;
 	}
 
-	//--------------------------------------------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------
 	#if 0
 	void ChsMaterial::validate( void ) {
 	// Validate program before drawing. This is a good check, but only really necessary in a debug build.
@@ -74,17 +81,27 @@ namespace Chaos {
 	}
 	#endif
 
-	//--------------------------------------------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------
 	void ChsMaterial::setShader( std::string vshName, std::string fshName ){
 		this->_shaderProgram = ChsResourceManager::sharedInstance()->getShaderProgram( vshName, fshName );
 	}
 
-	//--------------------------------------------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------
 	void ChsMaterial::linkShader( void ){
 		if( !this->_shaderProgram.expired() ){
 			boost::shared_ptr<ChsShaderProgram> shaderProgram = this->_shaderProgram.lock();
 			shaderProgram->link();
 		}
 	}
-	
+
+	//----------------------------------------------------------------------------------------------
+	void ChsMaterial::setRenderState( ChsRenderState state, unsigned int value ){
+		auto iter = this->renderStates.find( state );
+		if( iter != this->renderStates.end() ){
+			this->renderStates[state] = value;
+		}
+		else{
+			insert( this->renderStates )( state, value );
+		}
+	}
 }//namespace
