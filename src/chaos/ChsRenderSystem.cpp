@@ -20,7 +20,7 @@ using namespace boost::assign;
 namespace Chaos {
 
 	typedef std::vector<ChsRenderUnit> ChsRenderUnitList;
-	typedef std::map<ChsMaterial *, ChsRenderUnitList *> ChsRenderChain;
+	typedef std::map<ChsMaterial *, boost::shared_ptr<ChsRenderUnitList>> ChsRenderChain;
 	ChsRenderChain renderChain;
 	ChsShaderUniform globalUniforms;
 	ChsMatrix wvp;
@@ -104,7 +104,7 @@ namespace Chaos {
 
 	//----------------------------------------------------------------------------------------------
 	void ChsRenderSystem::render( void ){
-		std::pair<ChsMaterial *, ChsRenderUnitList *> p;
+		std::pair<ChsMaterial *, boost::shared_ptr<ChsRenderUnitList>> p;
 		BOOST_FOREACH( p, renderChain ){
 			ChsMaterial * material = p.first;
 			currentShaderProgram = material->apply( currentShaderProgram );
@@ -136,11 +136,11 @@ namespace Chaos {
 		ChsMaterial * material = unit.material;
 		auto iter = renderChain.find( material );
 		if( iter != renderChain.end() ){
-			ChsRenderUnitList * list = iter->second;
+			boost::shared_ptr<ChsRenderUnitList> & list = iter->second;
 			list->push_back( unit );
 		}
 		else{
-			ChsRenderUnitList * list = new ChsRenderUnitList();
+			boost::shared_ptr<ChsRenderUnitList> list( new ChsRenderUnitList() );
 			list->push_back( unit );
 			insert( renderChain )( material, list );
 		}
