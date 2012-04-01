@@ -19,6 +19,8 @@ namespace Chaos {
 		virtual	void lookAt( const ChsVector3 & position , const ChsVector3 & target );
 		virtual	void lookAt( float posX, float posY, float posZ, float targetX, float targetY, float targetZ );
 		virtual	void perspective( float fovy , float aspect , float near , float far );
+		virtual void frustum( float left, float right, float bottom, float top, float znear, float zfar );
+		virtual void ortho( float left , float right , float bottom, float top, float near , float far );
 
 		void moveTo( float x, float y, float z );
 		void moveTo( const ChsVector3 & position );
@@ -44,7 +46,10 @@ namespace Chaos {
 		float prjAspect;
 		float prjNear;
 		float prjFar;
-
+		float prjLeft;
+		float prjRight;
+		float prjBottom;
+		float prjTop;
 	};
 
 	//----------------------------------------------------------------------------------------------

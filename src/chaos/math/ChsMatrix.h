@@ -36,9 +36,10 @@ namespace Chaos {
 		inline float * getArrary( void );
 
 		void lookAt( const ChsVector3 & eye, const ChsVector3 & at, const ChsVector3 & up );
-		void ortho( float w, float h, float zn, float zf );
+		void ortho( float left, float right, float bottom, float top, float znear, float zfar );
 		void perspective( float fovy, float aspect, float zn, float zf );
-			
+		void frustum( float left, float right, float bottom, float top, float znear, float zfar );
+
 		void identity( void );
 		void inverse( void );
 		void transpose( void );

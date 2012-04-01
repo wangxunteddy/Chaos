@@ -45,6 +45,27 @@ namespace Chaos {
 	}
 
 	//----------------------------------------------------------------------------------------------
+	void ChsCameraBase::frustum( float left, float right, float bottom, float top, float znear, float zfar ){
+		this->prjLeft = left;
+		this->prjRight = right;
+		this->prjTop = top;
+		this->prjBottom = bottom;
+		this->prjFar = zfar;
+		this->prjNear = znear;
+		this->mtxProjection.frustum( left, right, bottom, top, znear, zfar );
+	}
+	
+	//----------------------------------------------------------------------------------------------
+	void ChsCameraBase::ortho( float left , float right , float bottom, float top, float near , float far ){
+		this->prjLeft = left;
+		this->prjRight = right;
+		this->prjTop = top;
+		this->prjBottom = bottom;
+		this->prjFar = far;
+		this->prjNear = near;
+		this->mtxProjection.ortho( left, right, bottom, top, near, far );
+	}
+	//----------------------------------------------------------------------------------------------
 	void ChsCameraBase::moveTo( float x, float y, float z ){
 		this->position.x = x;
 		this->position.y = y;

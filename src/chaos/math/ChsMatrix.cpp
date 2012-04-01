@@ -50,37 +50,73 @@ namespace Chaos {
 	void ChsMatrix::lookAt( const ChsVector3 & eye, const ChsVector3 & at, const ChsVector3 & up ){
 		ChsVector3 zaxis = at - eye;
 		zaxis.normalize();
-		ChsVector3 xaxis = ChsVector3::cross( up, zaxis );
+		ChsVector3 xaxis = ChsVector3::cross( zaxis, up );
 		xaxis.normalize();
-		ChsVector3 yaxis = ChsVector3::cross( zaxis, xaxis );
-
-		this->_m11 = xaxis.x;		this->_m12 = yaxis.x;		this->_m13 = zaxis.x;		this->_m14 = 0.0f;
-		this->_m21 = xaxis.y;		this->_m22 = yaxis.y;		this->_m23 = zaxis.y;		this->_m24 = 0.0f;
-		this->_m31 = xaxis.z;		this->_m32 = yaxis.z;		this->_m33 = zaxis.z;		this->_m34 = 0.0f;
-		this->_m41 = -( xaxis * eye );	this->_m42 = -( yaxis * eye );	this->_m43 = -( zaxis * eye );	this->_m44 = 1.0f;
+		ChsVector3 yaxis = ChsVector3::cross( xaxis, zaxis );
+		yaxis.normalize();
+		
+		this->m4x4[0][0] = xaxis.x;	this->m4x4[0][1] = yaxis.x;	this->m4x4[0][2] = -zaxis.x;	this->m4x4[0][3] = 0.0f;
+		this->m4x4[1][0] = xaxis.y;	this->m4x4[1][1] = yaxis.y;	this->m4x4[1][2] = -zaxis.y;	this->m4x4[1][3] = 0.0f;
+		this->m4x4[2][0] = xaxis.z;	this->m4x4[2][1] = yaxis.z;	this->m4x4[2][2] = -zaxis.z;	this->m4x4[2][3] = 0.0f;
+		this->m4x4[3][0] = 0.0f;	this->m4x4[3][1] = 0.0f;	this->m4x4[3][2] = 0.0f;	this->m4x4[3][3] = 1.0f;
+		
+		this->translation( -eye.x, -eye.y, -eye.z );
 	}
 
 	//----------------------------------------------------------------------------------------------
-	void ChsMatrix::ortho( float w, float h, float zn, float zf ){
-		memset( &(this->m), 0, sizeof( float ) * 16 );
-		this->_m11 = 2.0f / w;
-		this->_m22 = 2.0f / h;
-		this->_m33 = 1 / ( zf - zn );
-		this->_m43 = -zn / ( zf - zn );
-		this->_m44 = 1.0f;
+	void ChsMatrix::ortho( float left, float right, float bottom, float top, float znear, float zfar ){
+		float temp2, temp3, temp4;
+		temp2=right-left;
+		temp3=top-bottom;
+		temp4=zfar-znear;
+		this->m[0]=2.0/temp2;
+		this->m[1]=0.0;
+		this->m[2]=0.0;
+		this->m[3]=0.0;
+		this->m[4]=0.0;
+		this->m[5]=2.0/temp3;
+		this->m[6]=0.0;
+		this->m[7]=0.0;
+		this->m[8]=0.0;
+		this->m[9]=0.0;
+		this->m[10]=-2.0/temp4;
+		this->m[11]=0.0;
+		this->m[12]=(-right-left)/temp2;
+		this->m[13]=(-top-bottom)/temp3;
+		this->m[14]=(-zfar-znear)/temp4;
+		this->m[15]=1.0;
 	}
 
 	//----------------------------------------------------------------------------------------------
-	void ChsMatrix::perspective( float fovy, float aspect, float zn, float zf ){
-		this->identity();
-		float halfFovy = fovy / 2;
-		float yScale = cosf( halfFovy ) / sinf( halfFovy );
-		float xScale = yScale / aspect;
-		this->_m11 = xScale;
-		this->_m22 = yScale;
-		this->_m33 = zf / ( zf - zn) ;
-		this->_m34 = 1.0f;
-		this->_m43 = -zn * zf / ( zf - zn );	
+	void ChsMatrix::frustum( float left, float right, float bottom, float top, float znear, float zfar ){
+		float temp, temp2, temp3, temp4;
+		temp=2.0*znear;
+		temp2=right-left;
+		temp3=top-bottom;
+		temp4=zfar-znear;
+		this->m[0]=temp/temp2;
+		this->m[1]=0.0;
+		this->m[2]=0.0;
+		this->m[3]=0.0;
+		this->m[4]=0.0;
+		this->m[5]=temp/temp3;
+		this->m[6]=0.0;
+		this->m[7]=0.0;
+		this->m[8]=(right+left)/temp2;
+		this->m[9]=(top+bottom)/temp3;
+		this->m[10]=(-zfar-znear)/temp4;
+		this->m[11]=-1.0;
+		this->m[12]=0.0;
+		this->m[13]=0.0;
+		this->m[14]=(-temp*zfar)/temp4;
+		this->m[15]=0.0;
+	}
+	//----------------------------------------------------------------------------------------------
+	void ChsMatrix::perspective( float fovy, float aspect, float znear, float zfar ){
+		float ymax, xmax;
+		ymax = znear*tanf( fovy/2 );
+		xmax = ymax*aspect;
+		this->frustum( -xmax, xmax, -ymax, ymax, znear, zfar );
 	}
 
 	//----------------------------------------------------------------------------------------------
@@ -211,16 +247,21 @@ namespace Chaos {
 
 	//----------------------------------------------------------------------------------------------
 	ChsVector3 * ChsMatrix::transformCoord( ChsVector3 * destinaion, const ChsVector3 * origin ){
-		destinaion->x = origin->x * this->_m11 + origin->y * this->_m21 + origin->z * this->_m31 + this->_m41;
-		destinaion->y = origin->x * this->_m12 + origin->y * this->_m22 + origin->z * this->_m32 + this->_m42;
-		destinaion->z = origin->x * this->_m13 + origin->y * this->_m23 + origin->z * this->_m33 + this->_m43;
+		destinaion->x = origin->x * this->_m11 + origin->y * this->_m12 + origin->z * this->_m13 + this->_m14;
+		destinaion->y = origin->x * this->_m21 + origin->y * this->_m22 + origin->z * this->_m23 + this->_m24;
+		destinaion->z = origin->x * this->_m31 + origin->y * this->_m32 + origin->z * this->_m33 + this->_m34;
 		return destinaion;
 	}
 
 	//----------------------------------------------------------------------------------------------
 	void ChsMatrix::translation( float x, float y, float z ){
-		this->identity();
-		this->_m41 = x;		this->_m42 = y;		this->_m43 = z;
+		//this->identity();
+		//this->_m41 = x;		this->_m42 = y;		this->_m43 = z;
+		this->m[12]=this->m[0]*x+this->m[4]*y+this->m[8]*z+this->m[12];
+		this->m[13]=this->m[1]*x+this->m[5]*y+this->m[9]*z+this->m[13];
+		this->m[14]=this->m[2]*x+this->m[6]*y+this->m[10]*z+this->m[14];
+		this->m[15]=this->m[3]*x+this->m[7]*y+this->m[11]*z+this->m[15];
+
 	}
 
 	//----------------------------------------------------------------------------------------------
