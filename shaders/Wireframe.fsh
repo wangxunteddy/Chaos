@@ -1,6 +1,5 @@
 //material
 uniform bool hasVertexColor;
-uniform lowp float alpha;
 
 varying lowp vec4 colorVarying;
 
@@ -9,6 +8,5 @@ void main(){
 	if(hasVertexColor){
 		color *= colorVarying;
 	}
-	color.a *= alpha;
     gl_FragColor = color;
 }

@@ -17,7 +17,6 @@ namespace Chaos {
 	};
 	
 	//----------------------------------------------------------------------------------------------
-#define ChsRSTexture2D( state ) ChsRenderStates::sharedInstance()->set( CHS_RS_TEXTURE_2D, ( state ) )
 #define ChsRSDepthTest( state ) ChsRenderStates::sharedInstance()->set( CHS_RS_DEPTH_TEST, ( state ) )
 #define ChsRSBlend( state ) ChsRenderStates::sharedInstance()->set( CHS_RS_BLEND, ( state ) )
 #define ChsRSCullFace( state ) ChsRenderStates::sharedInstance()->set( CHS_RS_CULL_FACE, ( state ) )

@@ -1,7 +1,6 @@
 //material
 uniform bool hasVertexColor;
 uniform bool hasTexture;
-uniform lowp float alpha;
 
 uniform sampler2D diffuseTexture;
 uniform sampler2D normalTexture;
@@ -22,5 +21,5 @@ void main(){
 		baseColor *= texture2D( diffuseTexture, texCoordVarying.st, 0.0 );
 	}
 	
-    gl_FragColor = vec4( baseColor.rgb * varDot, baseColor.a * alpha);
+    gl_FragColor = vec4( baseColor.rgb * varDot, baseColor.a );
 }

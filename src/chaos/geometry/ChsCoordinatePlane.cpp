@@ -105,6 +105,7 @@ namespace Chaos {
 		
 		ChsMaterial * material = new ChsMaterial();
 		material->setShader( "Wireframe.vsh", "Wireframe.fsh" );
+		material->addProperty( "hasVertexColor", CHS_SHADER_UNIFORM_1_INT, 1 );
 		material->setProperty( "hasVertexColor", true );
 		mesh->setMaterial( material );
 		this->addMesh(mesh);
@@ -119,6 +120,7 @@ namespace Chaos {
 		mesh->indexBuffer->mode( GL_LINES );
 		material = new ChsMaterial();
 		material->setShader( "Wireframe.vsh", "Wireframe.fsh" );
+		material->addProperty( "hasVertexColor", CHS_SHADER_UNIFORM_1_INT, 1 );
 		material->setProperty( "hasVertexColor", true );
 		mesh->setMaterial( material );
 		material->setRenderState( CHS_RS_DEPTH_TEST, CHS_RS_DISABLE );

@@ -95,6 +95,27 @@ namespace Chaos {
 					material->addTexture( texture );
 					textureElement = textureElement->NextSiblingElement( "ChsTexture");
 				}
+				
+				tinyxml2::XMLElement * propertyElement = materialElement->FirstChildElement( "ChsProperty" );
+				while( propertyElement ){
+					std::string propertyName = propertyElement->Attribute( "name" );
+					std::string type = propertyElement->Attribute( "type" );
+					if( !type.compare( "bool" )){
+						material->addProperty( propertyName, CHS_SHADER_UNIFORM_1_INT, 1 );
+						bool value = propertyElement->BoolAttribute( "value" );
+						material->setProperty( propertyName, value );
+					}
+					propertyElement = propertyElement->NextSiblingElement( "ChsProperty");
+				}
+				
+				tinyxml2::XMLElement * renderStateElement = materialElement->FirstChildElement( "ChsRenderState" );
+				while( renderStateElement ){
+					int index = renderStateElement->IntAttribute( "index" );
+					int value = renderStateElement->IntAttribute( "value" );
+					material->setRenderState( static_cast<ChsRenderState>( index ), value );
+					renderStateElement = renderStateElement->NextSiblingElement( "ChsRenderState");
+				}
+				
 				mesh->setMaterial( material );
 			}
 

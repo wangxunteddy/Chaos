@@ -13,24 +13,9 @@ namespace Chaos {
 	//----------------------------------------------------------------------------------------------
 	ChsMaterial::ChsMaterial( void ) {
 		this->shaderUniformSet.reset();
-		
-		//this->_hasVertexColor = false;
-		this->shaderUniformSet.add( "hasVertexColor", CHS_SHADER_UNIFORM_1_INT, 1);
-		this->setProperty( "hasVertexColor", false );
-		
-		//this->_hasTexture = false;
-		this->shaderUniformSet.add( "hasTexture", CHS_SHADER_UNIFORM_1_INT, 1);
-		this->setProperty( "hasTexture", false );
-		
-		//this->_alpha = 1.0f;
-		this->shaderUniformSet.add( "alpha", CHS_SHADER_UNIFORM_1_FLOAT, 1);
-		this->setProperty( "alpha", 1.0 );
-
 		this->textures.clear();
-		
 		this->setRenderState( CHS_RS_DEPTH_TEST, CHS_RS_ENABLE );
 	}
-
 	//----------------------------------------------------------------------------------------------
 	ChsMaterial::~ChsMaterial( void ) {
 		this->textures.clear();
@@ -38,11 +23,15 @@ namespace Chaos {
 	}
 
 	//----------------------------------------------------------------------------------------------
+	void ChsMaterial::addProperty( std::string name, ChsShaderUniformDataType type, int count ){
+		this->shaderUniformSet.add( name, type, count );
+	}
+	
+	//----------------------------------------------------------------------------------------------
 	void ChsMaterial::addTexture( boost::shared_ptr<ChsTexture2D> texture ){
 		if( !texture )
 			return;
-		this->setProperty( "hasTexture", true );
-		this->shaderUniformSet.add( texture->sampleName(), CHS_SHADER_UNIFORM_1_INT, 1);
+		this->addProperty( texture->sampleName(), CHS_SHADER_UNIFORM_1_INT, 1);
 		this->setProperty( texture->sampleName(), texture->activeUnit() );
 		this->textures += texture;
 	}
@@ -62,17 +51,11 @@ namespace Chaos {
 				}
 			}
 			std::pair<ChsRenderState,unsigned int> p;
-			BOOST_FOREACH( p, this->renderStates ){
+			BOOST_FOREACH( p, this->renderStates )
 				ChsRenderStates::sharedInstance()->set( p.first,p.second );
-			}
-			
 			this->shaderUniformSet.apply( currentProgram );
-			bool hasTexture = this->getProperty<bool>( "hasTexture" );
-			ChsRSTexture2D( hasTexture );
-			if( hasTexture ){
-				BOOST_FOREACH( boost::shared_ptr<ChsTexture2D> & texture, this->textures )
-					texture->bind();
-			}
+			BOOST_FOREACH( boost::shared_ptr<ChsTexture2D> & texture, this->textures )
+				texture->bind();
 		}
 		return currentProgram;
 	}
