@@ -10,7 +10,7 @@ using namespace boost::assign;
 #include "ChsUtility.h"
 #include "ChsMaterial.h"
 #include "shader/ChsShaderProgram.h"
-#include "shader/ChsShaderUniform.h"
+#include "shader/ChsShaderUniformSet.h"
 #include "ChsVertexBuffer.h"
 #include "ChsIndexBuffer.h"
 #include "camera/ChsCameraBase.h"
@@ -22,7 +22,7 @@ namespace Chaos {
 	typedef std::vector<ChsRenderUnit> ChsRenderUnitList;
 	typedef std::map<ChsMaterial *, boost::shared_ptr<ChsRenderUnitList>> ChsRenderChain;
 	ChsRenderChain renderChain;
-	ChsShaderUniform globalUniforms;
+	ChsShaderUniformSet globalUniformSet;
 	ChsMatrix wvp;
 	ChsMatrix wvit;
 	ChsMatrix mtxWorld;
@@ -48,9 +48,9 @@ namespace Chaos {
 		this->initContext();
 		this->initAllBuffers();
 		this->initGL();
-		globalUniforms.reset();
-		globalUniforms.add( "wvp", &wvp, CHS_SHADER_UNIFORM_MAT4, 1 );
-		globalUniforms.add( "wvit", &wvit, CHS_SHADER_UNIFORM_MAT4, 1 );
+		globalUniformSet.reset();
+		globalUniformSet.add( "wvp", CHS_SHADER_UNIFORM_MAT4, 1, &wvp);
+		globalUniformSet.add( "wvit", CHS_SHADER_UNIFORM_MAT4, 1, &wvit );
 		
 		//add debug coordinate plane
 		debugCoordinatePlane = new ChsCoordinatePlane( 50, 50 );
@@ -108,7 +108,7 @@ namespace Chaos {
 		BOOST_FOREACH( p, renderChain ){
 			ChsMaterial * material = p.first;
 			currentShaderProgram = material->apply( currentShaderProgram );
-			globalUniforms.apply( currentShaderProgram );
+			globalUniformSet.apply( currentShaderProgram );
 			BOOST_FOREACH( const ChsRenderUnit & unit, *p.second ){
 				unit.vertexBuffer->preDraw();
 				unit.indexBuffer->draw();

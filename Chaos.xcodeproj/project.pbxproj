@@ -24,6 +24,7 @@
 		742F869714F60B6300693E51 /* ChsEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 742F869614F60B6200693E51 /* ChsEntity.cpp */; };
 		742F869914F61F2400693E51 /* ChsResourceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 742F869814F61F2300693E51 /* ChsResourceManager.cpp */; };
 		743A296614F337B400486634 /* ChsSingleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 743A296414F337B400486634 /* ChsSingleton.cpp */; };
+		743FF26F152D2D0B003C4E91 /* ChsShaderUniformSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 743FF26E152D2D0B003C4E91 /* ChsShaderUniformSet.cpp */; };
 		744EA4AA14F22F2700669446 /* ChsRenderSystemIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 741ABD3D14EE33CD00995232 /* ChsRenderSystemIOS.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		744EA4AB14F22F2700669446 /* ChsFileSystemIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 741ABD4014EE33DA00995232 /* ChsFileSystemIOS.mm */; };
 		745C30F31516FD8F0061F510 /* ChsTexture2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 745C30F21516FD8E0061F510 /* ChsTexture2D.cpp */; };
@@ -37,6 +38,7 @@
 		748936FC14F64490006CDF7B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 748936F614F64490006CDF7B /* AppDelegate.m */; };
 		748936FD14F64490006CDF7B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 748936F714F64490006CDF7B /* main.m */; };
 		749364A61526A1C3007608F4 /* ChsRenderStates.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 749364A51526A1C3007608F4 /* ChsRenderStates.cpp */; };
+		749364B41526CE7A007608F4 /* sofa.chsmodelx in Resources */ = {isa = PBXBuildFile; fileRef = 749364B31526CE7A007608F4 /* sofa.chsmodelx */; };
 		749D79B414ECD5F50046F2D9 /* ChsIndexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 749D79A114ECD5F50046F2D9 /* ChsIndexBuffer.cpp */; };
 		749D79B814ECD5F50046F2D9 /* ChsRenderSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 749D79A514ECD5F50046F2D9 /* ChsRenderSystem.cpp */; };
 		749D79B914ECD5F50046F2D9 /* ChsRenderNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 749D79A614ECD5F50046F2D9 /* ChsRenderNode.cpp */; };
@@ -111,6 +113,8 @@
 		742F869814F61F2300693E51 /* ChsResourceManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsResourceManager.cpp; path = src/chaos/ChsResourceManager.cpp; sourceTree = "<group>"; };
 		743A296414F337B400486634 /* ChsSingleton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsSingleton.cpp; path = src/chaos/ChsSingleton.cpp; sourceTree = "<group>"; };
 		743A296514F337B400486634 /* Chaos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Chaos.h; path = src/chaos/Chaos.h; sourceTree = "<group>"; };
+		743FF26C152D2CFB003C4E91 /* ChsShaderUniformSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChsShaderUniformSet.h; sourceTree = "<group>"; };
+		743FF26E152D2D0B003C4E91 /* ChsShaderUniformSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChsShaderUniformSet.cpp; sourceTree = "<group>"; };
 		745C30F01516FD290061F510 /* ChsTexture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChsTexture2D.h; path = src/chaos/ChsTexture2D.h; sourceTree = "<group>"; };
 		745C30F21516FD8E0061F510 /* ChsTexture2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsTexture2D.cpp; path = src/chaos/ChsTexture2D.cpp; sourceTree = "<group>"; };
 		74614B8C14F4BB85003396BA /* ChsDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChsDefine.h; path = src/chaos/ChsDefine.h; sourceTree = "<group>"; };
@@ -134,6 +138,8 @@
 		748936F914F64490006CDF7B /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = src/chaos/platform/ios/AppDelegate.h; sourceTree = "<group>"; };
 		749364A31526A143007608F4 /* ChsRenderStates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ChsRenderStates.h; path = src/chaos/ChsRenderStates.h; sourceTree = "<group>"; };
 		749364A51526A1C3007608F4 /* ChsRenderStates.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsRenderStates.cpp; path = src/chaos/ChsRenderStates.cpp; sourceTree = "<group>"; };
+		749364AD1526CB39007608F4 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		749364B31526CE7A007608F4 /* sofa.chsmodelx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sofa.chsmodelx; sourceTree = "<group>"; };
 		749D799C14ECD5D90046F2D9 /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = shaders/Shader.fsh; sourceTree = "<group>"; };
 		749D799D14ECD5D90046F2D9 /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = shaders/Shader.vsh; sourceTree = "<group>"; };
 		749D79A114ECD5F50046F2D9 /* ChsIndexBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChsIndexBuffer.cpp; path = src/chaos/ChsIndexBuffer.cpp; sourceTree = "<group>"; };
@@ -342,6 +348,8 @@
 				749D79C514ECD6010046F2D9 /* ChsShaderProgram.h */,
 				74C7BE00150061D800194E72 /* ChsShaderUniform.h */,
 				74C7BE01150062E500194E72 /* ChsShaderUniform.cpp */,
+				743FF26C152D2CFB003C4E91 /* ChsShaderUniformSet.h */,
+				743FF26E152D2D0B003C4E91 /* ChsShaderUniformSet.cpp */,
 			);
 			name = shader;
 			path = src/chaos/shader;
@@ -401,6 +409,8 @@
 			children = (
 				7405DEB215102E3B00824770 /* sofa.dae */,
 				7405DEB315102E3B00824770 /* sofaLeather.png */,
+				749364AD1526CB39007608F4 /* Makefile */,
+				749364B31526CE7A007608F4 /* sofa.chsmodelx */,
 				747B9D0115244652007AF122 /* test.chsmodel */,
 				746A2F9B15244E8900D928B8 /* test.chsmodelx */,
 				7412E921151C6926008605BE /* test.dae */,
@@ -496,6 +506,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 74E047E214ECC88B0024586A /* Build configuration list for PBXNativeTarget "Chaos" */;
 			buildPhases = (
+				749364AC1526C7B1007608F4 /* Process Assets */,
 				74E047BD14ECC88B0024586A /* Sources */,
 				74E047BE14ECC88B0024586A /* Frameworks */,
 				74E047BF14ECC88B0024586A /* Resources */,
@@ -551,10 +562,28 @@
 				7405DEB515102E3B00824770 /* sofaLeather.png in Resources */,
 				7412E922151C6926008605BE /* test.dae in Resources */,
 				746A2F9C15244E8900D928B8 /* test.chsmodelx in Resources */,
+				749364B41526CE7A007608F4 /* sofa.chsmodelx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		749364AC1526C7B1007608F4 /* Process Assets */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Process Assets";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -f \"$SRCROOT/assets/Makefile\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		74E047BD14ECC88B0024586A /* Sources */ = {
@@ -608,6 +637,7 @@
 				7486D9AA1520531500099441 /* ChsModelManager.cpp in Sources */,
 				747B9D00152433B6007AF122 /* ChsModelLoader.cpp in Sources */,
 				749364A61526A1C3007608F4 /* ChsRenderStates.cpp in Sources */,
+				743FF26F152D2D0B003C4E91 /* ChsShaderUniformSet.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

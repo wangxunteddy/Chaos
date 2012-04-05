@@ -1,134 +1,79 @@
 #include "ChsShaderUniform.h"
 #include "ChsShaderProgram.h"
-#include <boost/foreach.hpp>
+#include "ChsUtility.h"
 
 namespace Chaos {
 	//----------------------------------------------------------------------------------------------
-	ChsShaderUniform::ChsShaderUniform( void ){
-		this->reset();
+	ChsShaderUniform::ChsShaderUniform( void ) : fValuePtr( NULL ),linkedValuePtr( NULL ){
 	}
-	
 	//----------------------------------------------------------------------------------------------
 	ChsShaderUniform::~ChsShaderUniform( void ){
-		this->reset();
+		safeDeleteArray( &this->fValuePtr );
 	}
+	//----------------------------------------------------------------------------------------------
+	void ChsShaderUniform::apply( ChsShaderProgram * program, bool needUpdateLocation ){
+		if( this->location == UNLOCATED || needUpdateLocation ) {
+			//looking for uniform in program
+			GLint location = program->getUniformLocation( this->name.c_str() );
+			if( location < 0 )
+				return;//no uniform named that in program, process next
+			this->location = location;//save location, because it is a reference
+		}
 
-	//----------------------------------------------------------------------------------------------
-	void ChsShaderUniform::reset( void ){
-		this->uniformVariables.clear();
-		this->program = NULL;
-	}
-	
-	//----------------------------------------------------------------------------------------------
-	void setUniformWithPtr( const Uniform & uniform );
-	void setUniformWithPtr( const Uniform & uniform ){
-		switch ( uniform.type ){
+		void * ptr = this->linkedValuePtr;
+		if( !ptr )
+			ptr = this->fValuePtr;
+		switch ( this->type ){
 			case CHS_SHADER_UNIFORM_MAT2:
-				glUniformMatrix2fv( uniform.location, uniform.count, false, ( const GLfloat * )( uniform.varAddr ) );
+				glUniformMatrix2fv( this->location, this->count, false, (const GLfloat*)ptr );
 				break;
 			case CHS_SHADER_UNIFORM_MAT3:
-				glUniformMatrix3fv( uniform.location, uniform.count, false, ( const GLfloat * )( uniform.varAddr ) );
+				glUniformMatrix3fv( this->location, this->count, false, (const GLfloat*)ptr );
 				break;
 			case CHS_SHADER_UNIFORM_MAT4:
-				glUniformMatrix4fv( uniform.location, uniform.count, false, static_cast<const GLfloat *>( uniform.varAddr ) );
+				glUniformMatrix4fv( this->location, this->count, false, (const GLfloat*)ptr );
 				break;
 			default:
 				//vec2 equ float * 2, vec4 equ float * 4, int3 equ int * 3 ....etc..
-				GLsizei count = uniform.count * ( uniform.type / 2 + 1 );
-				if( uniform.type % 2 )
-					glUniform1iv( uniform.location, count, static_cast<const GLint *>( uniform.varAddr ) );
+				GLsizei count = this->count * ( this->type / 2 + 1 );
+				if( this->type % 2 )
+					glUniform1iv( this->location, count, (const GLint*)ptr );
 				else
-					glUniform1fv( uniform.location, count, static_cast<const GLfloat *>( uniform.varAddr ) );
+					glUniform1fv( this->location, count, (const GLfloat*)ptr );
 				break;
-		}
-	}
-	//----------------------------------------------------------------------------------------------
-	void setUniformWithValues( const Uniform & uniform );
-	void setUniformWithValues( const Uniform & uniform ){
-		switch ( uniform.type ){
-			case CHS_SHADER_UNIFORM_1_FLOAT:
-				glUniform1f( uniform.location, boost::any_cast<GLfloat>(uniform.values[0]));
-				break;
-			case CHS_SHADER_UNIFORM_1_INT:
-				glUniform1i( uniform.location, boost::any_cast<GLint>(uniform.values[0]) );
-				break;
-			case CHS_SHADER_UNIFORM_VEC2_FLOAT:
-				glUniform2f( uniform.location,
-							boost::any_cast<GLfloat>(uniform.values[0]),
-							boost::any_cast<GLfloat>(uniform.values[1]) );
-				break;
-			case CHS_SHADER_UNIFORM_VEC2_INT:
-				glUniform2i( uniform.location,
-							boost::any_cast<GLint>(uniform.values[0]),
-							boost::any_cast<GLint>(uniform.values[1]) );
-				break;
-			case CHS_SHADER_UNIFORM_VEC3_FLOAT:
-				glUniform3f( uniform.location,
-							boost::any_cast<GLfloat>(uniform.values[0]),
-							boost::any_cast<GLfloat>(uniform.values[1]),
-							boost::any_cast<GLfloat>(uniform.values[2]) );
-				break;
-			case CHS_SHADER_UNIFORM_VEC3_INT:
-				glUniform3i( uniform.location,
-							boost::any_cast<GLint>(uniform.values[0]),
-							boost::any_cast<GLint>(uniform.values[1]),
-							boost::any_cast<GLint>(uniform.values[2]) );
-				break;
-			case CHS_SHADER_UNIFORM_VEC4_FLOAT:
-				glUniform4f( uniform.location,
-							boost::any_cast<GLfloat>(uniform.values[0]),
-							boost::any_cast<GLfloat>(uniform.values[1]),
-							boost::any_cast<GLfloat>(uniform.values[2]),
-							boost::any_cast<GLfloat>(uniform.values[3]) );
-				break;
-			case CHS_SHADER_UNIFORM_VEC4_INT:
-				glUniform4i( uniform.location,
-							boost::any_cast<GLint>(uniform.values[0]),
-							boost::any_cast<GLint>(uniform.values[1]),
-							boost::any_cast<GLint>(uniform.values[2]),
-							boost::any_cast<GLint>(uniform.values[3]) );
-				break;
-		}
-	}
-	//----------------------------------------------------------------------------------------------
-	void ChsShaderUniform::apply ( ChsShaderProgram * program ){
-		if( program == NULL )
-			return;
-		
-		bool needUpdateLocation = false;
-		if( this->program != program ){
-			needUpdateLocation = true;
-			this->program = program;
-		}
-
-		std::pair<std::string, Uniform> p;
-		BOOST_FOREACH( p, this->uniformVariables ){
-			std::string name = p.first;
-			Uniform & uniform = p.second;
-			if( uniform.location == UNLOCATED || needUpdateLocation ) {
-				//looking for uniform in program
-				GLint location = program->getUniformLocation(name.c_str());
-				if( location < 0 )
-					continue;//no uniform named that in program, process next
-				uniform.location = location;//save location, because it is a reference
-			}
-			if( uniform.varAddr == NULL )
-				setUniformWithValues( uniform );
-			else
-				setUniformWithPtr( uniform );
 		}
 	}
 	
 	//----------------------------------------------------------------------------------------------
-	void ChsShaderUniform::add( std::string name, const void * varAddr, ChsShaderUniformDataType type, unsigned int count ){
-		if( this->isExist( name ) )
-			return;
-		//leave location with -1, and add to list,
-		insert( this->uniformVariables )( name, (Uniform){ type, count, UNLOCATED, varAddr } );
+	void ChsShaderUniform::init( std::string name, ChsShaderUniformDataType type, int count, void * varAddr ){
+		this->location = UNLOCATED;
+		this->name = name;
+		this->type = type;
+		this->count = count;
+		if( varAddr ){
+			this->linkedValuePtr = varAddr;
+		}
+		else{
+			switch ( this->type ){
+				case CHS_SHADER_UNIFORM_MAT2:
+					this->fValuePtr = new float[ this->count * 4 ];
+					break;
+				case CHS_SHADER_UNIFORM_MAT3:
+					this->fValuePtr = new float[ this->count * 9 ];
+					break;
+				case CHS_SHADER_UNIFORM_MAT4:
+					this->fValuePtr = new float[ this->count * 16 ];
+					break;
+				default:
+					GLsizei size = this->count * ( this->type / 2 + 1 );
+					if( this->type % 2 )
+						this->iValuePtr = new int[size];
+					else
+						this->fValuePtr = new float[size];
+					break;
+			}
+		}
 	}
-
 	//----------------------------------------------------------------------------------------------
-	bool ChsShaderUniform::isExist( std::string name ){
-		return uniformVariables.find( name ) != uniformVariables.end();
-	}
+
 }

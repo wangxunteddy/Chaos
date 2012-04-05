@@ -2,15 +2,10 @@
 #define _CHSMATERIAL_H
 #pragma once
 
-#include <map>
-#include <vector>
-#include <string>
-#include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 
-#include "ChsDefine.h"
 #include "ChsMacro.h"
-#include "shader/ChsShaderUniform.h"
+#include "shader/ChsShaderUniformSet.h"
 
 namespace Chaos {
 	class ChsShaderProgram;
@@ -21,6 +16,9 @@ namespace Chaos {
     	ChsMaterial( void );
 	    virtual ~ChsMaterial( void );
     	ChsShaderProgram * apply( ChsShaderProgram * program );
+		void addProperty( std::string name, ChsShaderUniformDataType type, int count );
+		template<typename T> void setProperty( std::string name, T value );
+		template<typename T> T getProperty( std::string name );
 	    void setShader( std::string vshName, std::string fshName );
 		void setRenderState( ChsRenderState state, unsigned int value );
 		void addTexture( boost::shared_ptr<ChsTexture2D> texture );
@@ -29,32 +27,21 @@ namespace Chaos {
 		std::map<ChsRenderState,unsigned int> renderStates;
 		std::vector<boost::shared_ptr<ChsTexture2D>> textures;
 		
-		ChsShaderUniform shaderUniforms;
+		ChsShaderUniformSet shaderUniformSet;
 		PROPERTY_READONLY( boost::weak_ptr<ChsShaderProgram>, shaderProgram );
-		
-		PROPERTY( boolean, hasVertexColor );
-		PROPERTY( float, alpha );
-
-		//texture
-		PROPERTY( boolean, hasTexture );
-		PROPERTY( int, textureCount );
-
-		//light
-
 	};
 
 	//----------------------------------------------------------------------------------------------
 	SYNTHESIZE_READONLY( ChsMaterial, boost::weak_ptr<ChsShaderProgram>, shaderProgram );
-	
-	//color
-	SYNTHESIZE( ChsMaterial, boolean, hasVertexColor );
-	SYNTHESIZE( ChsMaterial, float, alpha );
 
-	//texture
-	SYNTHESIZE( ChsMaterial, boolean, hasTexture );
-	SYNTHESIZE( ChsMaterial, int, textureCount );
+	//----------------------------------------------------------------------------------------------
+	template<typename T> void ChsMaterial::setProperty( std::string name, T value ){
+		this->shaderUniformSet.set( name, value );
+	}
 	
-	//lighting
-	
+	//----------------------------------------------------------------------------------------------
+	template<typename T> T ChsMaterial::getProperty( std::string name ){
+		return this->shaderUniformSet.get<T>( name );
+	}
 }//namespace
 #endif //_CHSMATERIAL_H

@@ -44,11 +44,6 @@ void GameDemo::onInit( void ) {
 	this->renderer()->showDebugCoordinate( true );
 	
 	ChsModel * model = ChsResourceManager::sharedInstance()->getModel( "sofa.chsmodelx" ).get();
-//	boost::shared_ptr<ChsTexture2D> texture = ChsResourceManager::sharedInstance()->getTexture2D( "sofaLeather.png" );
-//	texture->sampleName( "diffuseTexture" );
-//	texture->activeUnit( 0 );
-//	material->addTexture( texture );
-
 	this->renderer()->root()->add( model->name(), model );
 }
 
