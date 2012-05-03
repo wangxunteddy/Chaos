@@ -50,7 +50,7 @@ void GameDemo::onInit( void ) {
 //--------------------------------------------------------------------------------------------------
 void GameDemo::onUpdate( void ) {
 	transY += 0.0075f;
-	float alpha = sin(transY);
+	//float alpha = sin(transY);
 	camera->moveTo( cos(transY)*5, 5, sin(transY)*5 );
 	//alpha = alpha >=0 ? alpha : -alpha;
 	//material = planeMesh1->getMaterial();
